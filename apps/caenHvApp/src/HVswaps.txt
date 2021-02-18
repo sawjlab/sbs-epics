@@ -1,0 +1,19 @@
+#The list of channels to be swapped from broken slots (examples are commented out with ##)
+#original chan         alias                          new chan  
+#EC swaps
+##B_HVECAL1_Sl01_Ch05    B_HV_ECAL_SEC1_UI_E30          B_HVECAL3_Sl15_Ch23
+#FTOF swaps
+##B_HVFTOF2_Sl01_Ch05    B_HV_FTOF_SEC2_PANEL1B_L_E07   B_HVFTOF2_Sl01_CH34
+#
+ 
+# This one is real.  Was swapped manually before we had a swap file
+# Autogeneration never been tested with this swap.
+B_HW_HVFTOF1_Sl01_Ch00  B_DET_FTOF_SEC1_PANEL1B_L_E02 B_HW_HVFTOF1_Sl03_Ch23
+#
+#FTH swaps
+B_HVFTAG_Sl07_Ch05     B_HV_FTH_H18                   B_HVFTAG_Sl08_Ch10
+
+# Swap from Cole (August 31, 2017):
+B_HW_HVECAL6_Sl00_Ch16 B_DET_ECAL_HV_SEC6_UI_E17 B_HW_HVECAL6_Sl04_Ch12
+B_HW_HVECAL6_Sl04_Ch12 B_DET_ECAL_HV_SEC6_VO_E01 B_HW_HVECAL6_Sl00_Ch16
+

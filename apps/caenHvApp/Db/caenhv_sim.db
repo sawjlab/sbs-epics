@@ -1,0 +1,150 @@
+#
+#
+#
+record(stringout, "B_HW_$(CrName)_Sl$(Sl)_Ch$(Ch):Name") 
+{
+   field(DESC, "B_HW_$(CrName)_Sl$(Sl)_Ch$(Ch)")
+   alias("B_DET_$(Det)_$(Sys)_$(Element):Name")
+   alias("B_SYS_$(Sys)_$(Det)_$(Element):Name")
+}
+
+record(stringout, "B_HW_$(CrName)_Sl$(Sl)_Ch$(Ch):Alias") 
+{
+   field(DESC,"B_DET_$(Det)_$(Sys)_$(Element)")
+   alias("B_DET_$(Det)_$(Sys)_$(Element):Alias")
+   alias("B_SYS_$(Sys)_$(Det)_$(Element):Alias")
+}
+
+record(ao, "B_HW_$(CrName)_Sl$(Sl)_Ch$(Ch):vmon")
+{
+   field(PREC,"2")
+   alias("B_DET_$(Det)_$(Sys)_$(Element):vmon")
+   alias("B_SYS_$(Sys)_$(Det)_$(Element):vmon")
+}   
+
+record(ao, "B_HW_$(CrName)_Sl$(Sl)_Ch$(Ch):imon")
+{
+   field(PREC,"2")
+   alias("B_DET_$(Det)_$(Sys)_$(Element):imon")
+   alias("B_SYS_$(Sys)_$(Det)_$(Element):imon")
+}   
+
+record(ao, "B_HW_$(CrName)_Sl$(Sl)_Ch$(Ch):vsetrbk")
+{
+   field(PREC,"2")
+   alias("B_DET_$(Det)_$(Sys)_$(Element):vsetrbk")
+   alias("B_SYS_$(Sys)_$(Det)_$(Element):vsetrbk")
+}   
+
+record(ao, "B_HW_$(CrName)_Sl$(Sl)_Ch$(Ch):isetrbk")
+{
+   field(PREC,"2")
+   alias("B_DET_$(Det)_$(Sys)_$(Element):isetrbk")
+   alias("B_SYS_$(Sys)_$(Det)_$(Element):isetrbk")
+}   
+
+record(ao, "B_HW_$(CrName)_Sl$(Sl)_Ch$(Ch):vmaxrbk")
+{
+   field(PREC,"2")
+   alias("B_DET_$(Det)_$(Sys)_$(Element):vmaxrbk")
+   alias("B_SYS_$(Sys)_$(Det)_$(Element):vmaxrbk")
+}   
+
+record(ao, "B_HW_$(CrName)_Sl$(Sl)_Ch$(Ch):ruprbk")
+{
+   field(PREC,"2")
+   alias("B_DET_$(Det)_$(Sys)_$(Element):ruprbk")
+   alias("B_SYS_$(Sys)_$(Det)_$(Element):ruprbk")
+}   
+
+record(bo, "B_HW_$(CrName)_Sl$(Sl)_Ch$(Ch):pwonoff") 
+{
+   field(DESC,"#PB")
+   field(OMSL,"supervisory")
+   field(ZNAM,"OFF")
+   field(ONAM,"ON")
+   field(SCAN,"Passive")
+   alias("B_SYS_$(Sys)_$(Det)_$(Element):pwonoff")
+   alias("B_DET_$(Det)_$(Sys)_$(Element):pwonoff")
+}
+
+record(ao, "B_HW_$(CrName)_Sl$(Sl)_Ch$(Ch):vset") 
+{
+   field(DESC,"#GR")
+   field(OMSL,"supervisory")
+   field(SCAN,"Passive")
+   alias("B_SYS_$(Sys)_$(Det)_$(Element):vset")
+   alias("B_DET_$(Det)_$(Sys)_$(Element):vset")
+}
+record(ao, "B_HW_$(CrName)_Sl$(Sl)_Ch$(Ch):iset") 
+{
+   field(DESC,"#GR")
+   field(OMSL,"supervisory")
+   field(SCAN,"Passive")
+   alias("B_SYS_$(Sys)_$(Det)_$(Element):iset")
+   alias("B_DET_$(Det)_$(Sys)_$(Element):iset")
+}
+record(ao, "B_HW_$(CrName)_Sl$(Sl)_Ch$(Ch):trip") 
+{
+   field(OMSL,"supervisory")
+   field(SCAN,"Passive")
+   alias("B_SYS_$(Sys)_$(Det)_$(Element):trip")   
+   alias("B_DET_$(Det)_$(Sys)_$(Element):trip")   
+}
+record(ao, "B_HW_$(CrName)_Sl$(Sl)_Ch$(Ch):rampup") {
+   field(DESC,"#PD")
+   field(OMSL,"supervisory")
+   field(SCAN,"Passive")
+   alias("B_SYS_$(Sys)_$(Det)_$(Element):rampup")   
+   alias("B_DET_$(Det)_$(Sys)_$(Element):rampup")   
+}
+record(ao, "B_HW_$(CrName)_Sl$(Sl)_Ch$(Ch):rampdn") 
+{
+   field(DESC,"#PD")
+   field(OMSL,"supervisory")
+   field(SCAN,"Passive")
+   alias("B_SYS_$(Sys)_$(Det)_$(Element):rampdn")   
+   alias("B_DET_$(Det)_$(Sys)_$(Element):rampdn")   
+}
+record(ao, "B_HW_$(CrName)_Sl$(Sl)_Ch$(Ch):vmax") 
+{
+   field(OMSL,"supervisory")
+   field(SCAN,"Passive")
+   alias("B_SYS_$(Sys)_$(Det)_$(Element):vmax")   
+   alias("B_DET_$(Det)_$(Sys)_$(Element):vmax")   
+}
+
+record(ao, "B_HW_$(CrName)_Sl$(Sl)_Ch$(Ch):rup")
+{
+   field(PREC,"2")
+   alias("B_DET_$(Det)_$(Sys)_$(Element):rup")
+   alias("B_SYS_$(Sys)_$(Det)_$(Element):rup")
+}   
+
+record(ao, "B_HW_$(CrName)_Sl$(Sl)_Ch$(Ch):rdwn")
+{
+   field(PREC,"2")
+   alias("B_DET_$(Det)_$(Sys)_$(Element):rdwn")
+   alias("B_SYS_$(Sys)_$(Det)_$(Element):rdwn")
+}   
+
+record(ao, "B_HW_$(CrName)_Sl$(Sl)_Ch$(Ch):stat")
+{
+   field(PREC,"2")
+   alias("B_DET_$(Det)_$(Sys)_$(Element):stat")
+   alias("B_SYS_$(Sys)_$(Det)_$(Element):stat")
+}   
+
+record(ao, "B_HW_$(CrName)_Sl$(Sl)_Ch$(Ch):comms")
+{
+   field(PREC,"2")
+   alias("B_DET_$(Det)_$(Sys)_$(Element):comms")
+   alias("B_SYS_$(Sys)_$(Det)_$(Element):comms")
+}   
+
+record(ai,"B_HW_$(CrName)_Sl$(Sl)_Ch$(Ch):type")
+{
+   field(VAL,"$(CrType)")
+   alias("B_DET_$(Det)_$(Sys)_$(Element):type")   
+   alias("B_SYS_$(Sys)_$(Det)_$(Element):type")   
+}

@@ -1,0 +1,1 @@
+device(lsi,INST_IO,devcaen1527Version,"caen1527 version")

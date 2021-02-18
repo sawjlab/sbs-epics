@@ -1,0 +1,37 @@
+## common bkup files
+*~
+*.swp
+*.swo
+
+## CS-Studio/Eclipse
+.project
+
+## harp_analyzer
+/tools/harp_analyzer/build/
+/tools/harp_analyzer/dist/
+
+## ooffice lock files
+.~lock.*
+
+## procServ pid's
+pid.txt
+
+## python byte code
+*.pyc
+
+## old medm standard suffix:
+*BAK
+
+## nfs locks:
+.nfs*
+
+# libraries:
+*.d
+*.so
+*.o
+
+dump
+
+# ROOT auto-generated dictionaries:
+AutoDict*
+
