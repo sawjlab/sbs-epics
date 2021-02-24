@@ -5,32 +5,42 @@ include $(TOP)/configure/CONFIG
 #  ADD MACRO DEFINITIONS AFTER THIS LINE
 #=============================
 
+# Create bigsubRecord.h from bigsubRecord.dbd
+DBDINC += bigsubRecord
+INC += a_out.h
+
 #=============================
 # Build the IOC application
 
 PROD_IOC_Linux = ioccaen
-# ecalHV.dbd will be created and installed
+#PROD_IOC = ioccaen
+
+# ioccaen.dbd will be created and installed into <top>/dbd
 DBD += ioccaen.dbd
+
+ioccaen_DBD += bigsubRecord.dbd
 
 # <name>_registerRecordDeviceDriver.cpp will be created from <name>.dbd
 ioccaen_SRCS += ioccaen_registerRecordDeviceDriver.cpp
-ioccaen_SRCS += bigsub.c
+ioccaen_SRCS += bigsubRecord.c
 ioccaen_SRCS += devCAEN.c
+ioccaen_SRCS += bigsub.c
+
 ioccaen_SRCS_DEFAULT += ioccaenMain.cpp
 ioccaen_SRCS_vxWorks += -nil-
 
 # CAEN_HV/include
 USR_INCLUDES += -I$(TOP)/include
 
-ioccaen_LIBS += calc
+#ioccaen_LIBS += calc
 ioccaen_LIBS += sy1527epics1
 ioccaen_LIBS += caenhvwrapper 
 ioccaen_LIBS += hscaenet 
-ioccaen_LIBS += devIocStats
-ioccaen_LIBS += caPutLog
-ioccaen_LIBS += autosave
-ioccaen_LIBS += seq
-ioccaen_LIBS += waveformApp
+#ioccaen_LIBS += devIocStats
+#ioccaen_LIBS += caPutLog
+#ioccaen_LIBS += autosave
+#ioccaen_LIBS += seq
+#ioccaen_LIBS += waveformApp
 ioccaen_LIBS += $(EPICS_BASE_IOC_LIBS)
 
 sy1527epics1_DIR  += $(TOP)/lib/$(T_A)
