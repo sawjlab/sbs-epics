@@ -17,9 +17,12 @@
 #include "epicsPrint.h"
 #include "recGbl.h"
 
-
+#include "link.h"
+#include "epicsMutex.h"
+#include "epicsTime.h"
 
 #include <dbDefs.h>
+#include <dbBase.h>
 #include <bigsubRecord.h>
 #include <dbCommon.h>
 #include <dbAccess.h>
