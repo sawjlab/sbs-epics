@@ -1,6 +1,0 @@
-record(lsi, "$(user):caen1527:version") {
-    field(DTYP, "caen1527 version")
-    field(DESC, "Version string")
-    field(SIZV, "$(SIZV=200)")
-    field(PINI, "YES")
-}
