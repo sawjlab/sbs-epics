@@ -12,7 +12,7 @@
 int main(int argc,char** argv)
 {
   int i, id = 0, board = 0, channel = 2;
-  char ip_address[100]="129.57.86.43";
+  char ip_address[100]="129.57.37.95";
   float u, uset, uget;
   unsigned int l, lget, active, onoff, alarm, itmp;
 
