@@ -1,45 +1,45 @@
 
-record(bo,"B_HW_$(CrName):ClearAlarm")
-{
-    field(DTYP,"CAEN_HV")
-    field(OUT,"$(CScode) S0xE00")
-    field(DESC,"Clear Alarm")
-}
+#record(bo,"$(CrName):ClearAlarm")
+#{
+#    field(DTYP,"CAEN_HV")
+#    field(OUT,"$(CScode) S0xE00")
+#    field(DESC,"Clear Alarm")
+#}
 
-record(stringin,"B_HW_$(CrName):HVFanStat")
+record(stringin,"$(CrName):HVFanStat")
 {
     field(DTYP,"CAEN_HV")
     field(INP,"$(CScode) S1")
     field(SCAN,"10 second")
-    field(FLNK,"B_HW_$(CrName):HVFanStats")
+    field(FLNK,"$(CrName):HVFanStats")
 }
-record(stringin,"B_HW_$(CrName):PWFanStat")
+record(stringin,"$(CrName):PWFanStat")
 {
     field(DTYP,"CAEN_HV")
     field(INP,"$(CScode) S2")
     field(SCAN,"10 second")
-    field(FLNK,"B_HW_$(CrName):PWFanStats")
+    field(FLNK,"$(CrName):PWFanStats")
 }
-record(stringin,"B_HW_$(CrName):PWVoltage")
+record(stringin,"$(CrName):PWVoltage")
 {
     field(DTYP,"CAEN_HV")
     field(INP,"$(CScode) S3")
     field(SCAN,"10 second")
-    field(FLNK,"B_HW_$(CrName):PWVoltages")
+    field(FLNK,"$(CrName):PWVoltages")
 }
-record(stringin,"B_HW_$(CrName):HvPwSM")
+record(stringin,"$(CrName):HvPwSM")
 {
     field(DTYP,"CAEN_HV")
     field(INP,"$(CScode) S4")
     field(SCAN,"10 second")
 }
-record(stringin,"B_HW_$(CrName):ModelName")
+record(stringin,"$(CrName):ModelName")
 {
     field(DTYP,"CAEN_HV")
     field(INP,"$(CScode) S5")
     field(SCAN,"10 second")
 }
-record(stringin,"B_HW_$(CrName):SwRelease")
+record(stringin,"$(CrName):SwRelease")
 {
     field(DTYP,"CAEN_HV")
     field(INP,"$(CScode) S6")
@@ -47,134 +47,134 @@ record(stringin,"B_HW_$(CrName):SwRelease")
 }
 
 
-record(waveform,"B_HW_$(CrName):HVFanStats")
+record(waveform,"$(CrName):HVFanStats")
 {
     field(DTYP,"CAEN_HV")
     field(INP,"$(CScode) S1")
     field(NELM,20)
     field(FTVL,"FLOAT")
-    field(FLNK,"B_HW_$(CrName):HVFanStat:1")
+    field(FLNK,"$(CrName):HVFanStat:1")
 }
-record(waveform,"B_HW_$(CrName):PWFanStats")
+record(waveform,"$(CrName):PWFanStats")
 {
     field(DTYP,"CAEN_HV")
     field(INP,"$(CScode) S2")
     field(NELM,20)
     field(FTVL,"FLOAT")
-    field(FLNK,"B_HW_$(CrName):PWFanStat:1")
+    field(FLNK,"$(CrName):PWFanStat:1")
 }
-record(waveform,"B_HW_$(CrName):PWVoltages")
+record(waveform,"$(CrName):PWVoltages")
 {
     field(DTYP,"CAEN_HV")
     field(INP,"$(CScode) S3")
     field(NELM,20)
     field(FTVL,"FLOAT")
-    field(FLNK,"B_HW_$(CrName):PWVoltage:1")
+    field(FLNK,"$(CrName):PWVoltage:1")
 }
 
 
-record(subArray,"B_HW_$(CrName):HVFanStat:1")
+record(subArray,"$(CrName):HVFanStat:1")
 {
-    field(INP,"B_HW_$(CrName):HVFanStats")
+    field(INP,"$(CrName):HVFanStats")
     field(NELM,1)
     field(MALM,20)
     field(INDX,0)
     field(FTVL,"FLOAT")
-    field(FLNK,"B_HW_$(CrName):HVFanStat:2")
+    field(FLNK,"$(CrName):HVFanStat:2")
 }
-record(subArray,"B_HW_$(CrName):HVFanStat:2")
+record(subArray,"$(CrName):HVFanStat:2")
 {
-    field(INP,"B_HW_$(CrName):HVFanStats")
+    field(INP,"$(CrName):HVFanStats")
     field(NELM,1)
     field(MALM,20)
     field(INDX,2)
     field(FTVL,"FLOAT")
-    field(FLNK,"B_HW_$(CrName):HVFanStat:3")
+    field(FLNK,"$(CrName):HVFanStat:3")
 }
-record(subArray,"B_HW_$(CrName):HVFanStat:3")
+record(subArray,"$(CrName):HVFanStat:3")
 {
-    field(INP,"B_HW_$(CrName):HVFanStats")
+    field(INP,"$(CrName):HVFanStats")
     field(NELM,1)
     field(MALM,20)
     field(INDX,4)
     field(FTVL,"FLOAT")
-    field(FLNK,"B_HW_$(CrName):HVFanStat:4")
+    field(FLNK,"$(CrName):HVFanStat:4")
 }
-record(subArray,"B_HW_$(CrName):HVFanStat:4")
+record(subArray,"$(CrName):HVFanStat:4")
 {
-    field(INP,"B_HW_$(CrName):HVFanStats")
+    field(INP,"$(CrName):HVFanStats")
     field(NELM,1)
     field(MALM,20)
     field(INDX,6)
     field(FTVL,"FLOAT")
-    field(FLNK,"B_HW_$(CrName):HVFanStat:5")
+    field(FLNK,"$(CrName):HVFanStat:5")
 }
-record(subArray,"B_HW_$(CrName):HVFanStat:5")
+record(subArray,"$(CrName):HVFanStat:5")
 {
-    field(INP,"B_HW_$(CrName):HVFanStats")
+    field(INP,"$(CrName):HVFanStats")
     field(NELM,1)
     field(MALM,20)
     field(INDX,8)
     field(FTVL,"FLOAT")
-    field(FLNK,"B_HW_$(CrName):HVFanStat:6")
+    field(FLNK,"$(CrName):HVFanStat:6")
 }
-record(subArray,"B_HW_$(CrName):HVFanStat:6")
+record(subArray,"$(CrName):HVFanStat:6")
 {
-    field(INP,"B_HW_$(CrName):HVFanStats")
+    field(INP,"$(CrName):HVFanStats")
     field(NELM,1)
     field(MALM,20)
     field(INDX,12)
     field(FTVL,"FLOAT")
-    field(FLNK,"B_HW_$(CrName):HVFanSpeed:1")
+    field(FLNK,"$(CrName):HVFanSpeed:1")
 }
-record(subArray,"B_HW_$(CrName):HVFanSpeed:1")
+record(subArray,"$(CrName):HVFanSpeed:1")
 {
-    field(INP,"B_HW_$(CrName):HVFanStats")
+    field(INP,"$(CrName):HVFanStats")
     field(NELM,1)
     field(MALM,20)
     field(INDX,1)
     field(FTVL,"FLOAT")
-    field(FLNK,"B_HW_$(CrName):HVFanSpeed:2")
+    field(FLNK,"$(CrName):HVFanSpeed:2")
 }
-record(subArray,"B_HW_$(CrName):HVFanSpeed:2")
+record(subArray,"$(CrName):HVFanSpeed:2")
 {
-    field(INP,"B_HW_$(CrName):HVFanStats")
+    field(INP,"$(CrName):HVFanStats")
     field(NELM,1)
     field(MALM,20)
     field(INDX,3)
     field(FTVL,"FLOAT")
-    field(FLNK,"B_HW_$(CrName):HVFanSpeed:3")
+    field(FLNK,"$(CrName):HVFanSpeed:3")
 }
-record(subArray,"B_HW_$(CrName):HVFanSpeed:3")
+record(subArray,"$(CrName):HVFanSpeed:3")
 {
-    field(INP,"B_HW_$(CrName):HVFanStats")
+    field(INP,"$(CrName):HVFanStats")
     field(NELM,1)
     field(MALM,20)
     field(INDX,5)
     field(FTVL,"FLOAT")
-    field(FLNK,"B_HW_$(CrName):HVFanSpeed:4")
+    field(FLNK,"$(CrName):HVFanSpeed:4")
 }
-record(subArray,"B_HW_$(CrName):HVFanSpeed:4")
+record(subArray,"$(CrName):HVFanSpeed:4")
 {
-    field(INP,"B_HW_$(CrName):HVFanStats")
+    field(INP,"$(CrName):HVFanStats")
     field(NELM,1)
     field(MALM,20)
     field(INDX,7)
     field(FTVL,"FLOAT")
-    field(FLNK,"B_HW_$(CrName):HVFanSpeed:5")
+    field(FLNK,"$(CrName):HVFanSpeed:5")
 }
-record(subArray,"B_HW_$(CrName):HVFanSpeed:5")
+record(subArray,"$(CrName):HVFanSpeed:5")
 {
-    field(INP,"B_HW_$(CrName):HVFanStats")
+    field(INP,"$(CrName):HVFanStats")
     field(NELM,1)
     field(MALM,20)
     field(INDX,9)
     field(FTVL,"FLOAT")
-    field(FLNK,"B_HW_$(CrName):HVFanSpeed:6")
+    field(FLNK,"$(CrName):HVFanSpeed:6")
 }
-record(subArray,"B_HW_$(CrName):HVFanSpeed:6")
+record(subArray,"$(CrName):HVFanSpeed:6")
 {
-    field(INP,"B_HW_$(CrName):HVFanStats")
+    field(INP,"$(CrName):HVFanStats")
     field(NELM,1)
     field(MALM,20)
     field(INDX,11)
@@ -183,108 +183,108 @@ record(subArray,"B_HW_$(CrName):HVFanSpeed:6")
 
 
 
-record(subArray,"B_HW_$(CrName):PWFanStat:1")
+record(subArray,"$(CrName):PWFanStat:1")
 {
-    field(INP,"B_HW_$(CrName):PWFanStats")
+    field(INP,"$(CrName):PWFanStats")
     field(NELM,1)
     field(MALM,20)
     field(INDX,0)
     field(FTVL,"FLOAT")
-    field(FLNK,"B_HW_$(CrName):PWFanStat:2")
+    field(FLNK,"$(CrName):PWFanStat:2")
 }
-record(subArray,"B_HW_$(CrName):PWFanStat:2")
+record(subArray,"$(CrName):PWFanStat:2")
 {
-    field(INP,"B_HW_$(CrName):PWFanStats")
+    field(INP,"$(CrName):PWFanStats")
     field(NELM,1)
     field(MALM,20)
     field(INDX,2)
     field(FTVL,"FLOAT")
-    field(FLNK,"B_HW_$(CrName):PWFanStat:3")
+    field(FLNK,"$(CrName):PWFanStat:3")
 }
-record(subArray,"B_HW_$(CrName):PWFanStat:3")
+record(subArray,"$(CrName):PWFanStat:3")
 {
-    field(INP,"B_HW_$(CrName):PWFanStats")
+    field(INP,"$(CrName):PWFanStats")
     field(NELM,1)
     field(MALM,20)
     field(INDX,4)
     field(FTVL,"FLOAT")
-    field(FLNK,"B_HW_$(CrName):PWFanStat:4")
+    field(FLNK,"$(CrName):PWFanStat:4")
 }
-record(subArray,"B_HW_$(CrName):PWFanStat:4")
+record(subArray,"$(CrName):PWFanStat:4")
 {
-    field(INP,"B_HW_$(CrName):PWFanStats")
+    field(INP,"$(CrName):PWFanStats")
     field(NELM,1)
     field(MALM,20)
     field(INDX,6)
     field(FTVL,"FLOAT")
-    field(FLNK,"B_HW_$(CrName):PWFanStat:5")
+    field(FLNK,"$(CrName):PWFanStat:5")
 }
-record(subArray,"B_HW_$(CrName):PWFanStat:5")
+record(subArray,"$(CrName):PWFanStat:5")
 {
-    field(INP,"B_HW_$(CrName):PWFanStats")
+    field(INP,"$(CrName):PWFanStats")
     field(NELM,1)
     field(MALM,20)
     field(INDX,8)
     field(FTVL,"FLOAT")
-    field(FLNK,"B_HW_$(CrName):PWFanStat:6")
+    field(FLNK,"$(CrName):PWFanStat:6")
 }
-record(subArray,"B_HW_$(CrName):PWFanStat:6")
+record(subArray,"$(CrName):PWFanStat:6")
 {
-    field(INP,"B_HW_$(CrName):PWFanStats")
+    field(INP,"$(CrName):PWFanStats")
     field(NELM,1)
     field(MALM,20)
     field(INDX,12)
     field(FTVL,"FLOAT")
-    field(FLNK,"B_HW_$(CrName):PWFanSpeed:1")
+    field(FLNK,"$(CrName):PWFanSpeed:1")
 }
-record(subArray,"B_HW_$(CrName):PWFanSpeed:1")
+record(subArray,"$(CrName):PWFanSpeed:1")
 {
-    field(INP,"B_HW_$(CrName):PWFanStats")
+    field(INP,"$(CrName):PWFanStats")
     field(NELM,1)
     field(MALM,20)
     field(INDX,1)
     field(FTVL,"FLOAT")
-    field(FLNK,"B_HW_$(CrName):PWFanSpeed:2")
+    field(FLNK,"$(CrName):PWFanSpeed:2")
 }
-record(subArray,"B_HW_$(CrName):PWFanSpeed:2")
+record(subArray,"$(CrName):PWFanSpeed:2")
 {
-    field(INP,"B_HW_$(CrName):PWFanStats")
+    field(INP,"$(CrName):PWFanStats")
     field(NELM,1)
     field(MALM,20)
     field(INDX,3)
     field(FTVL,"FLOAT")
-    field(FLNK,"B_HW_$(CrName):PWFanSpeed:3")
+    field(FLNK,"$(CrName):PWFanSpeed:3")
 }
-record(subArray,"B_HW_$(CrName):PWFanSpeed:3")
+record(subArray,"$(CrName):PWFanSpeed:3")
 {
-    field(INP,"B_HW_$(CrName):PWFanStats")
+    field(INP,"$(CrName):PWFanStats")
     field(NELM,1)
     field(MALM,20)
     field(INDX,5)
     field(FTVL,"FLOAT")
-    field(FLNK,"B_HW_$(CrName):PWFanSpeed:4")
+    field(FLNK,"$(CrName):PWFanSpeed:4")
 }
-record(subArray,"B_HW_$(CrName):PWFanSpeed:4")
+record(subArray,"$(CrName):PWFanSpeed:4")
 {
-    field(INP,"B_HW_$(CrName):PWFanStats")
+    field(INP,"$(CrName):PWFanStats")
     field(NELM,1)
     field(MALM,20)
     field(INDX,7)
     field(FTVL,"FLOAT")
-    field(FLNK,"B_HW_$(CrName):PWFanSpeed:5")
+    field(FLNK,"$(CrName):PWFanSpeed:5")
 }
-record(subArray,"B_HW_$(CrName):PWFanSpeed:5")
+record(subArray,"$(CrName):PWFanSpeed:5")
 {
-    field(INP,"B_HW_$(CrName):PWFanStats")
+    field(INP,"$(CrName):PWFanStats")
     field(NELM,1)
     field(MALM,20)
     field(INDX,9)
     field(FTVL,"FLOAT")
-    field(FLNK,"B_HW_$(CrName):PWFanSpeed:6")
+    field(FLNK,"$(CrName):PWFanSpeed:6")
 }
-record(subArray,"B_HW_$(CrName):PWFanSpeed:6")
+record(subArray,"$(CrName):PWFanSpeed:6")
 {
-    field(INP,"B_HW_$(CrName):PWFanStats")
+    field(INP,"$(CrName):PWFanStats")
     field(NELM,1)
     field(MALM,20)
     field(INDX,11)
@@ -295,54 +295,54 @@ record(subArray,"B_HW_$(CrName):PWFanSpeed:6")
 
 
 
-record(subArray,"B_HW_$(CrName):PWVoltage:1")
+record(subArray,"$(CrName):PWVoltage:1")
 {
-    field(INP,"B_HW_$(CrName):PWVoltages")
+    field(INP,"$(CrName):PWVoltages")
     field(NELM,1)
     field(MALM,20)
     field(INDX,0)
     field(FTVL,"FLOAT")
-    field(FLNK,"B_HW_$(CrName):PWVoltage:2")
+    field(FLNK,"$(CrName):PWVoltage:2")
 }
-record(subArray,"B_HW_$(CrName):PWVoltage:2")
+record(subArray,"$(CrName):PWVoltage:2")
 {
-    field(INP,"B_HW_$(CrName):PWVoltages")
+    field(INP,"$(CrName):PWVoltages")
     field(NELM,1)
     field(MALM,20)
     field(INDX,1)
     field(FTVL,"FLOAT")
-    field(FLNK,"B_HW_$(CrName):PWVoltage:3")
+    field(FLNK,"$(CrName):PWVoltage:3")
 }
-record(subArray,"B_HW_$(CrName):PWVoltage:3")
+record(subArray,"$(CrName):PWVoltage:3")
 {
-    field(INP,"B_HW_$(CrName):PWVoltages")
+    field(INP,"$(CrName):PWVoltages")
     field(NELM,1)
     field(MALM,20)
     field(INDX,2)
     field(FTVL,"FLOAT")
-    field(FLNK,"B_HW_$(CrName):PWVoltage:4")
+    field(FLNK,"$(CrName):PWVoltage:4")
 }
-record(subArray,"B_HW_$(CrName):PWVoltage:4")
+record(subArray,"$(CrName):PWVoltage:4")
 {
-    field(INP,"B_HW_$(CrName):PWVoltages")
+    field(INP,"$(CrName):PWVoltages")
     field(NELM,1)
     field(MALM,20)
     field(INDX,3)
     field(FTVL,"FLOAT")
-    field(FLNK,"B_HW_$(CrName):PWVoltage:5")
+    field(FLNK,"$(CrName):PWVoltage:5")
 }
-record(subArray,"B_HW_$(CrName):PWVoltage:5")
+record(subArray,"$(CrName):PWVoltage:5")
 {
-    field(INP,"B_HW_$(CrName):PWVoltages")
+    field(INP,"$(CrName):PWVoltages")
     field(NELM,1)
     field(MALM,20)
     field(INDX,4)
     field(FTVL,"FLOAT")
-    field(FLNK,"B_HW_$(CrName):PWVoltage:6")
+    field(FLNK,"$(CrName):PWVoltage:6")
 }
-record(subArray,"B_HW_$(CrName):PWVoltage:6")
+record(subArray,"$(CrName):PWVoltage:6")
 {
-    field(INP,"B_HW_$(CrName):PWVoltages")
+    field(INP,"$(CrName):PWVoltages")
     field(NELM,1)
     field(MALM,20)
     field(INDX,5)
