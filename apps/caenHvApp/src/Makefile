@@ -60,6 +60,8 @@ dim_DIR   += $(DIM_LIB)
 USR_INCLUDES += $(SMIXX_INCLUDE)
 USR_INCLUDES += $(DIM_INCLUDE)
 
+USR_CFLAGS += -DUSE_TYPED_RSET 
+
 
 #TARGETS += mkHVEpics ../HV_allnames.txt 
 
