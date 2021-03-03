@@ -183,10 +183,10 @@ sy1527GetBoard(unsigned int id, unsigned int board)
 
   char name[MAX_CAEN_NAME];
   int i, ipar, ret, i10;
-  int retslave;
+  int retout;
   unsigned short Slot, ChNum, ChList[MAX_CHAN], Ch;
   float fParValList[MAX_CHAN];
-  unsigned long	tipo, lParValList[MAX_CHAN];
+  unsigned int	tipo, lParValList[MAX_CHAN];
   char ParName[MAX_CAEN_NAME];
 
   CHECK_ID(id);
@@ -219,22 +219,22 @@ sy1527GetBoard(unsigned int id, unsigned int board)
 
     if(!strcmp(Measure[id].board[board].modelname,"A1932")) {
       if(tipo == PARAM_TYPE_NUMERIC) {
-	ret = CAENHVGetChParam(name, Slot, ParName, 1, ChList, fParValList);
-	retslave = CAENHVGetChParam(name, Slot, ParName, ChNum-1, &ChList[1], &fParValList[1]);
+	ret = CAENHVGetChParam(name, Slot, ParName, 1, ChList, fParValList); /* Primary Channel */
+	retout = CAENHVGetChParam(name, Slot, ParName, ChNum-1, &ChList[1], &fParValList[1]); /* Distributed output channels */
       } else {
 	ret = CAENHVGetChParam(name, Slot, ParName, 1, ChList, lParValList);
-	retslave = CAENHVGetChParam(name, Slot, ParName, ChNum-1, &ChList[1], &lParValList[1]);
+	retout = CAENHVGetChParam(name, Slot, ParName, ChNum-1, &ChList[1], &lParValList[1]);
       }
       /* Be OK if either channel 0 or the rest of the channels are OK */
       /* A hack for modules that have a primary supply channel and a set of distributed channels */
-      if(retslave == CAENHV_OK) ret = CAENHV_OK;
+      if(retout == CAENHV_OK) ret = CAENHV_OK;
     } else {
       if(tipo == PARAM_TYPE_NUMERIC)
 	ret = CAENHVGetChParam(name, Slot, ParName, ChNum, ChList, fParValList);
       else
 	ret = CAENHVGetChParam(name, Slot, ParName, ChNum, ChList, lParValList);
     }
-    //for (i=0; i<ChNum; i++) printf("%d %ld\n",i,fParValList[i]);
+    //for (i=0; i<ChNum; i++) printf("%d %d\n",i,fParValList[i]);
 
     if(ret != CAENHV_OK)
     {
@@ -310,7 +310,7 @@ sy1527SetBoard(unsigned int id, unsigned int board)
   int i, ipar, iparr, ret;
   unsigned short Slot, ChNum, Ch;
   float fParVal;
-  unsigned long	tipo, lParVal;
+  unsigned int	tipo, lParVal;
   char ParName[MAX_CAEN_NAME];
 
   CHECK_ID(id);
@@ -356,7 +356,7 @@ sy1527SetBoard(unsigned int id, unsigned int board)
         else
         {
           lParVal = Demand[id].board[board].channel[Ch].lval[ipar];
-          printf(">>>>>>>>>>>>>> Set Value parname=%s: value=%ld  ipar=%d iparr=%d channel=%d\n",XXXXparam[ipar],lParVal, ipar, iparr, Ch);
+          printf(">>>>>>>>>>>>>> Set Value parname=%s: value=%d  ipar=%d iparr=%d channel=%d\n",XXXXparam[ipar],lParVal, ipar, iparr, Ch);
           ret = CAENHVSetChParam(name, Slot, ParName, 1, &Ch, &lParVal);
         }
 
@@ -558,7 +558,7 @@ sy1527PrintParams(unsigned int id)
   unsigned char	*FmwRelMinList, *FmwRelMaxList;
   char name[MAX_CAEN_NAME];
   int i, ret,j,k;
-  unsigned long tipo;
+  unsigned int tipo;
 
   char*  parNames1=(char*)NULL;
   char (*parNames2)[MAX_PARAM_NAME];
@@ -641,7 +641,7 @@ sy1527GetMap(unsigned int id)
   unsigned char	*FmwRelMinList, *FmwRelMaxList;
   char name[MAX_CAEN_NAME];
   int i, j, ret;
-  unsigned long tipo;
+  unsigned int tipo;
   char ParName[MAX_CAEN_NAME];
 
   CHECK_ID(id);
@@ -864,7 +864,7 @@ sy1527GetMap(unsigned int id)
             if(ret != CAENHV_OK) { /* Try channel 1 */
 	      ret=CAENHVGetChParamProp(name,i,ChList[1],ParName,"Type",&tipo);
 	      if(ret != CAENHV_OK) { /* Try channel 1 */
-		printf("XXCAENHVGetChParamProp error: %s (num. %d) ParName=>%s<\n",
+		printf("CAENHVGetChParamProp error: %s (num. %d) ParName=>%s<\n",
 		       CAENHVGetError(name),ret,ParName);
 		Measure[id].board[i].nchannels = 0;
 		Demand[id].board[i].nchannels = 0;
@@ -873,7 +873,7 @@ sy1527GetMap(unsigned int id)
 	    }
 	    Measure[id].board[i].partypes[j] = tipo;
 	    Demand[id].board[i].partypes[j] = tipo;
-          }
+	  }
         }
         else
         {
@@ -924,7 +924,7 @@ sy1527PrintMap(unsigned int id)
       printf("  nparams = %d\n",Measure[id].board[i].nparams);
       for(j=0; j<Measure[id].board[i].nparams; j++)
       {
-        printf("    >%s<\t\t%ld",
+        printf("    >%s<\t\t%d",
             Measure[id].board[i].parnames[j],Measure[id].board[i].partypes[j]);
         if(Measure[id].board[i].partypes[j]==PARAM_TYPE_NUMERIC)
           printf(" (PARAM_TYPE_NUMERIC)\n");

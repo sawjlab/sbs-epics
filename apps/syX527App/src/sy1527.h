@@ -112,7 +112,7 @@ typedef struct channel
 {
   char          name[MAX_CAEN_NAME];
   float         fval[MAX_PARAM];
-  unsigned long lval[MAX_PARAM];
+  unsigned int lval[MAX_PARAM];
   int           setflag[MAX_PARAM]; /* if 1, n:eed to write */
 } CHANNEL;
 
@@ -126,7 +126,7 @@ typedef struct board
   int           relmin;
   int           nparams;
   char          parnames[MAX_PARAM][MAX_CAEN_NAME];
-  unsigned long partypes[MAX_PARAM];
+  unsigned int partypes[MAX_PARAM];
   CHANNEL       channel[MAX_CHAN];
   int           setflag; /* if 1, need to write */
   int V0Set;
