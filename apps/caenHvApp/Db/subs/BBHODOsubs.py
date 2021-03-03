@@ -94,8 +94,8 @@ def xl2sub(csvfile):
             chan = int(m.group(2))
             slots = slots | {slot}
 
-            cscode = "#C%d"%(256*slot + chan)
             crate = CRATE
+            cscode = "#C%d"%(256*slot + CRATE)
             crname = CRNAME
             crtype = CRTYPE
             system = SYSTEM
