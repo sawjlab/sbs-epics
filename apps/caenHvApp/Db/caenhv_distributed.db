@@ -1,0 +1,24 @@
+# CAEN A1932A EPICS records
+#   that are unique to distributed channels
+#
+record(ao, "$(CrName)_Sl$(Sl)_Ch$(Ch):triprbk")
+{
+   field(DOL, "$(CrName)_Sl$(Sl)_Ch$(Ch).P CPP NMS")
+   field(OMSL,"closed_loop")
+   field(PREC,"2")
+   field(EGU,"s")
+   alias("BB_DET_$(Det)_$(Sys)_$(Element):triprbk")
+   alias("BB_SYS_$(Sys)_$(Det)_$(Element):triprbk")
+}   
+
+record(ao, "$(CrName)_Sl$(Sl)_Ch$(Ch):trip") 
+{
+   field(DTYP,"CAEN_HV")
+   field(OUT,"$(CScode) $(trip)")
+   field(OMSL,"supervisory")
+   field(SCAN,"Passive")
+   field(ASG,"EXPERT")
+   field(EGU,"s")
+   alias("BB_DET_$(Det)_$(Sys)_$(Element):trip")   
+   alias("BB_SYS_$(Sys)_$(Det)_$(Element):trip")   
+}

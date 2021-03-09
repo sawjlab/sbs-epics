@@ -1,0 +1,59 @@
+# CAEN A1932A EPICS records
+#   that are unique to primary channels
+#
+record(ao, "$(CrName)_Sl$(Sl)_Ch$(Ch):imon")
+{
+   field(DESC,"#GR")
+   field(DOL, "$(CrName)_Sl$(Sl)_Ch$(Ch).E CPP NMS")
+   field(OMSL,"closed_loop")
+   field(PREC,"2")
+   field(EGU,"uA")
+   alias("BB_DET_$(Det)_$(Sys)_$(Element):imon")
+   alias("BB_SYS_$(Sys)_$(Det)_$(Element):imon")
+   info(autosaveFields_pass0,"HSV LSV HHSV LLSV HIGH LOW HIHI LOLO")
+}   
+
+record(ao, "$(CrName)_Sl$(Sl)_Ch$(Ch):isetrbk")
+{
+   field(DOL, "$(CrName)_Sl$(Sl)_Ch$(Ch).J CPP NMS")
+   field(OMSL,"closed_loop")
+   field(PREC,"2")
+   field(EGU,"uA")
+   alias("BB_DET_$(Det)_$(Sys)_$(Element):isetrbk")
+   alias("BB_SYS_$(Sys)_$(Det)_$(Element):isetrbk")
+}   
+
+record(ao, "$(CrName)_Sl$(Sl)_Ch$(Ch):vmaxrbk")
+{
+   field(DOL, "$(CrName)_Sl$(Sl)_Ch$(Ch).O CPP NMS")
+   field(OMSL,"closed_loop")
+   field(PREC,"2")
+   field(EGU,"V")
+   alias("BB_DET_$(Det)_$(Sys)_$(Element):vmaxrbk")
+   alias("BB_SYS_$(Sys)_$(Det)_$(Element):vmaxrbk")
+}   
+
+record(ao, "$(CrName)_Sl$(Sl)_Ch$(Ch):iset") 
+{
+   field(DTYP,"CAEN_HV")
+   field(DESC,"#GR")
+   field(OUT,"$(CScode) $(i0set)")
+   field(OMSL,"supervisory")
+   field(SCAN,"Passive")
+   field(ASG,"EXPERT")
+   field(EGU,"uA")
+   alias("BB_DET_$(Det)_$(Sys)_$(Element):iset")
+   alias("BB_SYS_$(Sys)_$(Det)_$(Element):iset")
+}
+record(ao, "$(CrName)_Sl$(Sl)_Ch$(Ch):vmax") 
+{
+   field(DTYP,"CAEN_HV")
+   field(OUT,"$(CScode) $(svmax)")
+   field(OMSL,"supervisory")
+   field(SCAN,"Passive")
+   field(ASG,"EXPERT")
+   field(EGU,"V")
+   alias("BB_DET_$(Det)_$(Sys)_$(Element):vmax")   
+   alias("BB_SYS_$(Sys)_$(Det)_$(Element):vmax")   
+}
+

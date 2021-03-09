@@ -22,7 +22,10 @@ Start_CAEN(0, "129.57.37.95")
 dbLoadRecords("db/caenchassis.db","CrName=BBTH-HV,CScode=#C0")
 #dbLoadRecords("db/caenchassis.db","CrName=HVBAND2,CScode=#C2")
 
-dbLoadTemplate("db/HVBBHODO.substitutions")
+#dbLoadTemplate("db/HVBBHODO.substitutions")
+dbLoadTemplate("db/HVBBHODO_common.substitutions")
+dbLoadTemplate("db/HVBBHODO_primary.substitutions")
+dbLoadTemplate("db/HVBBHODO_distributed.substitutions")
 
 cd ${TOP}/iocBoot/${IOC}
 
