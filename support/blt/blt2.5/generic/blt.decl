@@ -1,0 +1,215 @@
+
+library blt
+interface blt
+#hooks {bltPlat bltInt bltIntPlat bltIntXlib}
+
+declare 0 generic { Blt_TreeKey Blt_TreeGetKey (CONST char *string) }
+
+declare 1 generic { Blt_TreeNode Blt_TreeCreateNode (Blt_Tree tree, Blt_TreeNode parent, CONST char *name, int position) } 
+
+declare 2 generic { Blt_TreeNode Blt_TreeCreateNodeWithId (Blt_Tree tree, 
+Blt_TreeNode parent, CONST char *name, unsigned int inode, int position) } 
+
+declare 3 generic { int Blt_TreeDeleteNode (Blt_Tree tree, Blt_TreeNode node) }
+
+declare 4 generic { int Blt_TreeMoveNode (Blt_Tree tree, Blt_TreeNode node, 
+Blt_TreeNode parent, Blt_TreeNode before) }
+
+declare 5 generic { Blt_TreeNode Blt_TreeGetNode (Blt_Tree tree, 
+unsigned int inode) }
+
+declare 6 generic { Blt_TreeNode Blt_TreeFindChild (Blt_TreeNode parent, 
+CONST char *name) }
+
+declare 7 generic { Blt_TreeNode Blt_TreeFindChildRev (Blt_TreeNode parent, 
+CONST char *name, int firstN) }
+
+declare 8 generic { Blt_TreeNode Blt_TreeFirstChild (Blt_TreeNode parent) }
+
+declare 9 generic { Blt_TreeNode Blt_TreeNextSibling (Blt_TreeNode node) }
+
+declare 10 generic { Blt_TreeNode Blt_TreeLastChild (Blt_TreeNode parent) }
+
+declare 11 generic { Blt_TreeNode Blt_TreePrevSibling (Blt_TreeNode node) }
+
+declare 12 generic { Blt_TreeNode Blt_TreeNextNode (Blt_TreeNode root, 
+Blt_TreeNode node) }
+
+declare 13 generic { Blt_TreeNode Blt_TreePrevNode (Blt_TreeNode root,
+Blt_TreeNode node) }
+
+declare 14 generic { Blt_TreeNode Blt_TreeChangeRoot (Blt_Tree tree,
+Blt_TreeNode node) }
+
+declare 15 generic { Blt_TreeNode Blt_TreeEndNode (Blt_TreeNode node,
+unsigned int nodeFlags) }
+
+declare 16 generic { int Blt_TreeIsBefore (Blt_TreeNode node1, 
+Blt_TreeNode node2) }
+
+declare 17 generic { int Blt_TreeIsAncestor (Blt_TreeNode node1, 
+Blt_TreeNode node2) }
+
+declare 18 generic { int Blt_TreePrivateValue (Tcl_Interp *interp, Blt_Tree tree,
+Blt_TreeNode node, Blt_TreeKey key) }
+
+declare 19 generic { int Blt_TreePublicValue (Tcl_Interp *interp, Blt_Tree tree,
+Blt_TreeNode node, Blt_TreeKey key) }
+
+declare 20 generic { int Blt_TreeGetValue (Tcl_Interp *interp, Blt_Tree tree, 
+Blt_TreeNode node, CONST char *string, Tcl_Obj **valuePtr) }
+
+declare 21 generic { int Blt_TreeValueExists (Blt_Tree tree, Blt_TreeNode node, 
+CONST char *string) }
+
+declare 22 generic { int Blt_TreeSetValue (Tcl_Interp *interp, Blt_Tree tree, 
+Blt_TreeNode node, CONST char *string, Tcl_Obj *valuePtr) }
+
+declare 23 generic { int Blt_TreeUnsetValue (Tcl_Interp *interp, Blt_Tree tree, 
+Blt_TreeNode node, CONST char *string) }
+
+declare 24 generic { int Blt_TreeGetArrayValue (Tcl_Interp *interp, 
+Blt_Tree tree, Blt_TreeNode node, CONST char *arrayName, 
+CONST char *elemName, Tcl_Obj **valueObjPtrPtr) }
+
+declare 25 generic { int Blt_TreeSetArrayValue (Tcl_Interp *interp, 
+Blt_Tree tree, Blt_TreeNode node, CONST char *arrayName, 
+CONST char *elemName, Tcl_Obj *valueObjPtr) }
+
+declare 26 generic { int Blt_TreeUnsetArrayValue (Tcl_Interp *interp, 
+Blt_Tree tree, Blt_TreeNode node, CONST char *arrayName, 
+CONST char *elemName) }
+
+declare 27 generic { int Blt_TreeArrayValueExists (Blt_Tree tree, 
+Blt_TreeNode node, CONST char *arrayName, CONST char *elemName) }
+
+declare 28 generic { int Blt_TreeArrayNames (Tcl_Interp *interp, Blt_Tree tree, 
+Blt_TreeNode node, CONST char *arrayName, Tcl_Obj *listObjPtr, CONST char *pattern) }
+
+declare 29 generic { int Blt_TreeGetValueByKey (Tcl_Interp *interp, 
+Blt_Tree tree, Blt_TreeNode node, Blt_TreeKey key, 
+Tcl_Obj **valuePtr) }
+
+declare 30 generic { int Blt_TreeSetValueByKey (Tcl_Interp *interp, 
+Blt_Tree tree, Blt_TreeNode node, Blt_TreeKey key, Tcl_Obj *valuePtr) }
+
+declare 31 generic { int Blt_TreeUnsetValueByKey (Tcl_Interp *interp, 
+Blt_Tree tree, Blt_TreeNode node, Blt_TreeKey key) }
+
+declare 32 generic { int Blt_TreeValueExistsByKey (Blt_Tree tree, 
+Blt_TreeNode node, Blt_TreeKey key) }
+
+declare 33 generic { Blt_TreeKey Blt_TreeFirstKey (Blt_Tree tree, 
+Blt_TreeNode node, Blt_TreeKeySearch *cursorPtr) }
+
+declare 34 generic { Blt_TreeKey Blt_TreeNextKey (Blt_Tree tree, 
+Blt_TreeKeySearch *cursorPtr) }
+
+declare 35 generic { int Blt_TreeApply (Blt_TreeNode root, 
+Blt_TreeApplyProc *proc, ClientData clientData) }
+
+declare 36 generic { int Blt_TreeApplyDFS (Blt_TreeNode root, 
+Blt_TreeApplyProc *proc, ClientData clientData, int order) }
+
+declare 37 generic { int Blt_TreeApplyBFS (Blt_TreeNode root, 
+Blt_TreeApplyProc *proc, ClientData clientData) }
+
+declare 38 generic { int Blt_TreeSortNode (Blt_Tree tree, Blt_TreeNode node, 
+Blt_TreeCompareNodesProc *proc) }
+
+declare 39 generic { int Blt_TreeCreate (Tcl_Interp *interp, CONST char *name,
+Blt_Tree *treePtr) }
+
+declare 40 generic { int Blt_TreeExists (Tcl_Interp *interp, CONST char *name) }
+
+declare 41 generic { int Blt_TreeGetToken (Tcl_Interp *interp, CONST char *name, 
+Blt_Tree *treePtr) }
+
+declare 42 generic { void Blt_TreeReleaseToken (Blt_Tree tree) }
+
+declare 43 generic { int Blt_TreeSize (Blt_TreeNode node) }
+
+declare 44 generic { Blt_TreeTrace Blt_TreeCreateTrace (Blt_Tree tree, 
+Blt_TreeNode node, CONST char *keyPattern, CONST char *tagName,
+unsigned int mask, Blt_TreeTraceProc *proc, ClientData clientData) }
+
+declare 45 generic { void Blt_TreeDeleteTrace (Blt_TreeTrace token) }
+
+declare 46 generic { void Blt_TreeCreateEventHandler (Blt_Tree tree, 
+unsigned int mask, Blt_TreeNotifyEventProc *proc, 
+ClientData clientData) }
+
+declare 47 generic { void Blt_TreeDeleteEventHandler (Blt_Tree tree, 
+unsigned int mask, Blt_TreeNotifyEventProc *proc, 
+ClientData clientData) }
+
+declare 48 generic { int Blt_TreeRelabelNode (Blt_Tree tree, Blt_TreeNode node, 
+CONST char *string) }
+declare 49 generic { int Blt_TreeRelabelNode2 (Blt_TreeNode node, 
+CONST char *string) }
+declare 50 generic { char *Blt_TreeNodePath (Blt_TreeNode node, 
+Tcl_DString *resultPtr) }	
+declare 51 generic { int Blt_TreeNodePosition (Blt_TreeNode node) }
+
+declare 52 generic { void Blt_TreeClearTags (Blt_Tree tree, Blt_TreeNode node) }
+declare 53 generic { int Blt_TreeAddTag (Blt_Tree tree, Blt_TreeNode node, 
+CONST char *tagName) }
+declare 54 generic { int Blt_TreeForgetTag (Blt_Tree tree, CONST char *tagName) }
+declare 55 generic { int Blt_TreeTagTableIsShared (Blt_Tree tree) }
+declare 56 generic { int Blt_TreeShareTagTable (Blt_Tree src, Blt_Tree target) }
+declare 57 generic { Blt_HashEntry *Blt_TreeFirstTag (Blt_Tree tree, 
+Blt_HashSearch *searchPtr) }
+declare 58 generic { int Blt_TreeHasTag (Blt_Tree tree, Blt_TreeNode node, 
+    CONST char *tagName) }
+declare 59 generic { Blt_HashTable *Blt_TreeTagHashTable (Blt_Tree tree, 
+CONST char *tagName) }
+
+
+declare 60 generic { double Blt_VecMin (Blt_Vector *vPtr) }
+declare 61 generic { double Blt_VecMax (Blt_Vector *vPtr) }
+
+declare 62 generic { Blt_VectorId Blt_AllocVectorId (Tcl_Interp *interp,
+char *vecName) }
+
+declare 63 generic { void Blt_SetVectorChangedProc (Blt_VectorId clientId,
+Blt_VectorChangedProc * proc, ClientData clientData) }
+
+declare 64 generic { void Blt_FreeVectorId (Blt_VectorId clientId) }
+
+declare 65 generic { int Blt_GetVectorById (Tcl_Interp *interp,
+Blt_VectorId clientId, Blt_Vector **vecPtrPtr) }
+
+declare 66 generic { char *Blt_NameOfVectorId (Blt_VectorId clientId) }
+
+declare 67 generic { char *Blt_NameOfVector (Blt_Vector *vecPtr) }
+
+declare 68 generic { int Blt_VectorNotifyPending (Blt_VectorId clientId) }
+
+declare 69 generic { int Blt_CreateVector (Tcl_Interp *interp, char *vecName,
+int size, Blt_Vector ** vecPtrPtr) }
+
+declare 70 generic { int Blt_GetVector (Tcl_Interp *interp, char *vecName,
+Blt_Vector **vecPtrPtr) }
+
+declare 71 generic { int Blt_VectorExists (Tcl_Interp *interp, char *vecName) }
+
+declare 72 generic { int Blt_ResetVector (Blt_Vector *vecPtr, double *dataArr,
+int nValues, int arraySize, Tcl_FreeProc *freeProc) }
+
+declare 73 generic { int Blt_ResizeVector (Blt_Vector *vecPtr, int nValues) }
+
+declare 74 generic { int Blt_DeleteVectorByName (Tcl_Interp *interp,
+char *vecName) }
+
+declare 75 generic { int Blt_DeleteVector (Blt_Vector *vecPtr) }
+
+declare 76 generic { int Blt_ExprVector (Tcl_Interp *interp, char *expression,
+Blt_Vector *vecPtr) }
+
+declare 77 generic { void Blt_InstallIndexProc (Tcl_Interp *interp, 
+char *indexName, Blt_VectorIndexProc * procPtr) }
+
+declare 78 generic { int Blt_CreateVector2 (Tcl_Interp *interp, char *vecName, char *cmdName, char *varName, int size, Blt_Vector ** vecPtrPtr) }
+
+declare 79 generic { Blt_TreeKey Blt_TreeKeyGet (Tcl_Interp *interp, Blt_TreeObject treeObjPtr, CONST char *string) }
+

@@ -1,0 +1,13 @@
+Release 2.4.27  (2.4z + patches)
+
+ - Change vectors to be relative current namespace.
+ - Bgexec handling of interp cleanup.
+ - Fixes for obvious sourceforge bugs/patches.
+ - Internalize OLDCONFIG so Blt works with 8.5+
+ - Make config options sub-interp/thread safe.
+ - Remove use of bltEmptyStringObj as unsafe.
+ - Container arg "-window interpN.win" for embed in subinterp.
+ - Update tour.tcl to support all demos and use new -window interpN.win option.
+ - Args for tour.tcl: "-tearoff 1" and "-bgexec 1"
+ - Config dumps 6th arg (string type) if window name prefix is .__##
+

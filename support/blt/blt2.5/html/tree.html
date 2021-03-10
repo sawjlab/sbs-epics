@@ -1,0 +1,1831 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
+<HTML>
+<HEAD><TITLE>tree manual page - BLT Built-In Commands</TITLE><!--#include virtual="/man/maninc.html"-->
+<link rel="stylesheet" href="../docs.css" type="text/css" media="all">
+</HEAD>
+<BODY>
+<DL>
+<DD><A HREF="tree.htm#M2" NAME="L3562">NAME</A>
+<DL><DD>tree -  Create and manage tree data objects.</DD></DL>
+<DD><A HREF="tree.htm#M3" NAME="L3563">SYNOPSIS</A>
+<DL>
+</DL>
+<DD><A HREF="tree.htm#M4" NAME="L3564">DESCRIPTION</A>
+<DD><A HREF="tree.htm#M5" NAME="L3565">INTRODUCTION</A>
+<DD><A HREF="tree.htm#M6" NAME="L3566">SYNTAX</A>
+<DL class="syntax">
+<DD><A HREF="tree.htm#M7" NAME="L3567"><B>tree create</B> ?<B>-fixed</B>? ?<B>-keyhash</B> <I>N</I>? ?<I>treeName</I>?</A>
+<DL class="syntax">
+<DD><A HREF="tree.htm#M8" NAME="L3568"><B>-fixed</B></A>
+<DD><A HREF="tree.htm#M9" NAME="L3569"><B>-keyhash</B> <I>size</I></A>
+</DL>
+<DD><A HREF="tree.htm#M10" NAME="L3570"><B>tree destroy</B> <I>treeName</I>...</A>
+<DD><A HREF="tree.htm#M11" NAME="L3571"><B>tree names</B> ?<I>pattern</I>?</A>
+<DD><A HREF="tree.htm#M12" NAME="L3572"><B>tree op</B> <I>subcmd</I> ?<I>subsubcmd ...</I>? <I>treeName</I> ?<I>arg arg ...</I>?</A>
+</DL>
+<DD><A HREF="tree.htm#M13" NAME="L3573">NODE IDS AND TAGS</A>
+<DL class="node ids and tags">
+<DD><A HREF="tree.htm#M14" NAME="L3574"><B>all</B></A>
+<DD><A HREF="tree.htm#M15" NAME="L3575"><B>nonroot</B></A>
+<DD><A HREF="tree.htm#M16" NAME="L3576"><B>rootchildren</B></A>
+<DD><A HREF="tree.htm#M17" NAME="L3577"><B>root</B></A>
+</DL>
+<DD><A HREF="tree.htm#M18" NAME="L3578">NODE MODIFIERS</A>
+<DL class="node modifiers">
+<DD><A HREF="tree.htm#M19" NAME="L3579"><B>firstchild</B></A>
+<DD><A HREF="tree.htm#M20" NAME="L3580"><B>lastchild</B></A>
+<DD><A HREF="tree.htm#M21" NAME="L3581"><B>nextnode</B></A>
+<DD><A HREF="tree.htm#M22" NAME="L3582"><B>nextsibling</B></A>
+<DD><A HREF="tree.htm#M23" NAME="L3583"><B>parentnode</B></A>
+<DD><A HREF="tree.htm#M24" NAME="L3584"><B>prevnode</B></A>
+<DD><A HREF="tree.htm#M25" NAME="L3585"><B>prevsibling</B></A>
+<DD><A HREF="tree.htm#M26" NAME="L3586"><B>maxnode</B></A>
+<DD><A HREF="tree.htm#M27" NAME="L3587">&quot;<I>label</I>&quot;</A>
+<DD><A HREF="tree.htm#M28" NAME="L3588">'<I>label</I>'</A>
+</DL>
+<DD><A HREF="tree.htm#M29" NAME="L3589">TREE OPERATIONS</A>
+<DL class="tree operations">
+<DD><A HREF="tree.htm#M30" NAME="L3590"><I>treeName</I> <B>ancestor</B> <I>node1</I> <I>node2</I></A>
+<DD><A HREF="tree.htm#M31" NAME="L3591"><I>treeName</I> <B>append</B> <I>node key</I> <I>string</I> ?<I>string ...</I>?</A>
+<DD><A HREF="tree.htm#M32" NAME="L3592"><I>treeName</I> <B>appendi</B> <I>tagnode key</I> <I>string</I> ?<I>string ...</I>?</A>
+<DD><A HREF="tree.htm#M33" NAME="L3593"><I>treeName</I> <B>apply</B> <I>node</I> ?<I>switches</I>?</A>
+<DL class="tree operations">
+<DD><A HREF="tree.htm#M34" NAME="L3594"><B>-depth</B> <I>number</I></A>
+<DD><A HREF="tree.htm#M35" NAME="L3595"><B>-exact</B> <I>string</I></A>
+<DD><A HREF="tree.htm#M36" NAME="L3596"><B>-glob</B> <I>string</I></A>
+<DD><A HREF="tree.htm#M37" NAME="L3597"><B>-invert</B></A>
+<DD><A HREF="tree.htm#M38" NAME="L3598"><B>-isleaf</B></A>
+<DD><A HREF="tree.htm#M39" NAME="L3599"><B>-istree</B></A>
+<DD><A HREF="tree.htm#M40" NAME="L3600"><B>-key</B> <I>key</I></A>
+<DD><A HREF="tree.htm#M41" NAME="L3601"><B>-keyglob</B> <I>key</I></A>
+<DD><A HREF="tree.htm#M42" NAME="L3602"><B>-keyregexp</B> <I>key</I></A>
+<DD><A HREF="tree.htm#M43" NAME="L3603"><B>-keyexact</B> <I>key</I></A>
+<DD><A HREF="tree.htm#M44" NAME="L3604"><B>-nocase</B></A>
+<DD><A HREF="tree.htm#M45" NAME="L3605"><B>-precommand</B> <I>command</I></A>
+<DD><A HREF="tree.htm#M46" NAME="L3606"><B>-postcommand</B> <I>command</I></A>
+<DD><A HREF="tree.htm#M47" NAME="L3607"><B>-regexp</B> <I>string</I></A>
+<DD><A HREF="tree.htm#M48" NAME="L3608"><B>-tag</B> <I>string</I></A>
+<DD><A HREF="tree.htm#M49" NAME="L3609"><B>-usepath</B></A>
+</DL>
+<DD><A HREF="tree.htm#M50" NAME="L3610"><I>treeName</I> <B>children</B>  ?<B>-labels</B>? <I>node</I> ?<I>first</I>? ?<I>last</I>?</A>
+<DD><A HREF="tree.htm#M51" NAME="L3611"><I>treeName</I> <B>copy</B> <I>srcNode</I> ?<I>destTree</I>? <I>parentNode</I> ?<I>switches</I>?</A>
+<DL class="tree operations">
+<DD><A HREF="tree.htm#M52" NAME="L3612"><B>-label</B> <I>string</I></A>
+<DD><A HREF="tree.htm#M53" NAME="L3613"><B>-overwrite</B></A>
+<DD><A HREF="tree.htm#M54" NAME="L3614"><B>-recurse</B></A>
+<DD><A HREF="tree.htm#M55" NAME="L3615"><B>-reverse</B></A>
+<DD><A HREF="tree.htm#M56" NAME="L3616"><B>-tags</B></A>
+</DL>
+<DD><A HREF="tree.htm#M57" NAME="L3617"><I>treeName</I> <B>create</B> ?<I>switches</I>?</A>
+<DL class="tree operations">
+<DD><A HREF="tree.htm#M58" NAME="L3618"><B>-at</B> <I>number</I></A>
+<DD><A HREF="tree.htm#M59" NAME="L3619"><B>-fixed</B></A>
+<DD><A HREF="tree.htm#M60" NAME="L3620"><B>-data</B> <I>list</I></A>
+<DD><A HREF="tree.htm#M61" NAME="L3621"><B>-labelstart</B> <I>number</I></A>
+<DD><A HREF="tree.htm#M62" NAME="L3622"><B>-nodes</B> <I>list</I></A>
+<DD><A HREF="tree.htm#M63" NAME="L3623"><B>-num</B> <I>number</I></A>
+<DD><A HREF="tree.htm#M64" NAME="L3624"><B>-offset</B> <I>number</I></A>
+<DD><A HREF="tree.htm#M65" NAME="L3625"><B>-parent</B> <I>node</I></A>
+<DD><A HREF="tree.htm#M66" NAME="L3626"><B>-path</B> <I>pathList</I></A>
+<DD><A HREF="tree.htm#M67" NAME="L3627"><B>-prefix</B> <I>str</I></A>
+<DD><A HREF="tree.htm#M68" NAME="L3628"><B>-start</B> <I>number</I></A>
+<DD><A HREF="tree.htm#M69" NAME="L3629"><B>-tags</B> <I>tagList</I></A>
+</DL>
+<DD><A HREF="tree.htm#M70" NAME="L3630"><I>treeName</I> <B>degree</B> <I>node</I></A>
+<DD><A HREF="tree.htm#M71" NAME="L3631"><I>treeName</I> <B>delete</B> <I>node</I>...</A>
+<DD><A HREF="tree.htm#M72" NAME="L3632"><I>treeName</I> <B>depth</B> <I>node</I></A>
+<DD><A HREF="tree.htm#M73" NAME="L3633"><I>treeName</I> <B>dump</B> <I>node</I> ?<I>switches</I>?</A>
+<DL class="tree operations">
+<DD><A HREF="tree.htm#M74" NAME="L3634"><B>-channel </B><I>chan</I></A>
+<DD><A HREF="tree.htm#M75" NAME="L3635"><B>-file </B><I>fileName</I></A>
+<DD><A HREF="tree.htm#M76" NAME="L3636"><B>-keys </B><I>list</I></A>
+<DD><A HREF="tree.htm#M77" NAME="L3637"><B>-skipkeys </B><I>list</I></A>
+<DD><A HREF="tree.htm#M78" NAME="L3638"><B>-tag </B><I>pattern</I></A>
+<DD><A HREF="tree.htm#M79" NAME="L3639"><B>-skiptag </B><I>pattern</I></A>
+<DD><A HREF="tree.htm#M80" NAME="L3640"><B>-notags</B></A>
+<DD><A HREF="tree.htm#M81" NAME="L3641"><B>-nopath</B></A>
+</DL>
+<DD><A HREF="tree.htm#M82" NAME="L3642"><I>treeName</I> <B>exists</B> <I>node</I> ?<I>key</I>?</A>
+<DD><A HREF="tree.htm#M83" NAME="L3643"><I>treeName</I> <B>find</B> ?<I>switches</I>?</A>
+<DL class="tree operations">
+<DD><A HREF="tree.htm#M84" NAME="L3644"><B>-addtag</B> <I>string</I></A>
+<DD><A HREF="tree.htm#M85" NAME="L3645"><B>-command</B> <I>command</I></A>
+<DD><A HREF="tree.htm#M86" NAME="L3646"><B>-count</B></A>
+<DD><A HREF="tree.htm#M87" NAME="L3647"><B>-depth</B> <I>number</I></A>
+<DD><A HREF="tree.htm#M88" NAME="L3648"><B>-exact</B></A>
+<DD><A HREF="tree.htm#M89" NAME="L3649"><B>-exec</B> <I>script</I></A>
+<DL class="tree operations">
+<DD><A HREF="tree.htm#M90" NAME="L3650"><B>%#</B></A>
+<DD><A HREF="tree.htm#M91" NAME="L3651"><B>%W</B></A>
+<DD><A HREF="tree.htm#M92" NAME="L3652"><B>%p</B></A>
+<DD><A HREF="tree.htm#M93" NAME="L3653"><B>%P</B></A>
+<DD><A HREF="tree.htm#M94" NAME="L3654"><B>%R</B></A>
+<DD><A HREF="tree.htm#M95" NAME="L3655"><B>%r</B></A>
+<DD><A HREF="tree.htm#M96" NAME="L3656"><B>%T</B></A>
+<DD><A HREF="tree.htm#M97" NAME="L3657"><B>%V</B></A>
+<DD><A HREF="tree.htm#M98" NAME="L3658"><B>%D</B></A>
+<DD><A HREF="tree.htm#M99" NAME="L3659"><B>%%</B></A>
+</DL>
+<DD><A HREF="tree.htm#M100" NAME="L3660"><B>-glob</B></A>
+<DD><A HREF="tree.htm#M101" NAME="L3661"><B>-isarray</B></A>
+<DD><A HREF="tree.htm#M102" NAME="L3662"><B>-invert</B></A>
+<DD><A HREF="tree.htm#M103" NAME="L3663"><B>-isfixed</B></A>
+<DD><A HREF="tree.htm#M104" NAME="L3664"><B>-isleaf</B></A>
+<DD><A HREF="tree.htm#M105" NAME="L3665"><B>-isnotfixed</B></A>
+<DD><A HREF="tree.htm#M106" NAME="L3666"><B>-istree</B></A>
+<DD><A HREF="tree.htm#M107" NAME="L3667"><B>-keycount</B> <I>num</I></A>
+<DD><A HREF="tree.htm#M108" NAME="L3668"><B>-key</B> <I>key</I></A>
+<DD><A HREF="tree.htm#M109" NAME="L3669"><B>-keyglob</B> <I>key</I></A>
+<DD><A HREF="tree.htm#M110" NAME="L3670"><B>-keyregexp</B> <I>key</I></A>
+<DD><A HREF="tree.htm#M111" NAME="L3671"><B>-keyexact</B> <I>key</I></A>
+<DD><A HREF="tree.htm#M112" NAME="L3672"><B>-limit</B> <I>number</I></A>
+<DD><A HREF="tree.htm#M113" NAME="L3673"><B>-maxdepth</B> <I>number</I></A>
+<DD><A HREF="tree.htm#M114" NAME="L3674"><B>-mindepth</B> <I>number</I></A>
+<DD><A HREF="tree.htm#M115" NAME="L3675"><B>-name</B> <I>string</I></A>
+<DD><A HREF="tree.htm#M116" NAME="L3676"><B>-nocase</B></A>
+<DD><A HREF="tree.htm#M117" NAME="L3677"><B>-nodes </B><I>tagnode</I></A>
+<DD><A HREF="tree.htm#M118" NAME="L3678"><B>-notop</B></A>
+<DD><A HREF="tree.htm#M119" NAME="L3679"><B>-order</B> <I>string</I></A>
+<DL class="tree operations">
+<DD><A HREF="tree.htm#M120" NAME="L3680"><B>breadthfirst</B></A>
+<DD><A HREF="tree.htm#M121" NAME="L3681"><B>inorder</B></A>
+<DD><A HREF="tree.htm#M122" NAME="L3682"><B>postorder</B></A>
+<DD><A HREF="tree.htm#M123" NAME="L3683"><B>preorder</B></A>
+</DL>
+<DD><A HREF="tree.htm#M124" NAME="L3684"><B>-usepath</B></A>
+<DD><A HREF="tree.htm#M125" NAME="L3685"><B>-regexp</B></A>
+<DD><A HREF="tree.htm#M126" NAME="L3686"><B>-reldepth</B></A>
+<DD><A HREF="tree.htm#M127" NAME="L3687"><B>-return </B><I>key</I></A>
+<DD><A HREF="tree.htm#M128" NAME="L3688"><B>-top </B><I>node</I></A>
+<DD><A HREF="tree.htm#M129" NAME="L3689"><B>-var </B><I>variable</I></A>
+<DD><A HREF="tree.htm#M130" NAME="L3690"><B>-withtag</B> <I>string</I></A>
+<DD><A HREF="tree.htm#M131" NAME="L3691"><B>-withouttag</B> <I>string</I></A>
+</DL>
+<DD><A HREF="tree.htm#M132" NAME="L3692"><I>treeName</I> <B>findchild</B> <I>node</I> <I>label</I></A>
+<DD><A HREF="tree.htm#M133" NAME="L3693"><I>treeName</I> <B>firstchild</B> <I>node</I></A>
+<DD><A HREF="tree.htm#M134" NAME="L3694"><I>treeName</I> <B>fixed</B> <I>node</I> ?<I>isfixed</I>?</A>
+<DD><A HREF="tree.htm#M135" NAME="L3695"><I>treeName</I> <B>foreach</B> <I>var tagnode script</I></A>
+<DD><A HREF="tree.htm#M136" NAME="L3696"><I>treeName</I> <B>get</B> <I>node</I> ?<I>key</I>? ?<I>defaultValue</I>?</A>
+<DD><A HREF="tree.htm#M137" NAME="L3697"><I>treeName</I> <B>incr</B> <I>node key</I> ?<I>amount</I>?</A>
+<DD><A HREF="tree.htm#M138" NAME="L3698"><I>treeName</I> <B>incri</B> <I>tagnode key</I> ?<I>amount</I>?</A>
+<DD><A HREF="tree.htm#M139" NAME="L3699"><I>treeName</I> <B>index</B> <I>node</I></A>
+<DD><A HREF="tree.htm#M140" NAME="L3700"><I>treeName</I> <B>insert</B> <I>parent</I> ?<I>switches</I>?</A>
+<DL class="tree operations">
+<DD><A HREF="tree.htm#M141" NAME="L3701"><B>-after</B> <I>child</I></A>
+<DD><A HREF="tree.htm#M142" NAME="L3702"><B>-at</B> <I>number</I></A>
+<DD><A HREF="tree.htm#M143" NAME="L3703"><B>-before</B> <I>child</I></A>
+<DD><A HREF="tree.htm#M144" NAME="L3704"><B>-data</B> <I>dataList</I></A>
+<DD><A HREF="tree.htm#M145" NAME="L3705"><B>-fixed</B> <I>bool</I></A>
+<DD><A HREF="tree.htm#M146" NAME="L3706"><B>-label</B> <I>string</I></A>
+<DD><A HREF="tree.htm#M147" NAME="L3707"><B>-names</B> <I>nameList</I></A>
+<DD><A HREF="tree.htm#M148" NAME="L3708"><B>-node</B> <I>id</I></A>
+<DD><A HREF="tree.htm#M149" NAME="L3709"><B>-pretags</B> <I>tagList</I></A>
+<DD><A HREF="tree.htm#M150" NAME="L3710"><B>-tags</B> <I>tagList</I></A>
+<DD><A HREF="tree.htm#M151" NAME="L3711"><B>-values</B> <I>valueList</I></A>
+</DL>
+<DD><A HREF="tree.htm#M152" NAME="L3712"><I>treeName</I> <B>is</B> <I>property</I> <I>args</I></A>
+<DL class="tree operations">
+<DD><A HREF="tree.htm#M153" NAME="L3713"><B>ancestor</B> <I>node1</I> <I>node2</I></A>
+<DD><A HREF="tree.htm#M154" NAME="L3714"><B>before</B> <I>node1</I> <I>node2</I></A>
+<DD><A HREF="tree.htm#M155" NAME="L3715"><B>leaf</B> <I>node</I></A>
+<DD><A HREF="tree.htm#M156" NAME="L3716"><B>root</B> <I>node</I></A>
+</DL>
+<DD><A HREF="tree.htm#M157" NAME="L3717"><I>treeName</I> <B>ismodified</B> ?<I>nodeOrTag</I>? ?<I>isflag</I>?</A>
+<DD><A HREF="tree.htm#M158" NAME="L3718"><I>treeName</I> <B>keys</B> <I>node</I> ?<I>tagnode ...</I>?</A>
+<DD><A HREF="tree.htm#M159" NAME="L3719"><I>treeName</I> <B>label</B> <I>node</I> ?<I>newLabel</I>?</A>
+<DD><A HREF="tree.htm#M160" NAME="L3720"><I>treeName</I> <B>lappend</B> <I>node key</I> <I>value</I> ?<I>value ...</I>?</A>
+<DD><A HREF="tree.htm#M161" NAME="L3721"><I>treeName</I> <B>lappendi</B> <I>tagnode key</I> <I>value</I> ?<I>value ...</I>?</A>
+<DD><A HREF="tree.htm#M162" NAME="L3722"><I>treeName</I> <B>lastchild</B> <I>node</I></A>
+<DD><A HREF="tree.htm#M163" NAME="L3723"><I>treeName</I> <B>modify</B> <I>tagnode</I> <I>key value</I> ?<I>key value</I>...?</A>
+<DD><A HREF="tree.htm#M164" NAME="L3724"><I>treeName</I> <B>move</B> <I>node</I> <I>newParent</I> ?<I>switches</I>?</A>
+<DL class="tree operations">
+<DD><A HREF="tree.htm#M165" NAME="L3725"><B>-after</B> <I>child</I></A>
+<DD><A HREF="tree.htm#M166" NAME="L3726"><B>-at</B> <I>number</I></A>
+<DD><A HREF="tree.htm#M167" NAME="L3727"><B>-before</B> <I>child</I></A>
+</DL>
+<DD><A HREF="tree.htm#M168" NAME="L3728"><I>treeName</I> <B>names</B> <I>node</I> ?<I>key</I>?</A>
+<DD><A HREF="tree.htm#M169" NAME="L3729"><I>treeName</I> <B>next</B> <I>node</I></A>
+<DD><A HREF="tree.htm#M170" NAME="L3730"><I>treeName</I> <B>nextsibling</B> <I>node</I></A>
+<DD><A HREF="tree.htm#M171" NAME="L3731"><I>treeName</I> <B>nodeseq</B> ?<I>start</I>?</A>
+<DD><A HREF="tree.htm#M172" NAME="L3732"><I>treeName</I> <B>notify</B> <I>args</I></A>
+<DD><A HREF="tree.htm#M173" NAME="L3733"><I>treeName</I> <B>oldvalue</B> ?<I>newvalue</I>?</A>
+<DD><A HREF="tree.htm#M174" NAME="L3734"><I>treeName</I> <B>parent</B> <I>node</I></A>
+<DD><A HREF="tree.htm#M175" NAME="L3735"><I>treeName</I> <B>path</B> <I>node</I> ?<I>delim</I>? ?<I>prefix</I>?</A>
+<DD><A HREF="tree.htm#M176" NAME="L3736"><I>treeName</I> <B>position</B>  ?<B>-sort</B>? ?<B>-format</B> <I>ftype</I>? <I>node</I> ?<I>node</I> ...?</A>
+<DD><A HREF="tree.htm#M177" NAME="L3737"><I>treeName</I> <B>previous</B> <I>node</I></A>
+<DD><A HREF="tree.htm#M178" NAME="L3738"><I>treeName</I> <B>prevsibling</B> <I>node</I></A>
+<DD><A HREF="tree.htm#M179" NAME="L3739"><I>treeName</I> <B>restore</B> <I>node</I> <I>switches</I></A>
+<DL class="tree operations">
+<DD><A HREF="tree.htm#M180" NAME="L3740"><B>-addtags</B></A>
+<DD><A HREF="tree.htm#M181" NAME="L3741"><B>-channel </B><I>chan</I></A>
+<DD><A HREF="tree.htm#M182" NAME="L3742"><B>-data </B><I>string</I></A>
+<DD><A HREF="tree.htm#M183" NAME="L3743"><B>-file </B><I>fileName</I></A>
+<DD><A HREF="tree.htm#M184" NAME="L3744"><B>-keys </B><I>list</I></A>
+<DD><A HREF="tree.htm#M185" NAME="L3745"><B>-skipkeys </B><I>list</I></A>
+<DD><A HREF="tree.htm#M186" NAME="L3746"><B>-tag </B><I>pattern</I></A>
+<DD><A HREF="tree.htm#M187" NAME="L3747"><B>-skiptag </B><I>pattern</I></A>
+<DD><A HREF="tree.htm#M188" NAME="L3748"><B>-notags</B></A>
+<DD><A HREF="tree.htm#M189" NAME="L3749"><B>-overwrite</B></A>
+</DL>
+<DD><A HREF="tree.htm#M190" NAME="L3750"><I>treeName</I> <B>root</B> ?<I>node</I>?</A>
+<DD><A HREF="tree.htm#M191" NAME="L3751"><I>treeName</I> <B>set</B> <I>tagnode</I> <I>key value</I> ?<I>key value</I>...?</A>
+<DD><A HREF="tree.htm#M192" NAME="L3752"><I>treeName</I> <B>size</B> <I>node</I></A>
+<DD><A HREF="tree.htm#M193" NAME="L3753"><I>treeName</I> <B>sort</B> <I>node</I> ?<I>switches</I>?</A>
+<DL class="tree operations">
+<DD><A HREF="tree.htm#M194" NAME="L3754"><B>-ascii</B></A>
+<DD><A HREF="tree.htm#M195" NAME="L3755"><B>-command</B> <I>string</I></A>
+<DD><A HREF="tree.htm#M196" NAME="L3756"><B>-decreasing</B></A>
+<DD><A HREF="tree.htm#M197" NAME="L3757"><B>-dictionary</B></A>
+<DD><A HREF="tree.htm#M198" NAME="L3758"><B>-integer</B></A>
+<DD><A HREF="tree.htm#M199" NAME="L3759"><B>-key</B> <I>string</I></A>
+<DD><A HREF="tree.htm#M200" NAME="L3760"><B>-real</B></A>
+<DD><A HREF="tree.htm#M201" NAME="L3761"><B>-recurse</B></A>
+<DD><A HREF="tree.htm#M202" NAME="L3762"><B>-reorder</B></A>
+<DD><A HREF="tree.htm#M203" NAME="L3763"><B>-usepath</B></A>
+</DL>
+<DD><A HREF="tree.htm#M204" NAME="L3764"><I>treeName</I> <B>sqlload</B> ?<I>switches</I>? <I>dbhfile</I> <I>sqlstmt</I></A>
+<DL class="tree operations">
+<DD><A HREF="tree.htm#M205" NAME="L3765"><B>-addtags </B><I>taglist</I></A>
+<DD><A HREF="tree.htm#M206" NAME="L3766"><B>-at </B><I>num</I></A>
+<DD><A HREF="tree.htm#M207" NAME="L3767"><B>-fixed</B></A>
+<DD><A HREF="tree.htm#M208" NAME="L3768"><B>-key </B><I>name</I></A>
+<DD><A HREF="tree.htm#M209" NAME="L3769"><B>-labelcol </B><I>column</I></A>
+<DD><A HREF="tree.htm#M210" NAME="L3770"><B>-maprowid </B><I>num</I></A>
+<DD><A HREF="tree.htm#M211" NAME="L3771"><B>-max </B><I>num</I></A>
+<DD><A HREF="tree.htm#M212" NAME="L3772"><B>-nullvalue </B><I>string</I></A>
+<DD><A HREF="tree.htm#M213" NAME="L3773"><B>-parent </B><I>string</I></A>
+<DD><A HREF="tree.htm#M214" NAME="L3774"><B>-pathcol </B><I>column</I></A>
+<DD><A HREF="tree.htm#M215" NAME="L3775"><B>-skipcols </B><I>columns</I></A>
+<DD><A HREF="tree.htm#M216" NAME="L3776"><B>-tagcol </B><I>column</I></A>
+<DD><A HREF="tree.htm#M217" NAME="L3777"><B>-treecols </B><I>columns</I></A>
+</DL>
+<DD><A HREF="tree.htm#M218" NAME="L3778"><I>treeName</I> <B>sum</B> ?<I>switches</I>? <I>tagnode key</I> ?<I>key ...</I>?</A>
+<DL class="tree operations">
+<DD><A HREF="tree.htm#M219" NAME="L3779"><B>-diff</B><I> value</I></A>
+<DD><A HREF="tree.htm#M220" NAME="L3780"><B>-force</B></A>
+<DD><A HREF="tree.htm#M221" NAME="L3781"><B>-int</B></A>
+<DD><A HREF="tree.htm#M222" NAME="L3782"><B>-runtotal </B><I>key</I></A>
+<DD><A HREF="tree.htm#M223" NAME="L3783"><B>-start </B><I>num</I></A>
+</DL>
+<DD><A HREF="tree.htm#M224" NAME="L3784"><I>treeName</I> <B>supdate</B> <I>node</I> <I>key value</I> ?<I>key value</I>...?</A>
+<DD><A HREF="tree.htm#M225" NAME="L3785"><I>treeName</I> <B>tag</B> <I>args</I></A>
+<DD><A HREF="tree.htm#M226" NAME="L3786"><I>treeName</I> <B>trace</B> <I>args</I></A>
+<DD><A HREF="tree.htm#M227" NAME="L3787"><I>treeName</I> <B>type</B> <I>node</I> <I>key</I></A>
+<DD><A HREF="tree.htm#M228" NAME="L3788"><I>treeName</I> <B>update</B> <I>node</I> <I>key value</I> ?<I>key value</I>...?</A>
+<DD><A HREF="tree.htm#M229" NAME="L3789"><I>treeName</I> <B>unset</B> <I>node</I> <I>key</I>...</A>
+<DD><A HREF="tree.htm#M230" NAME="L3790"><I>treeName</I> <B>values</B> <I>node</I> ?<I>key</I>? ?<I>withnames</I>?</A>
+<DD><A HREF="tree.htm#M231" NAME="L3791"><I>treeName</I> <B>vecdump</B> <I>vector</I> <I>key</I> ?<I>tagnode</I>?</A>
+<DD><A HREF="tree.htm#M232" NAME="L3792"><I>treeName</I> <B>vecload</B> <I>vector</I> <I>key</I> ?<I>tagnode</I>?</A>
+<DD><A HREF="tree.htm#M233" NAME="L3793"><I>treeName</I> <B>with</B> ?<I>switch</I>? <I>tagnode script</I></A>
+<DL class="tree operations">
+<DD><A HREF="tree.htm#M234" NAME="L3794"><B>-array</B> <I>key</I></A>
+<DD><A HREF="tree.htm#M235" NAME="L3795"><B>-break</B></A>
+<DD><A HREF="tree.htm#M236" NAME="L3796"><B>-keys</B> <I>keylist</I></A>
+<DD><A HREF="tree.htm#M237" NAME="L3797"><B>-noupdate</B></A>
+<DD><A HREF="tree.htm#M238" NAME="L3798"><B>-unset</B></A>
+</DL>
+</DL>
+<DD><A HREF="tree.htm#M239" NAME="L3799">ARRAY SUB-FIELDS</A>
+<DD><A HREF="tree.htm#M240" NAME="L3800">TAG OPERATIONS</A>
+<DL class="tag operations">
+<DD><A HREF="tree.htm#M241" NAME="L3801"><I>treeName</I> <B>tag add</B> <I>string</I> ?<I>node</I>?...</A>
+<DD><A HREF="tree.htm#M242" NAME="L3802"><I>treeName</I> <B>tag delete</B> <I>string</I> <I>node</I>...</A>
+<DD><A HREF="tree.htm#M243" NAME="L3803"><I>treeName</I> <B>tag dump</B> <I>tagnode</I> ?<I>switches</I>?</A>
+<DL class="tag operations">
+<DD><A HREF="tree.htm#M244" NAME="L3804"><B>-keys </B><I>list</I></A>
+<DD><A HREF="tree.htm#M245" NAME="L3805"><B>-skipkeys </B><I>list</I></A>
+<DD><A HREF="tree.htm#M246" NAME="L3806"><B>-tag </B><I>pattern</I></A>
+<DD><A HREF="tree.htm#M247" NAME="L3807"><B>-skiptag </B><I>pattern</I></A>
+<DD><A HREF="tree.htm#M248" NAME="L3808"><B>-notags</B></A>
+<DD><A HREF="tree.htm#M249" NAME="L3809"><B>-nopath</B></A>
+</DL>
+<DD><A HREF="tree.htm#M250" NAME="L3810"><I>treeName</I> <B>tag exists</B> <I>string</I> ?<I>id</I>?</A>
+<DD><A HREF="tree.htm#M251" NAME="L3811"><I>treeName</I> <B>tag forget</B> <I>string</I> ?<I>string</I> ...?</A>
+<DD><A HREF="tree.htm#M252" NAME="L3812"><I>treeName</I> <B>tag lookups</B> ?<I>pattern</I>?</A>
+<DD><A HREF="tree.htm#M253" NAME="L3813"><I>treeName</I> <B>tag names</B> ?<B>-glob</B>? ?<B>-regexp</B>? ?<B>-nocase</B>?  ?<I>node</I>? ?<I>node ...</I>?</A>
+<DD><A HREF="tree.htm#M254" NAME="L3814"><I>treeName</I> <B>tag nodes</B> <I>string</I> ?<I>string ...</I>?</A>
+</DL>
+<DD><A HREF="tree.htm#M255" NAME="L3815">TRACE OPERATIONS</A>
+<DL class="trace operations">
+<DD><A HREF="tree.htm#M256" NAME="L3816"><I>treeName</I> <B>trace create</B> <I>node</I> <I>key</I> <I>ops</I> <I>command</I> ?-bgerror?</A>
+<DL class="trace operations">
+<DD><A HREF="tree.htm#M257" NAME="L3817"><B>r</B></A>
+<DD><A HREF="tree.htm#M258" NAME="L3818"><B>w</B></A>
+<DD><A HREF="tree.htm#M259" NAME="L3819"><B>c</B></A>
+<DD><A HREF="tree.htm#M260" NAME="L3820"><B>u</B></A>
+<DD><A HREF="tree.htm#M261" NAME="L3821"><B>e</B></A>
+<DD><A HREF="tree.htm#M262" NAME="L3822"><B>t</B></A>
+<DD><A HREF="tree.htm#M263" NAME="L3823"><B>m</B></A>
+<DD><A HREF="tree.htm#M264" NAME="L3824"><B>d</B></A>
+</DL>
+<DD><A HREF="tree.htm#M265" NAME="L3825"><I>treeName</I> <B>trace delete</B> <I>traceId</I>...</A>
+<DD><A HREF="tree.htm#M266" NAME="L3826"><I>treeName</I> <B>trace info</B> <I>traceId</I></A>
+<DD><A HREF="tree.htm#M267" NAME="L3827"><I>treeName</I> <B>trace names</B></A>
+</DL>
+<DD><A HREF="tree.htm#M268" NAME="L3828">NOTIFY OPERATIONS</A>
+<DL class="notify operations">
+<DD><A HREF="tree.htm#M269" NAME="L3829"><I>treeName</I> <B>notify create</B> ?<I>switches</I>? <I>command</I> ?<I>args</I>?...</A>
+<DL class="notify operations">
+<DD><A HREF="tree.htm#M270" NAME="L3830"><B>-create</B></A>
+<DD><A HREF="tree.htm#M271" NAME="L3831"><B>-delete</B></A>
+<DD><A HREF="tree.htm#M272" NAME="L3832"><B>-get</B></A>
+<DD><A HREF="tree.htm#M273" NAME="L3833"><B>-insert</B></A>
+<DD><A HREF="tree.htm#M274" NAME="L3834"><B>-move</B></A>
+<DD><A HREF="tree.htm#M275" NAME="L3835"><B>-movepost</B></A>
+<DD><A HREF="tree.htm#M276" NAME="L3836"><B>-sort</B></A>
+<DD><A HREF="tree.htm#M277" NAME="L3837"><B>-relabel</B></A>
+<DD><A HREF="tree.htm#M278" NAME="L3838"><B>-relabelpost</B></A>
+<DD><A HREF="tree.htm#M279" NAME="L3839"><B>-allevents</B></A>
+<DD><A HREF="tree.htm#M280" NAME="L3840"><B>-whenidle</B></A>
+</DL>
+<DD><A HREF="tree.htm#M281" NAME="L3841"><I>treeName</I> <B>notify delete</B> <I>notifyId</I></A>
+<DD><A HREF="tree.htm#M282" NAME="L3842"><I>treeName</I> <B>notify info</B> <I>notifyId</I></A>
+<DD><A HREF="tree.htm#M283" NAME="L3843"><I>treeName</I> <B>notify names</B></A>
+</DL>
+<DD><A HREF="tree.htm#M284" NAME="L3844">TABLE EXAMPLE</A>
+<DD><A HREF="tree.htm#M285" NAME="L3845">TREE EXAMPLE</A>
+<DD><A HREF="tree.htm#M286" NAME="L3846">SQLLOAD EXAMPLE</A>
+<DD><A HREF="tree.htm#M287" NAME="L3847">TREE KEY STRING STORAGE</A>
+<DD><A HREF="tree.htm#M288" NAME="L3848">C LANGUAGE API</A>
+<DD><A HREF="tree.htm#M289" NAME="L3849">KEYWORDS</A>
+</DL>
+<H3><A NAME="M2">NAME</A></H3>
+tree -  Create and manage tree data objects.
+<H3><A NAME="M3">SYNOPSIS</A></H3>
+<B>tree create</B> ?<B>-fixed</B>? ?<B>-keyhash</B> <I>N</I>? ?<I>treeName</I>?<BR>
+<B>tree destroy</B> <I>treeName</I>...<BR>
+<B>tree names</B> ?<I>pattern</I>?<BR>
+<B>tree op</B> <I>subcmd</I> ?<I>subsubcmd ...</I>? <I>treeName</I> ?<I>arg arg ...</I>?<BR>
+<H3><A NAME="M4">DESCRIPTION</A></H3>
+The <B>tree</B> command is used to create, destroy, list and
+access tree data objects.
+A <I>tree object</I>
+is an ordered tree of nodes where each node has a label and a set of
+key-value data pairs.  Creating a tree object associates it with,
+a Tcl command that is subsequently used to interact with the tree.
+Tree objects can also be managed via the C API, eg.
+the <B><A HREF="../TclCmd/treeview.htm">treeview</A></B> widget uses a tree object internally.
+
+<H3><A NAME="M5">INTRODUCTION</A></H3>
+Tree provides Tcl with rich support for storing and accessing
+complex data structures.
+Here is an example.
+<PRE>set t [tree create]
+set n [$t insert 0 -data {a 1   b 2   c &quot;X 1 Y 2&quot;}]
+$t set $n b [$t get $n a]
+$t set $n c(X) 4</PRE>
+<P>
+Note the last line demonstrates an <B><A HREF="../TclCmd/array.htm">array</A></B> value.
+See the
+section below for details.
+<H3><A NAME="M6">SYNTAX</A></H3>
+<DL class="syntax">
+<DT><A NAME="M7"><B>tree create</B> ?<B>-fixed</B>? ?<B>-keyhash</B> <I>N</I>? ?<I>treeName</I>?</A><DD>
+Creates a new tree object.  The name of the new tree is returned.
+If no <I>treeName</I> argument is present, then the name of the tree is
+automatically generated in the form &quot;<B>tree0</B>&quot;, &quot;<B>tree1</B>&quot;,
+etc relative to the current namespace.
+If a tree names is given, it can not start with a dash.
+If the substring &quot;<B>#auto</B>&quot; is found in a given <I>treeName</I>, it
+is replaced with <B>tree</B><I>N</I> in a
+generated name.  For example, the
+name <B>foo.#auto.bar</B> will translate to <B>foo.tree0.bar</B>.
+<P>
+A Tcl command (with the same name as the tree) is also created.
+Another Tcl command or tree object can not already exist named
+<I>treeName</I>.  If the Tcl command is deleted, the tree will also be
+freed.
+<P>
+Newly created trees always contain a single root node with id <B>0</B>
+that can not be deleted.
+<P>
+Switches for <B>create</B> are listed below:
+<P>
+<DL class="syntax">
+<DT><A NAME="M8"><B>-fixed</B></A><DD>
+Make <B>insert</B> automatically set the <B>-fixed</B> flag.
+This will disallow later setting of keys not given
+as <I>-data</I> to the insert.  Also see <B>fixed</B>.
+<P><DT><A NAME="M9"><B>-keyhash</B> <I>size</I></A><DD>
+Define the size beyond which node key storage starts using
+a hash (the default is 21 keys).  Normally
+small numbers of keys are stored as a list.  But once more than
+<I>size</I> keys are added to a node, key storage converts to a hash.
+This affects the order of key iteration (eg. for <B>get</B>/<B>names</B>/<B>values</B>).
+A list will iterate in the order in which keys were added,  
+whereas the order of a hash is undetermined.
+For large numbers of
+ordered keys, specify a really large <I>size</I> (eg. 1000000).
+Note that array sub-keys always use a hash table.
+<P></DL>
+<P><DT><A NAME="M10"><B>tree destroy</B> <I>treeName</I>...</A><DD>
+Releases one of more trees.  The Tcl command associated with
+<I>treeName</I> is also removed.  Trees are reference counted.  The
+internal tree data object isn't destroyed until no one else is using
+the tree.
+<P><DT><A NAME="M11"><B>tree names</B> ?<I>pattern</I>?</A><DD>
+Returns the names of all tree objects.  if a <I>pattern</I> argument
+is given, then the only those trees whose name matches pattern will
+be listed.
+<P><DT><A NAME="M12"><B>tree op</B> <I>subcmd</I> ?<I>subsubcmd ...</I>? <I>treeName</I> ?<I>arg arg ...</I>?</A><DD>
+Provide direct calls to sub-commands, without going through the object command.
+Aside from self documentating,
+it allows wize to provide support checked tree calls.
+<P></DL>
+<H3><A NAME="M13">NODE IDS AND TAGS</A></H3>
+Nodes in a tree object may be referred in either of two ways: by id or by
+tag.  Each node has a unique serial number or id that is assigned to that
+node when it's created. The id of an node never changes and id numbers
+are not re-used  (except when all of roots nodes are delete).
+<P>
+A node may also have any number of tags associated with it.  A tag is
+just a string of characters, and it may take any form but
+may not start with
+an integer.  For example, &quot;<B>x123</B>&quot; is valid, but &quot;<B>123x</B>&quot;
+is not.  The same tag may be associated with one
+or multiple nodes (ranges or <I>tagnode</I>).
+Ranges are commonly used to group nodes in various interesting ways.
+<P>
+Commands that take a <I>tagnode</I> can operate on ranges and
+will accept either a tag or a list of zero or more integer node numbers.
+Node-lists can contain only integers,
+without leading spaces.
+Node-lists simplify the use of iterating commands because
+it avoids excessive use of <B><A HREF="../TclCmd/eval.htm">eval</A></B>.
+<P>
+There are four built-in tags:
+<P>
+<DL class="node ids and tags">
+<DT><A NAME="M14"><B>all</B></A><DD>
+Applies to every node in the tree.
+<P><DT><A NAME="M15"><B>nonroot</B></A><DD>
+Applies to every node in the tree except the root node.
+<P><DT><A NAME="M16"><B>rootchildren</B></A><DD>
+Applies to every node in the tree whose parent is the root node.
+<P><DT><A NAME="M17"><B>root</B></A><DD>
+Managed automatically by the tree object, <B>root</B> specifies the node
+that is currently set as the root node for the tree.
+<P></DL>
+<P>
+When specifying nodes in tree object commands, if the specifier is an
+integer then it is assumed to refer to the single node with that id.
+If the specifier is not an integer, then it is assumed to refer to all
+of the nodes in the tree that have a tag matching the specifier.  The
+symbol <I>node</I> is used below to indicate that an argument specifies
+either an id or a tag that selects a single node.
+A <I>tagnode</I> is either a tag that selects a group of
+nodes, or it's a list of zero or more integer node numbers.
+Many tree commands only operate on a single node at a
+time; if <I>node</I> is specified in a way that names multiple items, then
+an error &quot;refers to more than one node&quot; is generated.
+<H3><A NAME="M18">NODE MODIFIERS</A></H3>
+You can also specify node in relation to another node by appending one
+or more modifiers to the node id or tag.  A modifier refers to a node
+in relation to the specified node.  For example, 
+&quot;<B>root-&gt;firstchild</B>&quot;
+selects the first subtree of the root node.
+<P>
+The following modifiers are available:
+<P>
+<DL class="node modifiers">
+<DT><A NAME="M19"><B>firstchild</B></A><DD>
+Selects the first child of the node.  
+<P><DT><A NAME="M20"><B>lastchild</B></A><DD>
+Selects the last child of the node.  
+<P><DT><A NAME="M21"><B>nextnode</B></A><DD>
+Selects the next node in preorder to the node.  
+<P><DT><A NAME="M22"><B>nextsibling</B></A><DD>
+Selects the next sibling of the node.  
+<P><DT><A NAME="M23"><B>parentnode</B></A><DD>
+Selects the parent of the node.  
+<P><DT><A NAME="M24"><B>prevnode</B></A><DD>
+Selects the previous node in preorder to the node.  
+<P><DT><A NAME="M25"><B>prevsibling</B></A><DD>
+Selects the previous sibling of the node.  
+<P><DT><A NAME="M26"><B>maxnode</B></A><DD>
+The maximum node number.
+<P><DT><A NAME="M27">&quot;<I>label</I>&quot;</A><DD>
+<P><DT><A NAME="M28">'<I>label</I>'</A><DD>
+Selects the child node whose label is <I>label</I>.  Enclosing <I>label</I> in 
+quotes (double or single)
+indicates to search for a node by its label (for example, 
+even if the node is labeled &quot;parentnode&quot;).  If mulitiple child nodes
+have the given label, the first node is used.
+<P></DL>
+<P>
+It's an error if the node can't be found.  For example,
+<B>lastchild</B> and <B>firstchild</B> will generate errors if the node
+has no children.  The exception to this is the <B>index</B> operation.
+You can use <B>index</B> to test if a modifier is valid.
+<H3><A NAME="M29">TREE OPERATIONS</A></H3>
+Once you create a tree object, you can use its Tcl command 
+to query or modify it.  The
+general form is
+<dl><dd><table border="0"><tr><td><p style="font-size:12px;padding-left:.5em;padding-right:.5em;"><I>treeName</I> <I>operation</I> ?<I>arg</I>?...</table></dl>
+Both <I>operation</I> and its arguments determine the exact behavior of
+the command.  The operations available for trees are listed below.
+<P>
+<DL class="tree operations">
+<DT><A NAME="M30"><I>treeName</I> <B>ancestor</B> <I>node1</I> <I>node2</I></A><DD>
+Returns the mutual ancestor of the two nodes <I>node1</I> and
+<I>node2</I>.  The ancestor can be one of the two nodes.  For example,
+if <I>node1</I> and <I>node2</I> are the same nodes, their ancestor is
+<I>node1</I>.
+<P><DT><A NAME="M31"><I>treeName</I> <B>append</B> <I>node key</I> <I>string</I> ?<I>string ...</I>?</A><DD>
+Append one or more strings to node/key value.
+<P><DT><A NAME="M32"><I>treeName</I> <B>appendi</B> <I>tagnode key</I> <I>string</I> ?<I>string ...</I>?</A><DD>
+The same as <B><A HREF="../TclCmd/append.htm">append</A></B> but accepts a multi-node tag and an
+undefined key will be initialized to {}.  Returns the number of nodes
+updated.
+<P><DT><A NAME="M33"><I>treeName</I> <B>apply</B> <I>node</I> ?<I>switches</I>?</A><DD>
+Runs commands for all nodes matching the criteria given by
+<I>switches</I> for the subtree designated by <I>node</I>.  By default
+all nodes match, but you can set switches to narrow the match.  This
+operation differs from <B>find</B> in two ways: 1) Tcl commands can be
+invoked both pre- and post-traversal of a node and 2) the tree is
+always traversed in depth first order.
+<P>
+The <B>-exact</B>, <B>-glob</B>, 
+and <B>-regexp</B> switches indicate both what kind of pattern matching
+to perform and the pattern.  By default each pattern will be compared
+with the node label.  You can set more than one of these switches.  If 
+any of the patterns match (logical or), the node matches.  
+If the <B>-key</B> switch is
+used, it designates the data field to be matched.  
+<P>
+The valid switches are listed
+below:
+<P>
+<DL class="tree operations">
+<DT><A NAME="M34"><B>-depth</B> <I>number</I></A><DD>
+Descend at most <I>number</I> (a non-negative integer) levels
+If <I>number</I> is <B>1</B> this means only apply the tests
+to the children of <I>node</I>.
+<P><DT><A NAME="M35"><B>-exact</B> <I>string</I></A><DD>
+Matches each node using <I>string</I>.  The node must match <I>string</I>
+exactly.
+<P><DT><A NAME="M36"><B>-glob</B> <I>string</I></A><DD>
+Test each node to <I>string</I> using global pattern
+matching.  Matching is done in a fashion similar to that used by
+<B><A HREF="../TclCmd/string.htm">string match</A></B>.
+<P><DT><A NAME="M37"><B>-invert</B></A><DD>
+Invert the results of the pattern matching of <B>-name</B>.
+<P><DT><A NAME="M38"><B>-isleaf</B></A><DD>
+Only test nodes with no children.
+<P><DT><A NAME="M39"><B>-istree</B></A><DD>
+Only test nodes with children.
+<P><DT><A NAME="M40"><B>-key</B> <I>key</I></A><DD>
+<P><DT><A NAME="M41"><B>-keyglob</B> <I>key</I></A><DD>
+<P><DT><A NAME="M42"><B>-keyregexp</B> <I>key</I></A><DD>
+<P><DT><A NAME="M43"><B>-keyexact</B> <I>key</I></A><DD>
+If pattern matching is selected (using the <B>-exact</B>,
+<B>-glob</B>, or <B>-regexp</B> switches), compare the values of the
+data field keyed by <I>key</I> instead of the node's label.  If no
+pattern matching switches are set, then any node with this data key
+will match.  The field names may also be patterns using <B>-keyglob</B>, etc.
+<P><DT><A NAME="M44"><B>-nocase</B></A><DD>
+Ignore case when matching patterns.
+<P><DT><A NAME="M45"><B>-precommand</B> <I>command</I></A><DD>
+Invoke <I>command</I> for each matching node.  Before <I>command</I> is
+invoked, the id of the node is appended.  You can control 
+processing by the return value of <I>command</I>.  If <I>command</I> 
+generates an error, processing stops and the <B>find</B> operation 
+returns an error.  But if <I>command</I> returns <B><A HREF="../TclCmd/break.htm">break</A></B>, then 
+processing stops, no error is generated.  If <I>command</I> returns 
+<B><A HREF="../TclCmd/continue.htm">continue</A></B>, then processing
+stops on that subtree and continues on the next.
+<P><DT><A NAME="M46"><B>-postcommand</B> <I>command</I></A><DD>
+Invoke <I>command</I> for each matching node.  Before <I>command</I> is
+invoked, the id of the node is appended.  You can control 
+processing by the return value of <I>command</I>.  If <I>command</I> 
+generates an error, processing stops and the <B>find</B> operation 
+returns an error.  But if <I>command</I> returns <B><A HREF="../TclCmd/break.htm">break</A></B>, then 
+processing stops, no error is generated.  If <I>command</I> returns 
+<B><A HREF="../TclCmd/continue.htm">continue</A></B>, then processing
+stops on that subtree and continues on the next.
+<P><DT><A NAME="M47"><B>-regexp</B> <I>string</I></A><DD>
+Test each node using <I>string</I> as a regular expression pattern.
+<P><DT><A NAME="M48"><B>-tag</B> <I>string</I></A><DD>
+Only test nodes that have the tag <I>string</I>.
+<P><DT><A NAME="M49"><B>-usepath</B></A><DD>
+Use the node's full path when comparing nodes.  The node's full
+path is a list of labels, starting from the root of each ancestor
+and the node label.  The default is to compare only the node label.
+<P></DL>
+<P><DT><A NAME="M50"><I>treeName</I> <B>children</B>  ?<B>-labels</B>? <I>node</I> ?<I>first</I>? ?<I>last</I>?</A><DD>
+Returns a list of children for <I>node</I>.  If <I>node</I> is a leaf,
+then an empty string is returned.  If <I>first</I> and/or <I>last</I>
+are given they are the integer index of the children to display.
+If the <B>-labels</B> option is used,
+labels are returned instead of the nodes.
+<P><DT><A NAME="M51"><I>treeName</I> <B>copy</B> <I>srcNode</I> ?<I>destTree</I>? <I>parentNode</I> ?<I>switches</I>?</A><DD>
+Copies <I>srcNode</I> into <I>parentNode</I>. Both nodes <I>srcNode</I> and
+<I>parentNode</I> must already exist. The id of the new node is
+returned. You can copy from one tree to another.  If a <I>destTree</I> 
+argument is present, it indicates the name of the destination tree.  
+By default both the source and destination trees are the same. The valid 
+<I>switches</I> are listed below:
+<P>
+<DL class="tree operations">
+<DT><A NAME="M52"><B>-label</B> <I>string</I></A><DD>
+Label <I>destNode</I> as <I>string</I>.  By default, <I>destNode</I> has
+the same label as <I>srcNode</I>.
+<P><DT><A NAME="M53"><B>-overwrite</B></A><DD>
+Overwrite nodes that already exist.  Normally nodes are always
+created, even if there already exists a node by the same name.  This
+switch indicates to add or overwrite the node's data fields.
+<P><DT><A NAME="M54"><B>-recurse</B></A><DD>
+Recursively copy all the subtrees of <I>srcNode</I> as well.  In this case,
+<I>srcNode</I> can't be an ancestor of <I>destNode</I> as it would result
+in a cyclic copy.
+<P><DT><A NAME="M55"><B>-reverse</B></A><DD>
+Reverse the direction of the copy.
+<P><DT><A NAME="M56"><B>-tags</B></A><DD>
+Copy tag inforation.  Normally the following node is copied: its 
+label and data fields.  This indicates to copy tags as well.
+<P></DL>
+<P><DT><A NAME="M57"><I>treeName</I> <B>create</B> ?<I>switches</I>?</A><DD>
+Cause the creation of zero or more nodes.
+Exactly one of <B>-num</B>, <B>-nodes</B> or <B>-path</B> is required.
+This can create all nodes in a given <B>-path</B>
+or efficiently populate a tree with large numbers
+of nodes.
+The return values is the id of the last created node (or <B>-path</B> element).
+The valid flags for <I>switches</I> are described below.
+<P>
+<DL class="tree operations">
+<DT><A NAME="M58"><B>-at</B> <I>number</I></A><DD>
+Where to insert child nodes.
+The default is -1, meaning append.
+<P><DT><A NAME="M59"><B>-fixed</B></A><DD>
+Set the fixed flag.
+<P><DT><A NAME="M60"><B>-data</B> <I>list</I></A><DD>
+Data to set in each node.
+<P><DT><A NAME="M61"><B>-labelstart</B> <I>number</I></A><DD>
+The label generated nodes is to use
+a sequence number starting from <I>number</I>.
+The default is to just use the node id.
+<P><DT><A NAME="M62"><B>-nodes</B> <I>list</I></A><DD>
+List of nodes ids to create.
+The <B>-offset</B> option can specify
+a constant to add.
+<P><DT><A NAME="M63"><B>-num</B> <I>number</I></A><DD>
+The number of nodes to create.
+<P><DT><A NAME="M64"><B>-offset</B> <I>number</I></A><DD>
+Number to add to each element in <B>-nodes</B>.
+For example, if loading sqlite rowids you should use 1.
+The default is 0.
+<P><DT><A NAME="M65"><B>-parent</B> <I>node</I></A><DD>
+The <I>node</I> to insert children into.
+The default is the root node.
+<P><DT><A NAME="M66"><B>-path</B> <I>pathList</I></A><DD>
+Verify that a path exists and create any missing nodes.
+Uses labels in <I>pathList</I> to lookup nodes, creating
+them if not found.  The id for the last
+node in the path is returned (created or not).
+<P><DT><A NAME="M67"><B>-prefix</B> <I>str</I></A><DD>
+String prefix to add to each nodes label.
+<P><DT><A NAME="M68"><B>-start</B> <I>number</I></A><DD>
+Node nuber to start from when using <B>-num</B>.  The default is 1.
+<P><DT><A NAME="M69"><B>-tags</B> <I>tagList</I></A><DD>
+List of tags to add to each newly created node.
+<P></DL>
+<P><DT><A NAME="M70"><I>treeName</I> <B>degree</B> <I>node</I></A><DD>
+Returns the number of children of <I>node</I>.
+<P><DT><A NAME="M71"><I>treeName</I> <B>delete</B> <I>node</I>...</A><DD>
+Recursively deletes one or more nodes from the tree.  
+The node and all its descendants are removed.   The one exception
+is the root node.  In this case, only its descendants are removed.
+The root node will remain.  Any tags or 
+traces on the nodes are released.
+<P><DT><A NAME="M72"><I>treeName</I> <B>depth</B> <I>node</I></A><DD>
+Returns the depth of the node.  The depth is the number of 
+steps from the node to the root of the tree.  The depth of the
+root node is <B>0</B>.
+<P><DT><A NAME="M73"><I>treeName</I> <B>dump</B> <I>node</I> ?<I>switches</I>?</A><DD>
+Save tree data for <I>node</I> and its descendants.
+With the <B>-file</B> option, output goes to the file
+<I>fileName</I> (this is unsupported in a safe interp).
+With the <B>-channel</B> option, data is output to channel <I>chan</I>.
+If neither option is given, the dump is returned as data.
+<P>
+The subtree designated by <I>node</I> is
+traversed to obtain the following information for each node: 1) the node's
+path relative to <I>node</I>, 2) a sublist key value pairs
+representing the node's data fields, and 3) a sublist of tags.  
+and 4) the label
+This list returned can be used
+later to copy or restore the tree with the <B>restore</B> operation.
+<P>
+The valid <I>switches</I> are listed below.
+<P>
+<DL class="tree operations">
+<DT><A NAME="M74"><B>-channel </B><I>chan</I></A><DD>
+Obtain data from from the given channel <I>chan</I>.
+The channel is not closed afterwards.
+<P><DT><A NAME="M75"><B>-file </B><I>fileName</I></A><DD>
+Obtain data from from the file.
+<I>fileName</I>.  This options is unsupported in a safe interp.
+<P><DT><A NAME="M76"><B>-keys </B><I>list</I></A><DD>
+A list of patterns of matching keys to be dumped.
+<P><DT><A NAME="M77"><B>-skipkeys </B><I>list</I></A><DD>
+A list of patterns of matching keys not to be dumped.
+<P><DT><A NAME="M78"><B>-tag </B><I>pattern</I></A><DD>
+A pattern match for tags to include in a node dump.
+<P><DT><A NAME="M79"><B>-skiptag </B><I>pattern</I></A><DD>
+A pattern match for tags to not include in a node dump.
+<P><DT><A NAME="M80"><B>-notags</B></A><DD>
+Do not restore any tags
+<P><DT><A NAME="M81"><B>-nopath</B></A><DD>
+To save space, do not dump the full path for each node.
+Instead output periods for all but the last path element.
+Full paths are used only for partial restores.
+<P></DL>
+<P><DT><A NAME="M82"><I>treeName</I> <B>exists</B> <I>node</I> ?<I>key</I>?</A><DD>
+Indicates if <I>node</I> exists in the tree.  If a <I>key</I> argument
+is present then the command also indicates if the named data field 
+exists.
+<P><DT><A NAME="M83"><I>treeName</I> <B>find</B> ?<I>switches</I>?</A><DD>
+Finds for all nodes matching the criteria given by <I>switches</I> 
+for the subtree designated by <I>node</I>.  A list of the selected 
+nodes is returned.  By default all nodes match, but you can set
+switches to narrow the match.
+<P>
+The <B>-exact</B>, <B>-glob</B>, 
+and <B>-regexp</B> switches indicate what kind of pattern matching
+to perform for <B>-name</B>.  By default the pattern will be compared
+with the node label.  If the <B>-key</B> switch is
+used, it designates the data field to be matched.  
+<P>
+The order in 
+which the nodes are traversed is controlled by the  <B>-order</B> switch.
+The possible orderings are <B>preorder</B>, <B>postorder</B>, <B>inorder</B>, 
+and <B>breadthfirst</B>.  The default is <B>preorder</B>.
+<P>
+The valid switches are listed
+below:
+<P>
+<DL class="tree operations">
+<DT><A NAME="M84"><B>-addtag</B> <I>string</I></A><DD>
+Add the tag <I>string</I> to each selected node.  
+<P><DT><A NAME="M85"><B>-command</B> <I>command</I></A><DD>
+Invoke <I>command</I> for each matching node.  Before <I>command</I> is
+invoked, the id of the node is appended.  You can control 
+processing by the return value of <I>command</I>.  If <I>command</I> 
+generates an error, processing stops and the <B>find</B> operation 
+returns an error.  But if <I>command</I> returns <B><A HREF="../TclCmd/break.htm">break</A></B>, then 
+processing stops, no error is generated.  If <I>command</I> returns 
+<B><A HREF="../TclCmd/continue.htm">continue</A></B>, then processing
+stops on that subtree and continues on the next.
+<P><DT><A NAME="M86"><B>-count</B></A><DD>
+Just return the number of matches.
+<P><DT><A NAME="M87"><B>-depth</B> <I>number</I></A><DD>
+Include only nodes with level equal to <I>number</I>.
+<P><DT><A NAME="M88"><B>-exact</B></A><DD>
+Matches each node exactly.
+<P><DT><A NAME="M89"><B>-exec</B> <I>script</I></A><DD>
+Specifies a Tcl script to be evaluated for each matching node.
+If <B>-var</B> was also specified, that variable is set with the value of
+the node id before each evaluation.  Otherwise,
+percent sustitutions are performed: note this is much
+less efficient than using either <B>-var</B> or <B>-command</B>
+<P>
+The result of each eval gets appended to the return list, unless
+the script issues a CONTINUE, in which case that node is skipped.
+<P>
+The available percent substitutions on <I>string</I> are:
+<P>
+<DL class="tree operations">
+<DT><A NAME="M90"><B>%#</B></A><DD>
+The id of the node.
+<P><DT><A NAME="M91"><B>%W</B></A><DD>
+The pathname of the tree.
+<P><DT><A NAME="M92"><B>%p</B></A><DD>
+The label of the node.
+<P><DT><A NAME="M93"><B>%P</B></A><DD>
+The full pathname of the node.
+<P><DT><A NAME="M94"><B>%R</B></A><DD>
+The -&gt; delimited path from root, eg. &quot;root-&gt;able-&gt;baker-&gt;charlie&quot;
+<P><DT><A NAME="M95"><B>%r</B></A><DD>
+The -&gt; delimited path from 0, eg. &quot;0-&gt;able-&gt;baker-&gt;charlie&quot;
+<P><DT><A NAME="M96"><B>%T</B></A><DD>
+The dot delimited tag path eg. &quot;.able.baker.charlie&quot;
+<P><DT><A NAME="M97"><B>%V</B></A><DD>
+The value if using <B>-key</B> or the label otherwise.
+<P><DT><A NAME="M98"><B>%D</B></A><DD>
+The data for the node, ie. like that returned from <B>get</B>.
+<P><DT><A NAME="M99"><B>%%</B></A><DD>
+Translates to a single percent.
+<P></DL>
+<P><DT><A NAME="M100"><B>-glob</B></A><DD>
+Test each node using global pattern
+matching.  Matching is done in a fashion similar to that used by the
+<B><A HREF="../TclCmd/string.htm">string match</A></B>.
+<P><DT><A NAME="M101"><B>-isarray</B></A><DD>
+Only test nodes where the specified <B>-key</B> value
+is an array.  Can not be used with <B>-name</B>.
+The <B>-invert</B> flag will invert the meaning of the
+check.  Note that this will attempt to convert the key value in
+each traversed node into an array type.
+<P><DT><A NAME="M102"><B>-invert</B></A><DD>
+Invert the pattern matching of <B>-name</B>.
+<P><DT><A NAME="M103"><B>-isfixed</B></A><DD>
+Only test nodes that have used <B>fixed 1</B>.
+<P><DT><A NAME="M104"><B>-isleaf</B></A><DD>
+Only test nodes with no children.
+<P><DT><A NAME="M105"><B>-isnotfixed</B></A><DD>
+Only test nodes that have not used <B>fixed 1</B>.
+<P><DT><A NAME="M106"><B>-istree</B></A><DD>
+Only test nodes with children.
+<P><DT><A NAME="M107"><B>-keycount</B> <I>num</I></A><DD>
+Only test if number of keys is equal to <I>num</I>.
+<P><DT><A NAME="M108"><B>-key</B> <I>key</I></A><DD>
+<P><DT><A NAME="M109"><B>-keyglob</B> <I>key</I></A><DD>
+<P><DT><A NAME="M110"><B>-keyregexp</B> <I>key</I></A><DD>
+<P><DT><A NAME="M111"><B>-keyexact</B> <I>key</I></A><DD>
+Compare the values of the data field keyed by <I>key</I> instead of 
+the node's label. If no <B>-name</B> pattern is used 
+then any node with this data key will match.
+The key names may also be patterns using <B>-keyglob</B>, etc.
+<P><DT><A NAME="M112"><B>-limit</B> <I>number</I></A><DD>
+Stop processing after <I>number</I> (a positive integer) matches. 
+<P><DT><A NAME="M113"><B>-maxdepth</B> <I>number</I></A><DD>
+Include only nodes at level <I>number</I> or less.
+<P><DT><A NAME="M114"><B>-mindepth</B> <I>number</I></A><DD>
+Include only nodes at level <I>number</I> or greater.
+<P><DT><A NAME="M115"><B>-name</B> <I>string</I></A><DD>
+The name to use for pattern matching.
+<P><DT><A NAME="M116"><B>-nocase</B></A><DD>
+Ignore case when matching patterns.
+<P><DT><A NAME="M117"><B>-nodes </B><I>tagnode</I></A><DD>
+Search only in <I>tagnode</I>, which is either a tag
+or a list of nodes ids.  This makes possible nested searches.
+Note this option is incompatible with
+<B>-top</B> and <B>-notop</B>.
+<P><DT><A NAME="M118"><B>-notop</B></A><DD>
+Exclude the <B>-top</B> or starting node.
+<P><DT><A NAME="M119"><B>-order</B> <I>string</I></A><DD>
+Traverse the tree and process nodes according to <I>string</I>. <I>String</I>
+can be one of the following:
+<P>
+<DL class="tree operations">
+<DT><A NAME="M120"><B>breadthfirst</B></A><DD>
+Process the node and the subtrees at each sucessive level. Each node
+on a level is processed before going to the next level.
+<P><DT><A NAME="M121"><B>inorder</B></A><DD>
+Recursively process the nodes of the first subtree, the node itself,
+and any the remaining subtrees.
+<P><DT><A NAME="M122"><B>postorder</B></A><DD>
+Recursively process all subtrees before the node.
+<P><DT><A NAME="M123"><B>preorder</B></A><DD>
+Recursively process the node first, then any subtrees (default).
+<P></DL>
+<P><DT><A NAME="M124"><B>-usepath</B></A><DD>
+Use the node's full path when doing the comparison.
+The default is to compare only the node label.
+<P><DT><A NAME="M125"><B>-regexp</B></A><DD>
+Test each node using regular expression pattern matching.
+<P><DT><A NAME="M126"><B>-reldepth</B></A><DD>
+Change the meaning of <B>-depth</B>, <B>-mindepth</B> and <B>-maxdepth</B>
+to be relative to the <B>-top</B> node.
+<P><DT><A NAME="M127"><B>-return </B><I>key</I></A><DD>
+Return the value of the given <I>key</I>, or the empty string if none.
+If the given <I>key</I> is the empty string, the node label will be returned.
+If no value was found and the given <I>key</I> starts with a percent
+returns the sustitution as per <B>-exec</B>.  Note that a percent
+substitution longer than 2 chars will append values as list elements.
+<P><DT><A NAME="M128"><B>-top </B><I>node</I></A><DD>
+Search is only at <I>node</I> and it's descendants.
+The default is the root node.
+<P><DT><A NAME="M129"><B>-var </B><I>variable</I></A><DD>
+A variable to set with the node id before each iteration of the <B>-exec</B>
+script.
+<P><DT><A NAME="M130"><B>-withtag</B> <I>string</I></A><DD>
+Only test nodes that have the tag <I>string</I>.
+<P><DT><A NAME="M131"><B>-withouttag</B> <I>string</I></A><DD>
+Only test nodes that don't have the tag <I>string</I>.
+<P></DL>
+<P><DT><A NAME="M132"><I>treeName</I> <B>findchild</B> <I>node</I> <I>label</I></A><DD>
+Searches for a child node <I>label</I> in <I>node</I>.  The id of the 
+child node is returned if found.  Otherwise <B>-1</B> is returned.
+This is the same as using <B>index </B><I>node-&gt;label</I>.
+<P><DT><A NAME="M133"><I>treeName</I> <B>firstchild</B> <I>node</I></A><DD>
+Returns the id of the first child in the <I>node</I>'s list
+of subtrees.  If <I>node</I> is a leaf (has no children), 
+then <B>-1</B> is returned.
+<P><DT><A NAME="M134"><I>treeName</I> <B>fixed</B> <I>node</I> ?<I>isfixed</I>?</A><DD>
+Get or set the fixed key-fields flag for the node.
+New key-fields can be added to a node only if fixed is 0 (the default) 
+Note that copied and restored nodes do not preserve the fixed state.
+<P><DT><A NAME="M135"><I>treeName</I> <B>foreach</B> <I>var tagnode script</I></A><DD>
+Provides a <B><A HREF="../TclCmd/foreach.htm">foreach</A></B> loop for tree.  For
+each node in <I>tagnode</I> the node-id is assigned to <I>var</I> and then
+<I>script</I> is evaluated. The <I>tagnode</I> is either a tag or a list of
+nodes as described in the section
+above.
+<P><DT><A NAME="M136"><I>treeName</I> <B>get</B> <I>node</I> ?<I>key</I>? ?<I>defaultValue</I>?</A><DD>
+Returns a list of key-value pairs of data for <I>node</I>.  If <I>key</I>
+is present, then only the value for that particular data field is
+returned.  It's normally an error if <I>node</I> does not contain the
+data field <I>key</I>.  But if you provide a <I>defaultValue</I>
+argument, this value is returned instead (<I>node</I> will still not
+contain <I>key</I>).  This feature can be used to access a data field of
+<I>node</I> without first testing if it exists.  This operation may
+trigger <B><A HREF="../TclCmd/read.htm">read</A></B> data traces.
+<P><DT><A NAME="M137"><I>treeName</I> <B>incr</B> <I>node key</I> ?<I>amount</I>?</A><DD>
+Increment value by 1 or given <I>amount</I> and return the value.
+The incr operation normally tries to use integers,
+but uses doubles when one of
+value or <I>amount</I> is a double.
+<P><DT><A NAME="M138"><I>treeName</I> <B>incri</B> <I>tagnode key</I> ?<I>amount</I>?</A><DD>
+The same as <B><A HREF="../TclCmd/incr.htm">incr</A></B> but accepts a multi-node tag and an
+undefined key will be initialized to 0.  Returns the number of nodes
+updated.
+<P><DT><A NAME="M139"><I>treeName</I> <B>index</B> <I>node</I></A><DD>
+Returns the id of <I>node</I>.  In addition
+to standard node id form,
+<I>node</I> can also be a path (a list of labels from the root) as returned
+by the <B>path</B> command.
+If <I>node</I> is invalid, then <B>-1</B> is returned.
+<P><DT><A NAME="M140"><I>treeName</I> <B>insert</B> <I>parent</I> ?<I>switches</I>?</A><DD>
+Inserts a new node into parent node <I>parent</I>.  
+The <I>parent</I> can be the keyword <B>end</B> to mean the root.
+The id of the new node is returned. The following switches 
+are available:
+<P>
+<DL class="tree operations">
+<DT><A NAME="M141"><B>-after</B> <I>child</I></A><DD>
+Position <I>node</I> after <I>child</I>.  The node <I>child</I> must be a 
+child of <I>parent</I>.
+<P><DT><A NAME="M142"><B>-at</B> <I>number</I></A><DD>
+Inserts the node into <I>parent</I>'s list of children at 
+position <I>number</I>.  The default is to append.
+<P><DT><A NAME="M143"><B>-before</B> <I>child</I></A><DD>
+Position <I>node</I> before <I>child</I>.  The node <I>child</I> must be a 
+child of <I>parent</I>.
+<P><DT><A NAME="M144"><B>-data</B> <I>dataList</I></A><DD>
+Sets the value for each data field in <I>dataList</I> for the 
+new node. <I>DataList</I> is a list of key-value pairs.
+May not be used in conjuction with <B>-names</B> or  <B>-values</B>.
+<P><DT><A NAME="M145"><B>-fixed</B> <I>bool</I></A><DD>
+If <I>bool</I> is 1, set <B>fixed</B> field mode after initializing
+the key/value pairs from <B>-data</B>.
+This disallows creation of new key fields
+after the node is created.
+If not given, uses the tree default for fixed.
+<P><DT><A NAME="M146"><B>-label</B> <I>string</I></A><DD>
+Designates the labels of the node as <I>string</I>.  By default, nodes
+are labeled as <B>0</B>, <B>1</B>, etc.
+<P><DT><A NAME="M147"><B>-names</B> <I>nameList</I></A><DD>
+The names for the data fields.  This must have the same length as
+<B>-values</B>, and may not be used in conjuction with <B>-data</B>.
+<P><DT><A NAME="M148"><B>-node</B> <I>id</I></A><DD>
+Designates the id for the node.  Normally new ids are automatically
+generated.  This allows you to create a node with a specific id.
+It is an error if the id is already used by another node in the tree.
+<P><DT><A NAME="M149"><B>-pretags</B> <I>tagList</I></A><DD>
+Adds each tag in <I>tagList</I> to the new node, before
+data is added.  Unlike <B>-tags</B>, traces on these tags
+will fire on key data during the insert.
+<P><DT><A NAME="M150"><B>-tags</B> <I>tagList</I></A><DD>
+Adds each tag in <I>tagList</I> to the new node. <I>TagList</I> is a list
+of tags, so be careful if a tag has embedded space.
+<P><DT><A NAME="M151"><B>-values</B> <I>valueList</I></A><DD>
+The values for the data fields.  This must have the same length as
+<B>-values</B>, and may not be used in conjuction with <B>-data</B>.
+<P></DL>
+<P><DT><A NAME="M152"><I>treeName</I> <B>is</B> <I>property</I> <I>args</I></A><DD>
+Indicates the property of a node. Both <I>property</I> and <I>args</I>
+determine the property being tested.  Returns <B>1</B> if true and
+<B>0</B> otherwise.  The following <I>property</I> and <I>args</I> 
+are valid:
+<P>
+<DL class="tree operations">
+<DT><A NAME="M153"><B>ancestor</B> <I>node1</I> <I>node2</I></A><DD>
+Indicates if <I>node1</I> is an ancestor of <I>node2</I>. 
+<P><DT><A NAME="M154"><B>before</B> <I>node1</I> <I>node2</I></A><DD>
+Indicates if <I>node1</I> is before <I>node2</I> in depth first traversal. 
+<P><DT><A NAME="M155"><B>leaf</B> <I>node</I></A><DD>
+Indicates if <I>node</I> is a leaf (it has no subtrees).
+<P><DT><A NAME="M156"><B>root</B> <I>node</I></A><DD>
+Indicates if <I>node</I> is the designated root.  This can be changed
+by the <B>root</B> operation.
+<P></DL>
+<P><DT><A NAME="M157"><I>treeName</I> <B>ismodified</B> ?<I>nodeOrTag</I>? ?<I>isflag</I>?</A><DD>
+Get or set modified state for the tree or nodes.
+With no args returns modified state for tree.
+With one args returns modified state for a node.
+With two args set modified state for one or more nodes.
+In the last case, where ?<I>nodeOrTag</I>? is the tag <B>all</B>,
+the state for the tree is also set.
+<P>
+Newly created nodes
+are always considered to be modified until explicitly
+cleared.  After clearing, subsequent updates to keys or tags
+will toggle the node (and tree) modified again.
+<P><DT><A NAME="M158"><I>treeName</I> <B>keys</B> <I>node</I> ?<I>tagnode ...</I>?</A><DD>
+Return list of unique keys for all of the given nodes in <I>tagnode</I>.
+Accepts nodes and tags or all.
+<P><DT><A NAME="M159"><I>treeName</I> <B>label</B> <I>node</I> ?<I>newLabel</I>?</A><DD>
+Returns the label of the node designated by <I>node</I>.  If <I>newLabel</I>
+is present, the node is relabeled using it as the new label.
+<P><DT><A NAME="M160"><I>treeName</I> <B>lappend</B> <I>node key</I> <I>value</I> ?<I>value ...</I>?</A><DD>
+Append one or more list values to node/key value.
+<P><DT><A NAME="M161"><I>treeName</I> <B>lappendi</B> <I>tagnode key</I> <I>value</I> ?<I>value ...</I>?</A><DD>
+The same as <B><A HREF="../TclCmd/lappend.htm">lappend</A></B> but accepts a multi-node tag and an
+undefined key will be initialized to {}.  Returns the number of nodes
+updated.
+<P><DT><A NAME="M162"><I>treeName</I> <B>lastchild</B> <I>node</I></A><DD>
+Returns the id of the last child in the <I>node</I>'s list
+of subtrees.  If <I>node</I> is a leaf (has no children), 
+then <B>-1</B> is returned.
+<P><DT><A NAME="M163"><I>treeName</I> <B>modify</B> <I>tagnode</I> <I>key value</I> ?<I>key value</I>...?</A><DD>
+Update one or more fields in one or more nodes in <I>tagnode</I>.
+As with <B><A HREF="../TclCmd/set.htm">set</A></B>, <I>node</I>
+can be a tag referring to multiple nodes.
+This is identical to <B><A HREF="../TclCmd/set.htm">set</A></B>, except an error is thrown if
+any of the key fields do not exist.
+Despite the error, all nodes that do have said fields get updated.
+For modifying a single node, see <B><A HREF="../TclCmd/update.htm">update</A></B>.
+<P><DT><A NAME="M164"><I>treeName</I> <B>move</B> <I>node</I> <I>newParent</I> ?<I>switches</I>?</A><DD>
+Moves <I>node</I> into <I>newParent</I>. <I>Node</I> is appended to the
+list children of <I>newParent</I>.  <I>Node</I> can not be an ancestor
+of <I>newParent</I>.  The valid flags for <I>switches</I> are described below.
+<P>
+<DL class="tree operations">
+<DT><A NAME="M165"><B>-after</B> <I>child</I></A><DD>
+Position <I>node</I> after <I>child</I>.  The node <I>child</I> must be a 
+child of <I>newParent</I>.
+<P><DT><A NAME="M166"><B>-at</B> <I>number</I></A><DD>
+Inserts <I>node</I> into <I>parent</I>'s list of children at 
+position <I>number</I>. The default is to append the node.
+<P><DT><A NAME="M167"><B>-before</B> <I>child</I></A><DD>
+Position <I>node</I> before <I>child</I>.  The node <I>child</I> must be a 
+child of <I>newParent</I>.
+<P></DL>
+<P><DT><A NAME="M168"><I>treeName</I> <B>names</B> <I>node</I> ?<I>key</I>?</A><DD>
+Return key names for <I>node</I>.  If a key is given,
+attempts to return ARRAY fields (see ARRAY SUB-FIELDS).
+An error is thrown if the convert to array fails (ie. list-length is odd).
+The <B>type</B> command can be used to query the type.
+See also <B>values</B>.
+<P><DT><A NAME="M169"><I>treeName</I> <B>next</B> <I>node</I></A><DD>
+Returns the next node from <I>node</I> in a preorder traversal.
+If <I>node</I> is the last node in the tree, 
+then <B>-1</B> is returned.
+<P><DT><A NAME="M170"><I>treeName</I> <B>nextsibling</B> <I>node</I></A><DD>
+Returns the node representing the next subtree from <I>node</I>
+in its parent's list of children.  If <I>node</I> is the last child, 
+then <B>-1</B> is returned.
+<P><DT><A NAME="M171"><I>treeName</I> <B>nodeseq</B> ?<I>start</I>?</A><DD>
+Get or set the <I>start</I> sequence number for subsequent
+node insertions not using <B>-node</B>.  The default is 0.
+<P><DT><A NAME="M172"><I>treeName</I> <B>notify</B> <I>args</I></A><DD>
+Manages notification events that indicate that the tree structure has 
+been changed.
+See the 
+section below.
+<P><DT><A NAME="M173"><I>treeName</I> <B>oldvalue</B> ?<I>newvalue</I>?</A><DD>
+Return the value from before the last (untraced) change operation.
+This is used primarly by write traces wishing to
+restore a key to it's pre-write value (eg. read-only variables).
+The oldvalue is saved internally everytime a change operation occurs
+to a key value by deferring its deallocation.
+Changes made during node traces do not affect oldvalue.
+<P>
+If <I>newvalue</I> is provided, the current value of oldvalue is
+discarded and replaced. This is useful really only for releasing large objects.
+<P><DT><A NAME="M174"><I>treeName</I> <B>parent</B> <I>node</I></A><DD>
+Returns the parent node of <I>node</I>.  If <I>node</I> is the root
+of the tree, 
+then <B>-1</B> is returned.
+<P><DT><A NAME="M175"><I>treeName</I> <B>path</B> <I>node</I> ?<I>delim</I>? ?<I>prefix</I>?</A><DD>
+Returns the full path (from root) of <I>node</I> using the node labels.
+If <I>delim</I> is not specified, the result is a list.
+Otherwise, the result is a string starting with <I>prefix</I> and
+each element of the path separated by <I>delim</I>.
+This latter form is useful for building tags like: <B>.able.baker</B>
+<P><DT><A NAME="M176"><I>treeName</I> <B>position</B>  ?<B>-sort</B>? ?<B>-format</B> <I>ftype</I>? <I>node</I> ?<I>node</I> ...?</A><DD>
+Returns the position of the node(s) in its parent's list of children.
+Positions are numbered from 0.
+The position of the root node is always 0.
+The value of <I>ftype</I> is one of:
+<B>position parent-at-position id+position id+parent-at-position</B>.
+<P><DT><A NAME="M177"><I>treeName</I> <B>previous</B> <I>node</I></A><DD>
+Returns the previous node from <I>node</I> in a preorder traversal.
+If <I>node</I> is the root of the tree, 
+then <B>-1</B> is returned.
+<P><DT><A NAME="M178"><I>treeName</I> <B>prevsibling</B> <I>node</I></A><DD>
+Returns the node representing the previous subtree from <I>node</I>
+in its parent's list of children.  If <I>node</I> is the first child, 
+then <B>-1</B> is returned.
+<P><DT><A NAME="M179"><I>treeName</I> <B>restore</B> <I>node</I> <I>switches</I></A><DD>
+Performs the inverse function of the <B>dump</B> operation, restoring
+nodes to the tree. The format of the input data is exactly what is 
+returned by the <B>dump</B> operation.  It's a list containing information
+for each node to be restored.  The information consists of 1) the relative
+path of the node, 2) a sublist of key value pairs representing the 
+node's data, 3) a list of tags for the node, and 4) the label.
+Nodes are created 
+starting from <I>node</I>. Nodes can be listed in any order.  If a node's 
+path describes ancestor nodes that do not already exist, they are 
+automatically created.
+<P>
+The valid <I>switches</I> are listed below.  Exactly one
+of <B>-channel</B>,  <B>-file</B> or  <B>-data</B> must be specified.
+<P>
+<DL class="tree operations">
+<DT><A NAME="M180"><B>-addtags</B></A><DD>
+List of tags to add to each node restored node.
+<P><DT><A NAME="M181"><B>-channel </B><I>chan</I></A><DD>
+Obtain data from from the given channel <I>chan</I>.
+The channel is not closed afterwards.
+<P><DT><A NAME="M182"><B>-data </B><I>string</I></A><DD>
+Data input is from the given <I>string</I>.
+<P><DT><A NAME="M183"><B>-file </B><I>fileName</I></A><DD>
+Obtain data from from the file.
+<I>fileName</I>.  This options is unsupported in a safe interp.
+<P><DT><A NAME="M184"><B>-keys </B><I>list</I></A><DD>
+A list of patterns of matching keys to be restored.
+<P><DT><A NAME="M185"><B>-skipkeys </B><I>list</I></A><DD>
+A list of patterns of matching keys not to be restored.
+<P><DT><A NAME="M186"><B>-tag </B><I>pattern</I></A><DD>
+A pattern match for tags to include in a node restore.
+<P><DT><A NAME="M187"><B>-skiptag </B><I>pattern</I></A><DD>
+A pattern match for tags to not include in a node restore.
+<P><DT><A NAME="M188"><B>-notags</B></A><DD>
+Do not restore any tags
+<P><DT><A NAME="M189"><B>-overwrite</B></A><DD>
+Overwrite nodes that already exist.  Normally nodes are always
+created, even if there already exists a node by the same name.  This
+switch indicates to overwrite existing node's data fields.
+<P></DL>
+<P><DT><A NAME="M190"><I>treeName</I> <B>root</B> ?<I>node</I>?</A><DD>
+Returns the id of the root node.  Normally this is node <B>0</B>.  If
+a <I>node</I> argument is provided, it will become the new root of the
+tree. This lets you temporarily work within a subset of the tree.
+Changing root affects operations such as <B><A HREF="../TclCmd/next.htm">next</A></B>, <B>path</B>,
+<B>previous</B>, etc.
+<P><DT><A NAME="M191"><I>treeName</I> <B>set</B> <I>tagnode</I> <I>key value</I> ?<I>key value</I>...?</A><DD>
+Sets one or more data fields in <I>node</I>. <I>tagode</I> may 
+be a tag that represents several nodes and a count of the number
+of nodes updated is returned.
+<I>Key</I> is the
+name of the data field to be set, or an array-like reference such as <B>field(subkey)</B>.
+See the
+section below.  <I>Value</I> is the respective keys value.
+The  <I>Key</I>  will be created if it does not exists (see <B>modify</B>).
+<P>
+The set operation triggers <B>write</B> and <B>create</B> data traces.
+<P><DT><A NAME="M192"><I>treeName</I> <B>size</B> <I>node</I></A><DD>
+Returns the number of nodes in the subtree. This includes the node
+and all its descendants.  The size of a leaf node is 1.
+<P><DT><A NAME="M193"><I>treeName</I> <B>sort</B> <I>node</I> ?<I>switches</I>?</A><DD>
+Return nodes in sorted order.
+<P>
+<DL class="tree operations">
+<DT><A NAME="M194"><B>-ascii</B></A><DD>
+Compare strings using the ASCII  collation order.
+<P><DT><A NAME="M195"><B>-command</B> <I>string</I></A><DD>
+Use command <I>string</I> as a comparison command.  To compare two
+elements, evaluate a Tcl script consisting of command with the five
+elements appended as additional arguments:
+<I>the tree, node1, node1, label1, label2</I>.
+The script should return
+an integer less than, equal to, or greater than zero if the first
+element is to be considered less than, equal to, or greater than the
+second, respectively.
+<P><DT><A NAME="M196"><B>-decreasing</B></A><DD>
+Sort in decreasing order (largest items come first).
+<P><DT><A NAME="M197"><B>-dictionary</B></A><DD>
+Compare strings using a dictionary-style comparison.  This is the same 
+as <B>-ascii</B> except (a) case is ignored except as a tie-breaker and (b) 
+if two strings contain embedded numbers, the numbers compare as integers, not
+characters.  For example, in <B>-dictionary</B> mode, bigBoy sorts between
+bigbang and bigboy, and x10y sorts between x9y and x11y.
+<P><DT><A NAME="M198"><B>-integer</B></A><DD>
+Compare the nodes as integers.  
+<P><DT><A NAME="M199"><B>-key</B> <I>string</I></A><DD>
+Sort based upon the node's data field keyed by <I>string</I>. Normally
+nodes are sorted according to their label.
+label.
+<P><DT><A NAME="M200"><B>-real</B></A><DD>
+Compare the nodes as real numbers.
+<P><DT><A NAME="M201"><B>-recurse</B></A><DD>
+Recursively sort the entire subtree rooted at <I>node</I>.
+<P><DT><A NAME="M202"><B>-reorder</B></A><DD>
+Recursively sort subtrees for each node.  <B>Warning</B>.  Unlike
+the normal flat sort, where a list of nodes is returned, this will
+reorder the tree.  
+<P><DT><A NAME="M203"><B>-usepath</B></A><DD>
+Compare the full path of each node.  The default is to compare only the node
+label.
+<P></DL>
+<P><DT><A NAME="M204"><I>treeName</I> <B>sqlload</B> ?<I>switches</I>? <I>dbhfile</I> <I>sqlstmt</I></A><DD>
+Load tree with the results of evaling the SQL in <I>sqlstmt</I> using
+<I>dbhfile</I>.
+The evaluated SQL creates one tree-node per row result.
+The returned value is the number of rows loaded.
+<I>Dbhfile</I> is either an <B>sqlite3</B> database handle,
+or an <B>sqlite3</B> file.
+<P>
+The <B>sqlload</B> command can populate a tree with 10k nodes
+about 7 times faster than <B>sqlite3 eval</B>.
+It also preserves NULL values
+and object types (eg. int or double) used internally
+by sqlite.  This eliminates later reconversion within tree.
+See the
+below.
+<P>
+The following switches are available:
+<P>
+<DL class="tree operations">
+<DT><A NAME="M205"><B>-addtags </B><I>taglist</I></A><DD>
+The tags in <I>taglist</I> to add to each inserted node.
+<P><DT><A NAME="M206"><B>-at </B><I>num</I></A><DD>
+Where to insert into parents list of children.
+Default is -1, meaning append.
+<P><DT><A NAME="M207"><B>-fixed</B></A><DD>
+Set the <B>fixed</B> flag to disallow new keys after creation.
+<P><DT><A NAME="M208"><B>-key </B><I>name</I></A><DD>
+Store the entire result in the key <I>name</I> instead
+of creating one key per column.
+Array notation can be used to then access column results.
+This is more efficent as it initially stores just one
+object per row.  Conversion to an array
+is at the first array access (if that occurs).
+<P><DT><A NAME="M209"><B>-labelcol </B><I>column</I></A><DD>
+The value of <I>column</I> is used as the label.
+By default the label is the node id.
+<P><DT><A NAME="M210"><B>-maprowid </B><I>num</I></A><DD>
+This option maps the node id to the rowid plus the constant <I>num</I>.
+The key for <B>rowid</B> will also not be created.
+This is applicable only if <B>rowid</B> is returned in the result-set
+of <I>sqlstmt</I>.
+If <B>rowid</B> is not in the result set, this option is ignored.
+If mapping fails (because the tree already contains a requested node)
+the load will abort at that point
+with an error.  Note that <I>num</I> must be &gt;= 1 since sqlite
+rowids start from 0, but the root node of the tree uses the node-id 0.
+<P><DT><A NAME="M211"><B>-max </B><I>num</I></A><DD>
+The maximum number of rows to return.  The default is 100,000.
+Note that SQL queries on large tables should probably always use LIMIT.
+<P><DT><A NAME="M212"><B>-nullvalue </B><I>string</I></A><DD>
+Define value to use for null values.  The default is no value,
+meaning do not set key if value is null.
+Note this is different from the sqlite Tcl extension which uses
+an empty string for NULL.
+<P><DT><A NAME="M213"><B>-parent </B><I>string</I></A><DD>
+The node where results are
+inserted as child nodes.  The default is the tree root.
+<P><DT><A NAME="M214"><B>-pathcol </B><I>column</I></A><DD>
+Name of column containing the full path where node is to be created.
+This works like <B>-treecols</B>, but uses a singl columns.
+<P><DT><A NAME="M215"><B>-skipcols </B><I>columns</I></A><DD>
+The given <I>columns</I> are not to be added as keys.  This is useful mostly
+in conjuction with <B>-tagcol</B>, <B>-labelcol</B>, <B>-pathcol</B>.
+<P><DT><A NAME="M216"><B>-tagcol </B><I>column</I></A><DD>
+The value of <I>column</I> is added as a tag.
+<P><DT><A NAME="M217"><B>-treecols </B><I>columns</I></A><DD>
+Columns whose values concatenated
+give the path of where node is to be created.
+This works like <B>-pathcol</B>, but uses multiple columns.
+<P></DL>
+<P><DT><A NAME="M218"><I>treeName</I> <B>sum</B> ?<I>switches</I>? <I>tagnode key</I> ?<I>key ...</I>?</A><DD>
+Add values in key fields for all <I>tagnode</I> and return the sum.
+Values that are not doubles (or integer) are ignored.
+<P>
+<DL class="tree operations">
+<DT><A NAME="M219"><B>-diff</B><I> value</I></A><DD>
+Double value difference to ignore and not do update for <B>-runtotal</B>.
+This is unused when using <B>-int</B>.
+<P><DT><A NAME="M220"><B>-force</B></A><DD>
+Force update <B>-runtotal</B> even if value was unchanged.
+Normally, a check is made to avoid updating unchanged values.
+<P><DT><A NAME="M221"><B>-int</B></A><DD>
+Use and accept only integer values.
+<P><DT><A NAME="M222"><B>-runtotal </B><I>key</I></A><DD>
+Place running total in the given key field (if changed).
+<P><DT><A NAME="M223"><B>-start </B><I>num</I></A><DD>
+The start value for the sum: default is 0.
+<P></DL>
+<P><DT><A NAME="M224"><I>treeName</I> <B>supdate</B> <I>node</I> <I>key value</I> ?<I>key value</I>...?</A><DD>
+Like <B><A HREF="../TclCmd/update.htm">update</A></B>, but with a string comparison
+to avoid a write if the value has not changed.
+<P><DT><A NAME="M225"><I>treeName</I> <B>tag</B> <I>args</I></A><DD>
+Manages tags for the tree object.
+See the 
+section below.
+<P><DT><A NAME="M226"><I>treeName</I> <B>trace</B> <I>args</I></A><DD>
+Manages traces for data fields in the tree object.
+Traces cause Tcl commands to be executed whenever a data field of a
+node is created, read, written, or unset.  Traces can be set for a
+specific node or a tag, representing possibly many nodes.
+See the 
+section below.
+<P><DT><A NAME="M227"><I>treeName</I> <B>type</B> <I>node</I> <I>key</I></A><DD>
+Return type of value.  This is the introspected type from the Tcl_Obj
+value passed to set.
+<P><DT><A NAME="M228"><I>treeName</I> <B>update</B> <I>node</I> <I>key value</I> ?<I>key value</I>...?</A><DD>
+Like <B>modify</B>, except an error is generated if a tag
+is used that applies to more than one node.
+<P><DT><A NAME="M229"><I>treeName</I> <B>unset</B> <I>node</I> <I>key</I>...</A><DD>
+Removes one or more data fields from <I>node</I>. <I>Node</I> may 
+be a tag that represents several nodes.  <I>Key</I> is the
+name of the data field to be removed.  It's not an error is
+<I>node</I> does not contain <I>key</I>.
+A count of the number of nodes unset is returned.
+This operation may trigger <B><A HREF="../TclCmd/unset.htm">unset</A></B> data traces.
+<P><DT><A NAME="M230"><I>treeName</I> <B>values</B> <I>node</I> ?<I>key</I>? ?<I>withnames</I>?</A><DD>
+Return values for <I>node</I>.
+The values are returned in the same order as the keys
+returned from <B>names</B>.
+<P>
+If a <I>key</I> is given,
+array values get returned for the <I>key</I> value.
+If <I>withname</I> is <B>True</B>, then key
+names are also returned with the values.  This differs from <B>get</B>
+in that the result is a true Tcl list object, not an array object.
+If subsequently using an array value in a list context,
+this can be more efficient by
+avoiding a split on string representations.
+<P><DT><A NAME="M231"><I>treeName</I> <B>vecdump</B> <I>vector</I> <I>key</I> ?<I>tagnode</I>?</A><DD>
+Dump key field to a vector.  With no <I>tagnode</I>, dumps every node
+to the 1-1 corresponding vector index.  With <I>tag</I> dumps
+nodes to consequetive vector elements.
+<P><DT><A NAME="M232"><I>treeName</I> <B>vecload</B> <I>vector</I> <I>key</I> ?<I>tagnode</I>?</A><DD>
+Loads key field from a vector.  With no <I>tagnode</I>, loads every node
+from the 1-1 corresponding vector index.  With <I>tag</I> loads
+nodes from consequetive vector elements.
+<P><DT><A NAME="M233"><I>treeName</I> <B>with</B> ?<I>switch</I>? <I>tagnode script</I></A><DD>
+For each node in <I>tagnode</I>,
+evaluate the <I>script</I> after assigning key values to
+elements of the array <I>variable</I>.
+The <B>-keys</B> limits which keys may be assigned.
+If <I>script</I> completes normally,
+and any of the key values change in the <I>variable</I>, then the
+updates are reflected back into the key values
+(unless <B>-noupdate</B> is used).
+Unsetting a variable key
+will cause that change to be ignored.  Setting a new element in the
+variable has no effect.
+<P>
+Doing a <B><A HREF="../TclCmd/return.htm">return</A></B>, <B><A HREF="../TclCmd/break.htm">break</A></B>, or <B><A HREF="../TclCmd/continue.htm">continue</A></B> inside
+<I>script</I> will still cause updates to copy back, but
+processing will stop and (unless <B>-break</B> is used)
+the return code will become the return code to the caller.
+This means that a <B><A HREF="../TclCmd/break.htm">break</A></B>, <B><A HREF="../TclCmd/continue.htm">continue</A></B>, and
+<B><A HREF="../TclCmd/return.htm">return</A></B> will propagate up through
+multiple nested <B>with</B> statements to the
+to an enclosing <B><A HREF="../TclCmd/foreach.htm">foreach</A></B>, <B><A HREF="../TclCmd/while.htm">while</A></B>, etc.
+But <B>-break</B> can be used to change this and make <B>with</B> act
+like a <B><A HREF="../TclCmd/foreach.htm">foreach</A></B> loop.
+<P>
+If <B>-keys</B> is not used, the list of key names will be
+stored in <I>variable(*)</I> and the node id
+stored in <I>variable(#)</I> (but this can be overwritten by a key of that name).
+By default, the array is not cleaned up before or after each execution.
+However, if <B>-unset</B> is used, the array is unset at the start of each
+iteration.
+<P>
+If <B>-array</B> is used, <B>with</B> operates on the keys of an array
+instead.
+<P>
+Upon normal completion, the number of times <I>script</I>
+was evaluated is returned.
+<P>
+The valid switches are listed below:
+<P>
+<DL class="tree operations">
+<DT><A NAME="M234"><B>-array</B> <I>key</I></A><DD>
+Specifies a
+single key that is to be treated as an array.
+The fields of the array for that one key are then used
+(instead of keys of the whole node).
+This changes the meaning of <B>-keys</B> to be the
+keys of the array rather than the keys of the node.
+If a key value can not be converted to an array,
+an error will occur.
+<P><DT><A NAME="M235"><B>-break</B></A><DD>
+Treat <B><A HREF="../TclCmd/break.htm">break</A></B> and <B><A HREF="../TclCmd/continue.htm">continue</A></B> like <B><A HREF="../TclCmd/foreach.htm">foreach</A></B> does
+rather than just passing them up to the enclosing script body.
+<P><DT><A NAME="M236"><B>-keys</B> <I>keylist</I></A><DD>
+Copy only the named keys and do not set (*) or (#).
+<P><DT><A NAME="M237"><B>-noupdate</B></A><DD>
+Forget changes to array variables and
+do not copy back changes.
+<P><DT><A NAME="M238"><B>-unset</B></A><DD>
+Unset the array variable at the begin of each evaluation.
+<P></DL>
+<P></DL>
+<H3><A NAME="M239">ARRAY SUB-FIELDS</A></H3>
+Individual data fields of a node support array-like subfield access.
+This works somewhat like Tcls new <B><A HREF="../TclCmd/dict.htm">dict</A></B> command, except tree uses
+the familiar array notation for <B>key</B> fields.  Here is an example:
+<PRE>set t [tree create]
+set n [$t insert 0 -data {a 1   b 2   c &quot;x 9 y 8 z 7&quot;}]
+puts [$t get $n];          #  a 1 b 2 c {x 9 y 8 z 7}
+puts [$t get $n c];        #  x 9 y 8 z 7
+puts [$t get $n c(y)];     # 8
+$t update $n c(y) 8.6
+puts [$t get $n c];        # x 9 y 8.6 z 7
+$t unset $n c(y)
+puts [$t get $n c];        # x 9 z 7
+$t set $n d 10</PRE>
+Using incr or update on a non-existant subfield generates an error.
+Using the <B>type</B> command on such a field returns <I>array</I>.
+Note that traced operations on arrays trigger on the key value
+and not individual array elements.
+<H3><A NAME="M240">TAG OPERATIONS</A></H3>
+Tags are a general means of selecting and marking nodes in the tree.
+A tag is just a string of characters, and it may take any form except
+that of an integer.  The same tag may be associated with many
+different nodes.  
+<P>
+<P>
+Most tree operations use tags.  And several operations let you
+operate on multiple nodes at once.  For example, you can use the
+<B><A HREF="../TclCmd/set.htm">set</A></B> operation with the tag <B>all</B> to set a data field in 
+for all nodes in the tree.
+<P>
+Tags are invoked by the <B>tag</B> operation.  The
+general form is
+<dl><dd><table border="0"><tr><td><p style="font-size:12px;padding-left:.5em;padding-right:.5em;"><I>treeName</I> <B>tag</B> <I>operation</I> ?<I>arg</I>?...</table></dl>
+Both <I>operation</I> and its arguments determine the exact behavior of
+the command.  The operations available for tags are listed below.
+<P>
+<DL class="tag operations">
+<DT><A NAME="M241"><I>treeName</I> <B>tag add</B> <I>string</I> ?<I>node</I>?...</A><DD>
+Adds the tag <I>string</I> to zero or more nodes.
+If no nodes are given, just creates the tag.
+A count of the number of nodes tagged is returned.
+<P><DT><A NAME="M242"><I>treeName</I> <B>tag delete</B> <I>string</I> <I>node</I>...</A><DD>
+Remove the tag <I>string</I> from one or more nodes.  
+A count of the number of nodes visited is returned.
+Calling <B>tag delete</B> with a builtin tag is ignore.
+<P><DT><A NAME="M243"><I>treeName</I> <B>tag dump</B> <I>tagnode</I> ?<I>switches</I>?</A><DD>
+Dump the nodes specified by the tag <I>tagnode</I>.
+<P>
+The valid <I>switches</I> are listed below.
+<P>
+<DL class="tag operations">
+<DT><A NAME="M244"><B>-keys </B><I>list</I></A><DD>
+A list of patterns of matching keys to be dumped.
+<P><DT><A NAME="M245"><B>-skipkeys </B><I>list</I></A><DD>
+A list of patterns of matching keys not to be dumped.
+<P><DT><A NAME="M246"><B>-tag </B><I>pattern</I></A><DD>
+A pattern match for tags to include in a node dump.
+<P><DT><A NAME="M247"><B>-skiptag </B><I>pattern</I></A><DD>
+A pattern match for tags to not include in a node dump.
+<P><DT><A NAME="M248"><B>-notags</B></A><DD>
+Do not dump the tags.
+<P><DT><A NAME="M249"><B>-nopath</B></A><DD>
+To save space, do not dump the full path for each node.
+Instead output periods for all but the last path element.
+Full paths are used only for partial restores.
+<P></DL>
+<P><DT><A NAME="M250"><I>treeName</I> <B>tag exists</B> <I>string</I> ?<I>id</I>?</A><DD>
+If an <I>id</I> is given, return 1 (or 0)  if node has (or hasn't) the tag.
+Otherwise, returns 1 if at least one nodes has tag <I>string</I>.
+<P><DT><A NAME="M251"><I>treeName</I> <B>tag forget</B> <I>string</I> ?<I>string</I> ...?</A><DD>
+Removes the tag definition for one or more of <I>string</I>.
+It's not an error if the tag <I>string</I> does not exist.
+<P><DT><A NAME="M252"><I>treeName</I> <B>tag lookups</B> ?<I>pattern</I>?</A><DD>
+Dump a lookup table (dictionary)
+of nodes-to-tags, or tags-to-nodes if <I>pattern</I>
+is given.
+With no arguments, returns a pair list of nodes/tags,
+for nodes that have tags.
+With an argument, returns a pair list of tags/nodes.
+<B>lookups</B> provides efficient bulk processing when dealing with
+large numbers of nodes and/or tags.
+<P><DT><A NAME="M253"><I>treeName</I> <B>tag names</B> ?<B>-glob</B>? ?<B>-regexp</B>? ?<B>-nocase</B>?  ?<I>node</I>? ?<I>node ...</I>?</A><DD>
+Returns a list of tags used by the tree.  If no <I>node</I> argument
+is given, returns a list of all known tags.  Otherwise, returns
+the union of the tags used by all given <I>node</I> numbers.
+Patterns can be used via <B>-glob</B> or <B>-regexp</B>.
+If <B>-nocase</B> is used, the pattern is expected to be all lower case.
+<P><DT><A NAME="M254"><I>treeName</I> <B>tag nodes</B> <I>string</I> ?<I>string ...</I>?</A><DD>
+Returns a list of any nodes that have any of given <I>string</I> tag.  If no node
+is tagged with any of the <I>string</I>, then an empty string is returned.
+<P></DL>
+<H3><A NAME="M255">TRACE OPERATIONS</A></H3>
+Data fields can be traced much like tracing Tcl
+variables.  Data traces cause a Tcl command to be executed whenever
+data fields are created, read, written, or unset.
+A trace can apply to one or more nodes.  You can trace a specific node
+by using its id, or a group of nodes by a their tag.
+Note: operations on arrays trigger only on the key value
+and not individual array elements.
+<P>
+The tree's <B>get</B>, <B><A HREF="../TclCmd/set.htm">set</A></B>, and <B><A HREF="../TclCmd/unset.htm">unset</A></B> operations can 
+trigger various traces.  The <B>get</B> operation can cause 
+a <I>read</I>  trace to fire.  The <B><A HREF="../TclCmd/set.htm">set</A></B> operation causes a <I>write</I> 
+trace to fire.  And if the data field is written for the first time, you
+will also get a <I>create</I> trace.
+The <B><A HREF="../TclCmd/unset.htm">unset</A></B> operation triggers <I>unset</I> traces.
+<P>
+Data traces are invoked by the <B><A HREF="../TclCmd/trace.htm">trace</A></B>
+operation.  The general form is
+<dl><dd><table border="0"><tr><td><p style="font-size:12px;padding-left:.5em;padding-right:.5em;"><I>treeName</I> <B><A HREF="../TclCmd/trace.htm">trace</A></B> <I>operation</I> ?<I>arg</I>?...</table></dl>
+Both <I>operation</I> and its arguments determine the exact behavior of
+the command.  The operations available for traces are listed below.
+<P>
+<DL class="trace operations">
+<DT><A NAME="M256"><I>treeName</I> <B>trace create</B> <I>node</I> <I>key</I> <I>ops</I> <I>command</I> ?-bgerror?</A><DD>
+Create a trace on data fields (or tags for tag traces)
+given by the pattern in <I>key</I>.  The <I>node</I> argument
+can be a nodeid, or a tag to refer to multiple nodes eg. <I>all</I>.
+The return value is an identifier that can
+be used with &quot;<B><A HREF="../TclCmd/trace.htm">trace info</A></B>&quot; or &quot;<B><A HREF="../TclCmd/trace.htm">trace delete</A></B>&quot;.
+Traces are temporarily disabled while executing <I>command</I> within the trace.
+<P>
+<I>Command</I> is a command prefix, to which
+four arguments are appended before invocation:
+<I>treeName</I>, <I>nodeid</I>, <I>key</I> and, <I>ops</I>.
+If an error occurs in <I>command</I> (and <I>-bgerror</I> was not used)
+the invoking operation will also abort.
+<P>
+<I>Ops</I> indicates which operations are of
+interest.  It consists of one or more of the following letters:
+<P>
+<DL class="trace operations">
+<DT><A NAME="M257"><B>r</B></A><DD>
+Invoke <I>command</I> whenever <I>key</I> is read.
+<P><DT><A NAME="M258"><B>w</B></A><DD>
+Invoke <I>command</I> whenever <I>key</I> is written.
+<P><DT><A NAME="M259"><B>c</B></A><DD>
+Invoke <I>command</I> whenever <I>key</I> is created.
+<P><DT><A NAME="M260"><B>u</B></A><DD>
+Invoke <I>command</I> whenever <I>key</I> is unset,
+typically with the <B><A HREF="../TclCmd/unset.htm">unset</A></B> command.
+to that.
+<P><DT><A NAME="M261"><B>e</B></A><DD>
+Invoke <I>command</I> whenever <B>exists</B> is used on an non-existant
+key.  This can be used to populate node key data on demand.
+<P><DT><A NAME="M262"><B>t</B></A><DD>
+Invoke <I>command</I> whenever tag <I>key</I> is added to a node.
+<P><DT><A NAME="M263"><B>m</B></A><DD>
+Invoke <I>command</I> when tag <I>key</I> gets added to more than one node.
+This trace can be used to enforce tags that should be on at most one node.
+It can avoid later errors with tags used in
+<B>get</B> or other commands not accepting non-unique tags.
+<P><DT><A NAME="M264"><B>d</B></A><DD>
+Invoke <I>command</I> whenever tag <I>key</I> is <I>deleted</I> from a node
+using either <B>tag delete</B> or <B>tag forget</B>.
+Node deletion will not trigger this trace.
+<P>
+<P></DL>
+<P><DT><A NAME="M265"><I>treeName</I> <B>trace delete</B> <I>traceId</I>...</A><DD>
+Deletes one of more traces.  <I>TraceId</I> is
+the trace identifier returned by the <B><A HREF="../TclCmd/trace.htm">trace create</A></B> operation.
+<P><DT><A NAME="M266"><I>treeName</I> <B>trace info</B> <I>traceId</I></A><DD>
+Returns information about the trace <I>traceId</I>.  <I>TraceId</I>
+is a trace identifier previously returned by the <B><A HREF="../TclCmd/trace.htm">trace create</A></B> operation.
+It's the same information specified for the <B><A HREF="../TclCmd/trace.htm">trace create</A></B> operation.
+It consists of the node id or tag, data field key, a string of letters
+indicating the operations that are traced (it's in the same
+form as <I>ops</I>) and, the command prefix.
+<P><DT><A NAME="M267"><I>treeName</I> <B>trace names</B></A><DD>
+Returns a list of identifers for all the current traces.
+<P></DL>
+<H3><A NAME="M268">NOTIFY OPERATIONS</A></H3>
+Tree objects can be shared among many clients, such as a
+<B><A HREF="../TclCmd/treeview.htm">treeview</A></B> widget.  Any client can create or delete nodes,
+sorting the tree, etc.  You can request to be notified whenever these
+events occur.  Notify events cause Tcl commands to be executed
+whenever the tree structure is changed.  
+<P>
+Notifications are handled by the <B>notify</B> operation.  The
+general form is
+<dl><dd><table border="0"><tr><td><p style="font-size:12px;padding-left:.5em;padding-right:.5em;"><I>treeName</I> <B>notify</B> <I>operation</I> ?<I>arg</I>?...</table></dl>
+Both <I>operation</I> and its arguments determine the exact behavior of
+the command.  The operations available for events are listed below.
+<P>
+<DL class="notify operations">
+<DT><A NAME="M269"><I>treeName</I> <B>notify create</B> ?<I>switches</I>? <I>command</I> ?<I>args</I>?...</A><DD>
+Creates a notifier for the tree.  A notify identifier in the form
+&quot;<B>notify0</B>&quot;, &quot;<B>notify1</B>&quot;, etc.  is returned.
+<P>
+<I>Command</I> and <I>args</I> are saved and invoked whenever the tree
+structure is changed (according to <I>switches</I>). Two arguments are
+appended to <I>command</I> and <I>args</I> before it's invoked: the id
+of the node and a string representing the type of event that occured.
+If an error is returned by <I>command</I>, and not using <I>-whenidle</I>
+the invoking operation usually returns an error.
+One of more switches can be set to indicate the events that are of
+interest.  The valid switches are as follows:
+<P>
+<DL class="notify operations">
+<DT><A NAME="M270"><B>-create</B></A><DD>
+Invoke <I>command</I> whenever a new node is added.
+This is called after the creation.  Returning an error will
+delete the node.
+<P><DT><A NAME="M271"><B>-delete</B></A><DD>
+Invoke <I>command</I> whenever a node has been deleted.
+This is called before the delete starts to allow aborting it with an error.
+Deletes resulting from failed inserts are ignored.
+<P><DT><A NAME="M272"><B>-get</B></A><DD>
+Invoke <I>command</I> whenever a node with no keys is accessed (via <B>get</B>
+or <B>with</B>).
+If a node has at least one key, this will not trigger.
+The invocation occurs before the read, meaning it can
+be used to implement demand loading of data keys into empty nodes
+(eg. loading database row data on read).
+<P><DT><A NAME="M273"><B>-insert</B></A><DD>
+Invoke <I>command</I> when an <B>insert</B> completes.
+This differs from <B>-create</B> in that the call occurs
+after the label, tags and data are added (but before
+<B>-fixed</B> gets set).
+This trace applies to the subcommands <B>create</B>, <B>copy</B>,
+<B>restore</B>, <B>sqlload</B>, and
+<B>insert</B> (both tree and treeview).
+It is useful for verifying key-data, tags and labels.
+Returning an error will delete the node and cause the
+originating command to generate an error.
+<P><DT><A NAME="M274"><B>-move</B></A><DD>
+Invoke <I>command</I> at the start of a node move.
+<P><DT><A NAME="M275"><B>-movepost</B></A><DD>
+Invoke <I>command</I> after a node has been moved.
+<P><DT><A NAME="M276"><B>-sort</B></A><DD>
+Invoke <I>command</I> whenever the tree has been sorted and reordered.
+<P><DT><A NAME="M277"><B>-relabel</B></A><DD>
+Invoke <I>command</I> at the start of a node relabel.
+<P><DT><A NAME="M278"><B>-relabelpost</B></A><DD>
+Invoke <I>command</I> after a node has been relabeled.
+<P><DT><A NAME="M279"><B>-allevents</B></A><DD>
+Invoke <I>command</I> whenever any of the above events occur.
+<P><DT><A NAME="M280"><B>-whenidle</B></A><DD>
+When an event occurs don't invoke <I>command</I> immediately, but
+queue it to be run the next time the event loop is entered and there 
+are no events to process.  If subsequent events occur before 
+the event loop is entered, <I>command</I> will still be 
+invoked only once.
+<P></DL>
+<P><DT><A NAME="M281"><I>treeName</I> <B>notify delete</B> <I>notifyId</I></A><DD>
+Deletes one or more notifiers from the tree.  <I>NotifyId</I> is the
+notifier identifier returned by the <B>notify create</B> operation.
+<P><DT><A NAME="M282"><I>treeName</I> <B>notify info</B> <I>notifyId</I></A><DD>
+Returns information about the notify event <I>notifyId</I>.  <I>NotifyId</I>
+is a notify identifier previously returned by the <B>notify create</B> operation.
+It's the same information specified for the <B>notify create</B> operation.
+It consists of the notify id, a sublist of event flags (it's in the same
+form as <I>flags</I>) and, the command prefix.
+<P><DT><A NAME="M283"><I>treeName</I> <B>notify names</B></A><DD>
+Returns a list of identifers for all the current notifiers.
+
+<P></DL>
+<H3><A NAME="M284">TABLE EXAMPLE</A></H3>
+The following is a simple example.
+<P>
+<PRE>variable Users {
+     tom  { Name &quot;Tom Brown&quot;  Sex M Age 19  Class {4 5} Rate {A 1 B 2}}
+     mary { Name &quot;Mary Brown&quot; Sex F Age 16  Class {5}   Rate {A 2}}
+     sam  { Name &quot;Sam Spade&quot;  Sex M Age 19  Class {3 4} Rate {B 3}}
+ }
+ set t [tree create]
+ foreach {i d} $Users {
+    # Use name in -tags so we don't have to do &quot;0-&gt;mary&quot; etc.
+    $t insert 0 -tags $i -data $d -label $i
+ }
+ 
+ $t update   tom       Sex F   Name &quot;Tomi Brown&quot;
+ $t append   sam       Name &quot; Jr&quot;
+ $t lappend  sam       Class 5
+ $t incr     mary      Age
+ $t update   tom       Rate(A) 2
+ $t incr     0-&gt;mary   Age
+ 
+ # Set a trace.
+ proc ::Aupd {t id key op} { tclLog &quot;AA: $t $id $key $op&quot; }
+ $t trace create all Age w ::Aupd
+ $t incr     mary Age
+ 
+ # Display it.
+ pack [treeview .t -tree $t] -fill both -expand y
+ eval .t column insert end [$t keys all]</PRE>
+<H3><A NAME="M285">TREE EXAMPLE</A></H3>
+The following is a nested tree example with updates.
+<P>
+<PRE>variable Info {
+   system {
+      sol  { OS Linux Version 3.4 }
+      bing { OS Win Version 7 }
+      gui  { OS Mac Version 8 }
+   }
+   network {
+      intra { Address 192.168.1  Netmask 255.255.255.0 }
+      dmz   { Address 192.168.10 Netmask 255.255.255.0 }
+      wan   { Address 0.0.0.0 Netmask 0.0.0.0 Class {A 1 B 4}}
+   }
+   admins {
+      sully { Name &quot;Sully Van Damme&quot; Level 3 }
+      maverick { Name &quot;Maverick Gump&quot; Level 1 }
+   }
+ }
+  
+ set s [tree create]
+ foreach {n vals} $Info {
+   set ind [$s insert 0 -label $n]
+   foreach {i d} $vals {
+      $s insert $ind -label $i -data $d
+   }
+ }
+  
+ set old [$s get  0-&gt;system-&gt;bing]
+ $s update   0-&gt;system-&gt;bing   OS Linux Version 3.4
+ $s update   0-&gt;network-&gt;dmz   Address 192.168.11
+ $s update   0-&gt;network-&gt;wan   Class(A) 2
+ eval $s set 0-&gt;system-&gt;bing   $old
+ $s insert   0-&gt;admins -label linus -data { Name &quot;Linus Torvalds&quot; Level 9 }
+ 
+ 
+ pack [treeview .s -tree $s -width 600] -fill both -expand y
+ eval .s column insert end [$s keys all]</PRE>
+<H3><A NAME="M286">SQLLOAD EXAMPLE</A></H3>
+Here is an example using <B>sqlload</B> on table <I>cust</I> from a
+database file, and displaying it in a treeview:
+<PRE>set t [tree create]
+  $t sqlload mydb.dat &quot;select rowid,* from cust&quot;
+  pack [treeview .t -tree $t -width 500] -fill both -expand y
+  eval .t column insert end [lsort [$t keys all]]</PRE>
+Although there is no corresponding <B>sqldump</B> command,
+scripting it is easy.  Following
+is one approach.
+<PRE>proc sqldump {t db table {ids {}}} {
+      # Dump nodes from tree t into table in open sqlite database db.
+      if {$ids == {}} { set ids [$t children root] }
+      set keys [$t keys $ids]
+      catch { $db eval &quot;CREATE TABLE $table ( [join $keys ,] )&quot; }
+      $t with s $ids {
+          set nams {}
+          set vals {}
+          foreach nam $s(*) {
+              lappend vals &#92;$s($nam)
+              lappend nams $nam
+          }
+          set vals [join $vals ,]
+          set nams [join $nams ,]
+          set q [format {INSERT INTO %s (%s) VALUES (%s)} $table $nams $vals]
+          $db eval $q
+      }
+  }
+  sqlite3 [set db dbhandle] mydb.dat
+  sqldump $t $db cust2</PRE>
+<H3><A NAME="M287">TREE KEY STRING STORAGE</A></H3>
+Key name strings
+are stored by default in a global hash table.
+However, sometimes this can be undesirable (eg. with threading),
+and so the behavior may be changed (at tree create time only).
+To enable per-interp storage of keys, set
+<B>blt::treeKeysLocal</B> to 1 before tree creation.
+To enable per-tree storage of keys, set
+<B>blt::treeKeysLocal</B> to 2 before tree creation.
+The above is unavailable in safe interps.
+<H3><A NAME="M288">C LANGUAGE API</A></H3>
+Blt_TreeApply, 
+Blt_TreeApplyBFS, 
+Blt_TreeApplyDFS, 
+Blt_TreeChangeRoot, 
+Blt_TreeCreate, 
+Blt_TreeCreateEventHandler, 
+Blt_TreeCreateNode, 
+Blt_TreeCreateTrace, 
+Blt_TreeDeleteEventHandler, 
+Blt_TreeDeleteNode, 
+Blt_TreeDeleteTrace, 
+Blt_TreeExists, 
+Blt_TreeFindChild, 
+Blt_TreeFirstChild, 
+Blt_TreeFirstKey, 
+Blt_TreeGetNode, 
+Blt_TreeGetToken, 
+Blt_TreeGetValue, 
+Blt_TreeIsAncestor, 
+Blt_TreeIsBefore, 
+Blt_TreeIsLeaf, 
+Blt_TreeLastChild, 
+Blt_TreeMoveNode, 
+Blt_TreeName, 
+Blt_TreeNextKey, 
+Blt_TreeNextNode, 
+Blt_TreeNextSibling, 
+Blt_TreeNodeDegree, 
+Blt_TreeNodeDepth, 
+Blt_TreeNodeId, 
+Blt_TreeNodeLabel, 
+Blt_TreeNodeParent, 
+Blt_TreePrevNode, 
+Blt_TreePrevSibling, 
+Blt_TreeRelabelNode, 
+Blt_TreeReleaseToken, 
+Blt_TreeRootNode, 
+Blt_TreeSetValue, 
+Blt_TreeSize, 
+Blt_TreeSortNode, and
+Blt_TreeUnsetValue.
+<H3><A NAME="M289">KEYWORDS</A></H3>
+<A href="../Keywords/T.htm#tree">tree</A>, <A href="../Keywords/T.htm#treeview">treeview</A>, <A href="../Keywords/W.htm#widget">widget</A>
+<div class="copy">Copyright &copy; 1995-1997 Roger E. Critchlow Jr.
+</div>
+</BODY></HTML>

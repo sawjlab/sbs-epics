@@ -1,0 +1,19 @@
+# Specific BLT tmp files
+blt2.5/Makefile
+blt2.5/config.log
+blt2.5/config.status
+blt2.5/demos/Makefile
+blt2.5/generic/bltConfig.h
+blt2.5/generic/bltHash.h
+blt2.5/generic/libBLT.a
+blt2.5/generic/libBLTlite.a
+blt2.5/generic/shared/Makefile
+blt2.5/generic/shared/bltwish25
+blt2.5/library/Makefile
+blt2.5/man/Makefile
+blt2.5/generic/Makefile
+blt2.5/man/*.[3n]
+blt2.5/generic/bltsh
+blt2.5/generic/bltwish
+blt2.5/generic/shared/bltsh25
+blt2.5/library/pkgIndex.tcl
