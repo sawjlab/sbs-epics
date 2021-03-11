@@ -1,0 +1,7 @@
+# tcl_ca files to ignore
+autom4te.cache
+config.log
+config.status
+configure
+epics.so
+tcl_ca.o

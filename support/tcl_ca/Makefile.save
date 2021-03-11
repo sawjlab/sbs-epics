@@ -1,0 +1,28 @@
+# Failed attempt to build a Makefile according to the
+# EPICS build system
+
+TOP=..
+
+include $(TOP)/configure/CONFIG
+#----------------------------------------
+#  ADD MACRO DEFINITIONS AFTER THIS LINE
+
+USR_CFLAGS += -O2 -g -pipe -Wall -Wp,-D_FORTIFY_SOURCE=2 -fexceptions -fstack-protector --param=ssp-buffer-size=4 -mtune=generic -pipe 
+USR_CFLAGS += -DUSE_TCL_STUBS
+
+LIB_LIBS_DEFAULT = ca Com tclstub8.5
+
+ca_DIR = $(EPICS_BASE_LIB)
+Com_DIR = $(EPICS_BASE_LIB)
+tclstub8.5_DIR = $(TCL_LIB)
+tclstub8_DIR = $(TCL_LIB)
+tclstub_DIR = $(TCL_LIB)
+
+LIB_SRCS_DEFAULT += tcl_ca.c
+
+SHARED_LIBRARIES = YES
+
+LIBRARY_HOST = tclca
+
+include $(TOP)/configure/RULES
+
