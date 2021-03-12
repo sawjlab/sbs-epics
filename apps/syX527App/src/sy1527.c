@@ -216,7 +216,11 @@ sy1527GetBoard(unsigned int id, unsigned int board)
     tipo = Measure[id].board[board].partypes[ipar];
  
     //printf("%s %d %s %d\n",name,(int)Slot,ParName,(int)ChNum);
-
+    // Set vallists to -1 so we see what is invalid
+    for(i=0;i<ChNum;i++) {
+      fParValList[i] = -1.0;
+      lParValList[i] = -1;
+    }
     if(!strcmp(Measure[id].board[board].modelname,"A1932")) {
       if(tipo == PARAM_TYPE_NUMERIC) {
 	ret = CAENHVGetChParam(name, Slot, ParName, 1, ChList, fParValList); /* Primary Channel */
