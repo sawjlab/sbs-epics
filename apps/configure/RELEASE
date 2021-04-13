@@ -29,7 +29,8 @@
 #SNCSEQ = $(MODULES)/seq-ver
 
 # EPICS_BASE should appear last so earlier modules can override stuff:
-EPICS_BASE = $(TOP)/../../base-R7.0.4.1
+#EPICS_BASE = $(TOP)/../../base-R7.0.4.1
+EPICS_BASE = $(TOP)/../../base-3.14.12.5
 
 # Set RULES here if you want to use build rules from somewhere
 # other than EPICS_BASE:
