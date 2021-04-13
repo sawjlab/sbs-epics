@@ -12,8 +12,8 @@ INC += a_out.h
 #=============================
 # Build the IOC application
 
-#PROD_IOC_Linux = ioccaen
-PROD_IOC = ioccaen
+PROD_IOC_Linux = ioccaen
+#PROD_IOC = ioccaen
 
 # ioccaen.dbd will be created and installed into <top>/dbd
 DBD += ioccaen.dbd
