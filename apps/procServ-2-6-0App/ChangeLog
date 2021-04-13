@@ -1,0 +1,104 @@
+V 2.6.0 04/16/2012 Ralph Lange <Ralph.Lange@gmx.de>
+Fixed resource leak on Solaris (Trac #18).
+Replaced buggy telnet state machine with libtelnet (Trac #1, #27).
+Added option to keep child in foreground (Trac #16).
+Fixed several logfile issues (Trac #20, #22, #25).
+Improved README pointing to Michael Davidsaver's SysV scripts (Trac #13).
+Fixed several autoconf issues (Trac #19, #26).
+Added option to print formatted timestamps to log (Trac #21).
+Added option to specify the executable separately (Trac #23).
+Improve access bit checks on the executable (Trac #24).
+Added option to specify logout command character (Trac #28).
+Allow kill command to restart the child in wait mode (Trac #29).
+Remove deprecated option to specify logfile by output redirect (Trac #30).
+Properly test for and depend on libtelnet (Trac #31).
+Make toggle auto-restart command work when child is stopped (Trac #32).
+Changes to compile under Cygwin.
+
+V 2.5.1 03/23/2010 Ralph Lange <Ralph.Lange@bessy.de>
+Made procServ kill child using killsig on termination (by Matthieu Bec) (Trac #14).
+Added changes to compile on Solaris (Trac #11).
+Added changes to compile on Mac OS X (Trac #12).
+Added DEB package building (Trac #6).
+Added RPM package building (Trac #10).
+Fixed non-portable termios stuff (Trac #15).
+Fixed out-of-boundary writes and memory leaks (Trac #17).
+
+V 2.5.0 12/02/2009 Ralph Lange <Ralph.Lange@bessy.de>
+Improved manpage formatting (Trac #9).
+Added makefile wrapper for developer use (Trac #8).
+Fixed some minor compiler warnings (Trac #7).
+Added support for building within EPICS build system (Trac #4).
+Made time format string and holdoff time command line options (Trac #3).
+Added the usual autoconf-style project files: INSTALL, AUTHORS, README, ChangeLog, etc.
+Changed build to use GNU automake/autoconf (Trac #2).
+
+V 2.4.1 10/14/2009 Ralph Lange <Ralph.Lange@bessy.de>
+Uses execvp() instead of execv() - so that PATH is honored. (suggested by Steve Lewis)
+Larger buffers for text messages (avoid overflow with long path names). (suggested by Eric Norum)
+Added diagnostic message when forkpty() fails. (suggested by Eric Norum)
+Manpage reformatted as .txt, uses a2x to generate manpage/pdf/html. (suggested by Michael Davidsaver)
+New command line option -V (--version) to print program version.
+
+V 2.4.0 07/22/2008 Ralph Lange <Ralph.Lange@bessy.de>
+New command line option --allow to allow control connections from any host. (Must be
+explicitly enabled in Makefile.)
+New command line option -w (--wait) to start with child being shut down and wait for
+manual start command on control connection.
+Fix: Make start directory the default for directory to cd to.
+
+V 2.3.0 06/05/2008 Ralph Lange <Ralph.Lange@bessy.de>
+New command line option -c (--chdir) <dir> to specify <dir> to change to whenever child
+is restarted. (Important if symbolic link in st.cmd path is used for versioning.)
+Removed killing the server when child fails to exec command.
+
+V 2.2.0 05/30/2008 Ralph Lange <Ralph.Lange@bessy.de>
+New command line option -q (--quiet) suppresses info output (server) to avoid cluttering
+the output when run as part of a system script.
+
+V 2.1.1 05/22/2008 Ralph Lange <Ralph.Lange@bessy.de>
+Enabled -Wall fo compilation.
+Fixed a number of compiler warnings.
+
+V 2.1.0 04/25/2008 Ralph Lange <Ralph.Lange@bessy.de>
+Followed Emmanuels Mayssat's suggestion:
+Auto-restart-mode default can be changed by commandline option.
+Auto-restart-mode can be toggled online with configurable command.
+Server mode (child shut down) accepts two commands: restart child or quit server.
+
+V 2.0.0 04/22/2008 Ralph Lange <Ralph.Lange@bessy.de>
+Fixed CR/LF problem (appearing with seq debugging).
+Added html doc (man page style).
+Added many commandline options for fine tuning:
+    pid file name, log port, command to kill the child, signal to use for killing,
+    limit child's core size, ignore dangerous characters, define a short name
+Added second port (default: public) for read-only log connections.
+Redid the server messages (start with "@@@ " to be distiguished from child messages).
+
+R1-4 3/9/2006
+Fixed double characters when the other user is typing.
+More informational messages: PIDs for everything, when sigchild and sigpipe happen and more
+info at sign-on.
+Put in better detection and reporting in case the startup file is not usable. Procserve will
+try to print an informational message and die.
+
+R1-3 3/2/2006
+Added the logfile feature - if stdout is a file we leave it open and write messages to it.
+Added better startup handling
+Added start and restart time messages.
+R1-0 9/11/2003
+This is the first real version that works as desired.  I have added since 1.1 several
+features.
+
+The option of running as a daemon controlled by the environment variable "PROCSERV_DEBUG".
+
+Tuned the informational printfs.
+
+Added some interaction with telnet protocol, enough that linemode in the telnet client is
+disabled. The whole telnet state machine is more complex than it needs to be but I think that
+I can use it later.  There is room for adding features here.
+
+1.1 9/2/2003
+This works.  Telnet comes up in linemode meaning that characters are echoed and held by telnet
+until it gets a <CR>. The whole line is then sent.  If you type a control character you must
+type <CR> to get it sent. If the control character is ^C then you get hosed.

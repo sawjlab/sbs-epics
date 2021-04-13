@@ -1,0 +1,135 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"><head><meta http-equiv="Content-Type" content="text/html; charset=UTF-8" /><title>PROCSERV(1)</title><link rel="stylesheet" type="text/css" href="docbook-xsl.css" /><meta name="generator" content="DocBook XSL Stylesheets V1.76.1" /></head><body><div xml:lang="en" class="article" title="PROCSERV(1)" lang="en"><div class="titlepage"><div><div><h2 class="title"><a id="idp25169392"></a>PROCSERV(1)</h2></div><div><div class="revhistory"><table border="1" width="100%" summary="Revision history"><tr><th align="left" valign="top" colspan="2"><strong>Revision History</strong></th></tr><tr><td align="left">Revision 2.6.0.rc2</td><td align="left">04/13/2012</td></tr></table></div></div></div><hr /></div><div class="toc"><p><strong>Table of Contents</strong></p><dl><dt><span class="section"><a href="#_name">1. NAME</a></span></dt><dt><span class="section"><a href="#_synopsis">2. SYNOPSIS</a></span></dt><dt><span class="section"><a href="#_description">3. DESCRIPTION</a></span></dt><dt><span class="section"><a href="#_options">4. OPTIONS</a></span></dt><dt><span class="section"><a href="#_usage">5. USAGE</a></span></dt><dt><span class="section"><a href="#_environment_variables">6. ENVIRONMENT VARIABLES</a></span></dt><dt><span class="section"><a href="#_known_problems">7. KNOWN PROBLEMS</a></span></dt><dt><span class="section"><a href="#_reporting_bugs">8. REPORTING BUGS</a></span></dt><dt><span class="section"><a href="#_authors">9. AUTHORS</a></span></dt><dt><span class="section"><a href="#_resources">10. RESOURCES</a></span></dt><dt><span class="section"><a href="#_copying">11. COPYING</a></span></dt></dl></div><div class="section" title="1. NAME"><div class="titlepage"><div><div><h2 class="title" style="clear: both"><a id="_name"></a>1. NAME</h2></div></div></div><p>procServ - Process Server with Telnet Console and Log Access</p></div><div class="section" title="2. SYNOPSIS"><div class="titlepage"><div><div><h2 class="title" style="clear: both"><a id="_synopsis"></a>2. SYNOPSIS</h2></div></div></div><p><span class="strong"><strong>procServ</strong></span> [<span class="emphasis"><em>OPTIONS</em></span>] <span class="emphasis"><em>port</em></span> <span class="emphasis"><em>command</em></span> <span class="emphasis"><em>args…</em></span></p></div><div class="section" title="3. DESCRIPTION"><div class="titlepage"><div><div><h2 class="title" style="clear: both"><a id="_description"></a>3. DESCRIPTION</h2></div></div></div><p>procServ(1) creates a run time environment for a command (e.g. a soft IOC).
+It forks a server run as a daemon into the background, which creates a child process running <span class="emphasis"><em>command</em></span> with all remaining <span class="emphasis"><em>args</em></span> from the command line.
+The server provides console access (stdin/stdout) to the child process by offering a telnet connection at the specified port.
+For security reasons, by default access is restricted to connections from localhost (127.0.0.1), so that logging into a valid account on the host machine is required.</p><p>procServ can be configured to write a console log of all in- and output of the child process into a file using the <span class="strong"><strong>-L</strong></span> (<span class="strong"><strong>--logfile</strong></span>) option. Sending the signal SIGHUP to the server will make it reopen the log file.
+To facilitate running under a central console access management (like conserver), the <span class="strong"><strong>-l</strong></span> (<span class="strong"><strong>--logport</strong></span>) option creates an additional telnet port, which is by default public (i.e. not restricted to localhost), and provides read-only log access to the child’s console.
+The <span class="strong"><strong>-r</strong></span> (<span class="strong"><strong>--restrict</strong></span>) option restricts the log port to localhost, similar to the access port.</p><p>Both access and log ports allow multiple connections, which are handled transparently: all input from access connections is forwarded to the child process, all output from the child is forwarded to all access and log connections (and written to the log file).
+All diagnostic messages from the server process start with "<code class="literal">@@@</code> " to be clearly distinguished from child process messages.
+A name specified by the <span class="strong"><strong>-n</strong></span> (<span class="strong"><strong>--name</strong></span>) option will replace the command string in many messages for increased readability.</p><p>The server will by default automatically respawn the child process when it dies.
+To avoid spinning, a minimum time between child process restarts is honoured (default: 15 seconds, can be changed using the <span class="strong"><strong>--holdoff</strong></span> option).
+This behaviour can be toggled online using the toggle command <code class="literal">^T</code>, the default may be changed using the <span class="strong"><strong>--noautorestart</strong></span> option.
+You can restart a running child manually by sending a signal to the child process using the kill command <code class="literal">^X</code>.
+With the child process being shut down, the server accepts two commands: <code class="literal">^R</code> or <code class="literal">^X</code> to restart the child, and <code class="literal">^Q</code> to quit the server.
+The <span class="strong"><strong>-w</strong></span> (<span class="strong"><strong>--wait</strong></span>) option starts the server in this shut down mode, waiting for a telnet connection to issue a manual start command to create the child.</p><p>Any telnet connection (control or log) can be disconnected using the client’s disconnect sequence. Control connections can also be disconnected by sending the logout command character, that can be specified using the <span class="strong"><strong>-x</strong></span> (<span class="strong"><strong>--logoutcmd</strong></span>) option.</p><p>To block input characters that are potentially dangerous to the child (e.g. <code class="literal">^D</code> and <code class="literal">^C</code> on soft IOCs), the <span class="strong"><strong>-i</strong></span> (<span class="strong"><strong>--ignore</strong></span>) option can be used to specify characters that are silently ignored when coming from a console access port.</p><p>To facilitate being started and stopped as a standard system service, the <span class="strong"><strong>-p</strong></span> (<span class="strong"><strong>--pidfile</strong></span>) option tells the server to create a standard PID file containing the PID of the server process.</p><p>The <span class="strong"><strong>-d</strong></span> (<span class="strong"><strong>--debug</strong></span>) option runs the server in debug mode: the daemon process stays in the foreground, printing all regular log content plus additional debug messages to stdout.</p></div><div class="section" title="4. OPTIONS"><div class="titlepage"><div><div><h2 class="title" style="clear: both"><a id="_options"></a>4. OPTIONS</h2></div></div></div><div class="variablelist"><dl><dt><span class="term">
+<span class="strong"><strong>--allow</strong></span>
+</span></dt><dd>
+    Allow control connections from anywhere. (Default: restrict control access to localhost.)
+    Creates a serious security hole, as telnet clients from anywhere can connect to the child’s stdin/stdout and execute arbitrary commands on the host, if the child permits.
+    Needs to be enabled at compile-time (see Makefile).
+    Please do not enable and use this option unless you exactly know why and what you are doing.
+</dd><dt><span class="term">
+<span class="strong"><strong>--autorestartcmd</strong></span>=<span class="emphasis"><em>char</em></span>
+</span></dt><dd>
+    Toggle auto restart flag when <span class="emphasis"><em>char</em></span> is sent on an access connection. Use <code class="literal">^</code> to specify a control character, <code class="literal">""</code> to disable. Default is <code class="literal">^T</code>.
+</dd><dt><span class="term">
+<span class="strong"><strong>--coresize</strong></span>=<span class="emphasis"><em>size</em></span>
+</span></dt><dd>
+    Set the maximum <span class="emphasis"><em>size</em></span> of core file. See getrlimit(2) documentation for details. Setting <span class="emphasis"><em>size</em></span> to 0 will keep child from creating core files.
+</dd><dt><span class="term">
+<span class="strong"><strong>-c, --chdir</strong></span>=<span class="emphasis"><em>dir</em></span>
+</span></dt><dd>
+    Change directory to <span class="emphasis"><em>dir</em></span> before starting child. This is done each time the child is started to make sure symbolic links are resolved on child restart.
+</dd><dt><span class="term">
+<span class="strong"><strong>-d, --debug</strong></span>
+</span></dt><dd>
+    Enter debug mode. Debug mode will keep the server process in the foreground and enables diagnostic messages that will be sent to the controlling terminal.
+</dd><dt><span class="term">
+<span class="strong"><strong>-e, --exec</strong></span>=<span class="emphasis"><em>file</em></span>
+</span></dt><dd>
+    Run <span class="emphasis"><em>file</em></span> as executable for child. Default is <span class="emphasis"><em>command</em></span>.
+</dd><dt><span class="term">
+<span class="strong"><strong>-f, --foreground</strong></span>
+</span></dt><dd>
+    Keep the server process in the foreground and connected to the controlling terminal.
+</dd><dt><span class="term">
+<span class="strong"><strong>-h, --help</strong></span>
+</span></dt><dd>
+    Print help message.
+</dd><dt><span class="term">
+<span class="strong"><strong>--holdoff</strong></span>=<span class="emphasis"><em>n</em></span>
+</span></dt><dd>
+    Wait at least <span class="emphasis"><em>n</em></span> seconds between child restart attempts. Default is 15 seconds.
+</dd><dt><span class="term">
+<span class="strong"><strong>-i, --ignore</strong></span>=<span class="emphasis"><em>chars</em></span>
+</span></dt><dd>
+    Ignore all characters in <span class="emphasis"><em>chars</em></span> on access connections. This can be used to shield the child process from input characters that are potentially dangerous, e.g. <code class="literal">^D</code> and <code class="literal">^C</code> characters that would shut down a soft IOC. Use <code class="literal">^</code> to specify control characters, <code class="literal">^^</code> to specify a single <code class="literal">^</code> character.
+</dd><dt><span class="term">
+<span class="strong"><strong>-k, --killcmd</strong></span>=<span class="emphasis"><em>char</em></span>
+</span></dt><dd>
+    Kill the child process (child will be restarted automatically by default) when <span class="emphasis"><em>char</em></span> is sent on an access connection. Use <code class="literal">^</code> to specify a control character, <code class="literal">""</code> for no kill command. Default is <code class="literal">^X</code>.
+</dd><dt><span class="term">
+<span class="strong"><strong>--killsig</strong></span>=<span class="emphasis"><em>signal</em></span>
+</span></dt><dd>
+    Kill the child using <span class="emphasis"><em>signal</em></span> when receiving the kill command. Default is 9 (SIGKILL).
+</dd><dt><span class="term">
+<span class="strong"><strong>-l, --logport</strong></span>=<span class="emphasis"><em>port</em></span>
+</span></dt><dd>
+    Provide read-only access to the child’s console on <span class="emphasis"><em>port</em></span>. By default all hosts can connect to <span class="emphasis"><em>port</em></span>, use the <span class="strong"><strong>-r</strong></span> (<span class="strong"><strong>--restrict</strong></span>) option to restrict access to localhost.
+</dd><dt><span class="term">
+<span class="strong"><strong>-L, --logfile</strong></span>=<span class="emphasis"><em>file</em></span>
+</span></dt><dd>
+    Write a console log of all in- and output to <span class="emphasis"><em>file</em></span>.
+</dd><dt><span class="term">
+<span class="strong"><strong>--logstamp</strong></span>[=<span class="emphasis"><em>fmt</em></span>]
+</span></dt><dd>
+    Prefix lines in logs with a time stamp, setting the time stamp format string to <span class="emphasis"><em>fmt</em></span>. Default is "[&lt;timefmt&gt;] ". (See <span class="strong"><strong>--timefmt</strong></span> option.)
+</dd><dt><span class="term">
+<span class="strong"><strong>-n, --name</strong></span>=<span class="emphasis"><em>title</em></span>
+</span></dt><dd>
+    In all server messages, use <span class="emphasis"><em>title</em></span> instead of the full command line to increase readability.
+</dd><dt><span class="term">
+<span class="strong"><strong>--noautorestart</strong></span>
+</span></dt><dd>
+    Do not automatically restart child process on exit.
+</dd><dt><span class="term">
+<span class="strong"><strong>-p, --pidfile</strong></span>=<span class="emphasis"><em>file</em></span>
+</span></dt><dd>
+    Write the PID of the server process into <span class="emphasis"><em>file</em></span> to facilitate integration into regular system service administration mechanisms.
+</dd><dt><span class="term">
+<span class="strong"><strong>--timefmt</strong></span>=<span class="emphasis"><em>fmt</em></span>
+</span></dt><dd>
+    Set the format string used to print time stamps to <span class="emphasis"><em>fmt</em></span>. Default is "%c". (See strftime(3) documentation for details.)
+</dd><dt><span class="term">
+<span class="strong"><strong>-q, --quiet</strong></span>
+</span></dt><dd>
+    Do not write informational output (server). Avoids cluttering the screen when run as part of a system script.
+</dd><dt><span class="term">
+<span class="strong"><strong>--restrict</strong></span>
+</span></dt><dd>
+    Restrict log connections to localhost.
+</dd><dt><span class="term">
+<span class="strong"><strong>-V, --version</strong></span>
+</span></dt><dd>
+    Print program version.
+</dd><dt><span class="term">
+<span class="strong"><strong>-w, --wait</strong></span>
+</span></dt><dd>
+    Do not start the child immediately. Instead, wait for a telnet connection and a manual start command.
+</dd><dt><span class="term">
+<span class="strong"><strong>-x, --logoutcmd</strong></span>=<span class="emphasis"><em>char</em></span>
+</span></dt><dd>
+    Log out (close client connection) when <span class="emphasis"><em>char</em></span> is sent on an access connection. Use <code class="literal">^</code> to specify a control character. Default is empty.
+</dd></dl></div></div><div class="section" title="5. USAGE"><div class="titlepage"><div><div><h2 class="title" style="clear: both"><a id="_usage"></a>5. USAGE</h2></div></div></div><p>To start a soft IOC using procServ, change the directory into the IOC’s boot directory. A typical command line would be</p><pre class="screen">    procServ -n "My SoftIOC" -i ^D^C 20000 ./st.cmd</pre><p>To connect to the IOC, log into the soft IOC’s host and connect to port 20000 using</p><pre class="screen">    telnet localhost 20000</pre><p>To connect from a remote machine, ssh to a user account on procservhost and connect to port 20000 using</p><pre class="screen">    ssh -t user@procservhost telnet localhost 20000</pre><p>You will be connected to the soft IOCs console and receive an informative welcome message. All output from the procServ server will start with "<code class="literal">@@@</code>" to allow telling it apart from messages that your IOC sends.</p><pre class="screen">    &gt; telnet localhost 20000
+    Trying 127.0.0.1...
+    Connected to localhost.
+    Escape character is '^]'.
+    @@@ Welcome to the procServ process server (procServ Version 2.1.0)
+    @@@ Use ^X to kill the child, auto restart is ON, use ^T to toggle auto restart
+    @@@ procServ server PID: 21413
+    @@@ Startup directory: /projects/ctl/lange/epics/ioc/test314/iocBoot/iocexample
+    @@@ Child "My SoftIOC" started as: ./st.cmd
+    @@@ Child "My SoftIOC" PID: 21414
+    @@@ procServ server started at: Fri Apr 25 16:43:00 2008
+    @@@ Child "My SoftIOC" started at: Fri Apr 25 16:43:00 2008
+    @@@ 0 user(s) and 0 logger(s) connected (plus you)</pre><p>Type the kill command character <code class="literal">^X</code> to reboot the soft IOC and get server messages about this action.</p><p>Type the telnet escape character <code class="literal">^]</code> to get back to a telnet prompt then "<code class="literal">quit</code>" to exit telnet (and ssh when you were connecting remotely).</p><p>Though procServ was originally intended to be an environment to run soft IOCs, any process might be started as child. It provides an environment for any program that requires access to its console, while running in the background as a daemon, and keeping a log by writing a file or through a console access and logging facility (such as <code class="literal">conserver</code>).</p></div><div class="section" title="6. ENVIRONMENT VARIABLES"><div class="titlepage"><div><div><h2 class="title" style="clear: both"><a id="_environment_variables"></a>6. ENVIRONMENT VARIABLES</h2></div></div></div><div class="variablelist"><dl><dt><span class="term">
+<span class="strong"><strong>PROCSERV_PID</strong></span>
+</span></dt><dd>
+    Sets the file name to write the PID of the server process into. (See <span class="strong"><strong>-p</strong></span> option.)
+</dd><dt><span class="term">
+<span class="strong"><strong>PROCSERV_DEBUG</strong></span>
+</span></dt><dd>
+    If set, procServ starts in debug mode. (See <span class="strong"><strong>-d</strong></span> option.)
+</dd></dl></div></div><div class="section" title="7. KNOWN PROBLEMS"><div class="titlepage"><div><div><h2 class="title" style="clear: both"><a id="_known_problems"></a>7. KNOWN PROBLEMS</h2></div></div></div><p>None so far.</p></div><div class="section" title="8. REPORTING BUGS"><div class="titlepage"><div><div><h2 class="title" style="clear: both"><a id="_reporting_bugs"></a>8. REPORTING BUGS</h2></div></div></div><p>Report bugs on the procServ Trac at <a class="ulink" href="http://sourceforge.net/apps/trac/procserv/" target="_top">http://sourceforge.net/apps/trac/procserv/</a> or to the authors.</p></div><div class="section" title="9. AUTHORS"><div class="titlepage"><div><div><h2 class="title" style="clear: both"><a id="_authors"></a>9. AUTHORS</h2></div></div></div><p>Written by David H. Thompson &lt;<a class="ulink" href="mailto:thompsondh@ornl.gov" target="_top">thompsondh@ornl.gov</a>&gt; and Ralph Lange &lt;<a class="ulink" href="mailto:Ralph.Lange@gmx.de" target="_top">Ralph.Lange@gmx.de</a>&gt;.</p></div><div class="section" title="10. RESOURCES"><div class="titlepage"><div><div><h2 class="title" style="clear: both"><a id="_resources"></a>10. RESOURCES</h2></div></div></div><p>SourceForge project: <a class="ulink" href="http://sourceforge.net/projects/procserv/" target="_top">http://sourceforge.net/projects/procserv/</a></p></div><div class="section" title="11. COPYING"><div class="titlepage"><div><div><h2 class="title" style="clear: both"><a id="_copying"></a>11. COPYING</h2></div></div></div><p>All copyrights reserved.
+Free use of this software is granted under the terms of the GNU General Public License (GPLv3).</p></div></div></body></html>
