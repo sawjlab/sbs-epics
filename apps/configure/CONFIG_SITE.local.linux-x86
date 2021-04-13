@@ -8,7 +8,7 @@
 # 32-bit system libaries
 LIBS = /usr/lib
 
-CAENHVWRAPPER     = /home/bbhodo/EPICS/clas12-epics-third-party-libs/CAENHVControlSoftware-2.0.1/x86
+CAENHVWRAPPER     = $(TOP)/../../CAENHVControlSoftware-2.0.1/x86
 CAENHVWRAPPER_LIB = $(CAENHVWRAPPER)/lib
 
 HSCAENET      = $(CAENHVWRAPPER)
@@ -16,11 +16,11 @@ HSCAENET_LIB  = $(CAENHVWRAPPER_LIB)
 
 PTHREAD_LIB   = $(LIBS)
 
-SMIXX         = /home/bbhodo/EPICS/clas12-epics-third-party-libs/smixx_v47r1/x86
+SMIXX         = $(TOP)/../../clas12-epics-third-party-libs/smixx_v47r1/x86
 SMIXX_LIB     = $(SMIXX)/linux
 SMIXX_INCLUDE = -I$(SMIXX)/smixx
 
-DIM           = /home/bbhodo/EPICS/clas12-epics-third-party-libs/dim_v20r13/x86
+DIM           = $(TOP)/../../clas12-epics-third-party-libs/dim_v20r13/x86
 DIM_LIB       = $(DIM)/linux
 DIM_INCLUDE   = -I$(DIM)/dim
 
