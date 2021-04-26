@@ -3,7 +3,12 @@
 # exported by Tcl to set up Makefiles for shared libraries.
 # RCS: @(#) $Id: Makefile.in,v 1.6 1999/09/21 06:37:32 hobbs Exp $
 
-EPICS_BASE = /home/bbhodo/EPICS/base-R7.0.4.1
+TOP = ..
+ifneq (,$(findstring cdaql,$(shell hostname -s)))
+  EPICS_BASE = $(TOP)/../../R3.14.12.5/base
+else	     
+  EPICS_BASE = $(TOP)/../../base-3.14.12.5
+endif
 
 TCL_DBGX =		
 CC = gcc

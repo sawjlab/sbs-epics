@@ -25,7 +25,11 @@ TEMPLATE_TOP=$(EPICS_BASE)/templates/makeBaseApp/top
 #SNCSEQ=$(EPICS_BASE)/../modules/soft/seq
 
 # EPICS_BASE usually appears last so other apps can override stuff:
-EPICS_BASE=/home/bbhodo/EPICS/base-R7.0.4.1
+ifneq (,$(findstring cdaql,$(shell hostname -s)))
+  EPICS_BASE = $(TOP)/../../R3.14.12.5/base
+else	     
+  EPICS_BASE = $(TOP)/../../base-3.14.12.5
+endif
 
 # Set RULES here if you want to take build rules from somewhere
 # other than EPICS_BASE:

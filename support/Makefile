@@ -3,7 +3,7 @@ TOP = .
 include $(TOP)/configure/CONFIG
 
 ## Define modules to build
-MODULES += tcl_ca
+MODULES += tcl_ca msi1-7
 
 ## Define dependencies
 #LVMPOD_DEPEND_DIRS += snmp-nscl-1-0-RC9
