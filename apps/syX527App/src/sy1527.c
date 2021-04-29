@@ -225,6 +225,13 @@ sy1527GetBoard(unsigned int id, unsigned int board)
       if(tipo == PARAM_TYPE_NUMERIC) {
 	ret = CAENHVGetChParam(name, Slot, ParName, 1, ChList, fParValList); /* Primary Channel */
 	retout = CAENHVGetChParam(name, Slot, ParName, ChNum-1, &ChList[1], &fParValList[1]); /* Distributed output channels */
+	// If distributed channels don't have SVMax, report max voltage as primary channel set point 
+	if(retout != CAENHV_OK && strcmp(ParName,"SVMax")==0) {
+	  for(i=1;i<ChNum;i++) {
+	    int iParV0Set = 0; // Assume V0Set is ipar==0
+	    fParValList[i] = Measure[id].board[board].channel[0].fval[iParV0Set];
+	  }
+	}
       } else {
 	ret = CAENHVGetChParam(name, Slot, ParName, 1, ChList, lParValList);
 	retout = CAENHVGetChParam(name, Slot, ParName, ChNum-1, &ChList[1], &lParValList[1]);
