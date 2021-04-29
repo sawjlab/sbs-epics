@@ -1,22 +1,22 @@
 #
 #
 #
-record(stringout, "$(CrName)$(Cr):$(Sl):0$(Ch):Name") 
+record(stringout, "$(CrName)$(Cr):$(Sl):$(Ch):Name") 
 {
-   field(DESC,"$(CrName)$(Cr):$(Sl):0$(Ch)")
-   alias("BB_DET_$(Det)_$(Sys)_$(Element):Name")
-   alias("BB_SYS_$(Sys)_$(Det)_$(Element):Name")
+   field(DESC,"$(CrName)$(Cr):$(Sl):$(Ch)")
+#   alias("BB_DET_$(Det)_$(Sys)_$(Element):Name")
+#   alias("BB_SYS_$(Sys)_$(Det)_$(Element):Name")
 }
 
-record(stringout, "$(CrName)$(Cr):$(Sl):0$(Ch):Alias") 
+record(stringout, "$(CrName)$(Cr):$(Sl):$(Ch):Alias") 
 {
    field(DESC, "BB_DET_$(Det)_$(Sys)_$(Element)")
-   alias("BB_DET_$(Det)_$(Sys)_$(Element):Alias")
-   alias("BB_SYS_$(Sys)_$(Det)_$(Element):Alias")
+#   alias("BB_DET_$(Det)_$(Sys)_$(Element):Alias")
+#   alias("BB_SYS_$(Sys)_$(Det)_$(Element):Alias")
 }
 
 
-record(bigsub, "$(CrName)$(Cr):$(Sl):0$(Ch)") 
+record(bigsub, "$(CrName)$(Cr):$(Sl):$(Ch)") 
 {
    field(PRIO,"LOW")
    field(DESC,"$(Det)_HV_$(Element)")
@@ -35,151 +35,151 @@ field(LOLO,"-10000")
    field(PREC,"1")
    field(SNAM,"ScanChannel")
    field(SCAN,"2 second")
-   alias("BB_DET_$(Det)_$(Sys)_$(Element)")
-   alias("BB_SYS_$(Sys)_$(Det)_$(Element)")
+#   alias("BB_DET_$(Det)_$(Sys)_$(Element)")
+#   alias("BB_SYS_$(Sys)_$(Det)_$(Element)")
 info(autosaveFields_pass0,"HSV LSV HIGH LOW DESC")
 }
 
 
-record(ao, "$(CrName)$(Cr):$(Sl):0$(Ch):crate")
+record(ao, "$(CrName)$(Cr):$(Sl):$(Ch):Crate")
 {
    field(DESC,"Crate Number")
-   field(DOL, "$(CrName)$(Cr):$(Sl):0$(Ch).A CPP NMS")
+   field(DOL, "$(CrName)$(Cr):$(Sl):$(Ch).A CPP NMS")
    field(OMSL,"closed_loop")
    field(PREC,"0")
-   alias("BB_DET_$(Det)_$(Sys)_$(Element):crate")
-   alias("BB_SYS_$(Sys)_$(Det)_$(Element):crate")
+#   alias("BB_DET_$(Det)_$(Sys)_$(Element):crate")
+#   alias("BB_SYS_$(Sys)_$(Det)_$(Element):crate")
 }   
-record(ao, "$(CrName)$(Cr):$(Sl):0$(Ch):slot")
+record(ao, "$(CrName)$(Cr):$(Sl):$(Ch):Slot")
 {
    field(DESC,"Slot Number")
-   field(DOL, "$(CrName)$(Cr):$(Sl):0$(Ch).B CPP NMS")
+   field(DOL, "$(CrName)$(Cr):$(Sl):$(Ch).B CPP NMS")
    field(OMSL,"closed_loop")
    field(PREC,"0")
-   alias("BB_DET_$(Det)_$(Sys)_$(Element):slot")
-   alias("BB_SYS_$(Sys)_$(Det)_$(Element):slot")
+#   alias("BB_DET_$(Det)_$(Sys)_$(Element):slot")
+#   alias("BB_SYS_$(Sys)_$(Det)_$(Element):slot")
 }   
-record(ao, "$(CrName)$(Cr):$(Sl):0$(Ch):chan")
+record(ao, "$(CrName)$(Cr):$(Sl):$(Ch):Chan")
 {
    field(DESC,"Channel Number")
-   field(DOL, "$(CrName)$(Cr):$(Sl):0$(Ch).C CPP NMS")
+   field(DOL, "$(CrName)$(Cr):$(Sl):$(Ch).C CPP NMS")
    field(OMSL,"closed_loop")
    field(PREC,"0")
-   alias("BB_DET_$(Det)_$(Sys)_$(Element):chan")
-   alias("BB_SYS_$(Sys)_$(Det)_$(Element):chan")
+#   alias("BB_DET_$(Det)_$(Sys)_$(Element):chan")
+#   alias("BB_SYS_$(Sys)_$(Det)_$(Element):chan")
 }   
 
-record(ao, "$(CrName)$(Cr):$(Sl):0$(Ch):VMon")
+record(ao, "$(CrName)$(Cr):$(Sl):$(Ch):VMon")
 {
    field(DESC,"#GR")
-   field(DOL, "$(CrName)$(Cr):$(Sl):0$(Ch).F CPP NMS")
+   field(DOL, "$(CrName)$(Cr):$(Sl):$(Ch).F CPP NMS")
    field(OMSL,"closed_loop")
    field(EGU,"V")
    field(PREC,"2")
-   alias("BB_DET_$(Det)_$(Sys)_$(Element):VMon")
-   alias("BB_SYS_$(Sys)_$(Det)_$(Element):VMon")
+#   alias("BB_DET_$(Det)_$(Sys)_$(Element):VMon")
+#   alias("BB_SYS_$(Sys)_$(Det)_$(Element):VMon")
 }   
 
-record(ao, "$(CrName)$(Cr):$(Sl):0$(Ch):IMon")
+record(ao, "$(CrName)$(Cr):$(Sl):$(Ch):IMon")
 {
    field(DESC,"#GR")
-   field(DOL, "$(CrName)$(Cr):$(Sl):0$(Ch).E CPP NMS")
+   field(DOL, "$(CrName)$(Cr):$(Sl):$(Ch).E CPP NMS")
    field(OMSL,"closed_loop")
    field(PREC,"2")
    field(EGU,"uA")
-   alias("BB_DET_$(Det)_$(Sys)_$(Element):IMon")
-   alias("BB_SYS_$(Sys)_$(Det)_$(Element):IMon")
+#   alias("BB_DET_$(Det)_$(Sys)_$(Element):IMon")
+#   alias("BB_SYS_$(Sys)_$(Det)_$(Element):IMon")
    info(autosaveFields_pass0,"HSV LSV HHSV LLSV HIGH LOW HIHI LOLO")
 }   
 
-record(ao, "$(CrName)$(Cr):$(Sl):0$(Ch):triprbk")
+record(ao, "$(CrName)$(Cr):$(Sl):$(Ch):triprbk")
 {
-   field(DOL, "$(CrName)$(Cr):$(Sl):0$(Ch).P CPP NMS")
+   field(DOL, "$(CrName)$(Cr):$(Sl):$(Ch).P CPP NMS")
    field(OMSL,"closed_loop")
    field(PREC,"2")
    field(EGU,"s")
-   alias("BB_DET_$(Det)_$(Sys)_$(Element):triprbk")
-   alias("BB_SYS_$(Sys)_$(Det)_$(Element):triprbk")
+#   alias("BB_DET_$(Det)_$(Sys)_$(Element):triprbk")
+#   alias("BB_SYS_$(Sys)_$(Det)_$(Element):triprbk")
 }   
-record(ao, "$(CrName)$(Cr):$(Sl):0$(Ch):V0Setr")
+record(ao, "$(CrName)$(Cr):$(Sl):$(Ch):V0Setr")
 {
-   field(DOL, "$(CrName)$(Cr):$(Sl):0$(Ch).G CPP NMS")
+   field(DOL, "$(CrName)$(Cr):$(Sl):$(Ch).G CPP NMS")
    field(OMSL,"closed_loop")
    field(PREC,"2")
    field(EGU,"V")
-   alias("BB_DET_$(Det)_$(Sys)_$(Element):V0Setr")
-   alias("BB_SYS_$(Sys)_$(Det)_$(Element):V0Setr")
+#   alias("BB_DET_$(Det)_$(Sys)_$(Element):V0Setr")
+#   alias("BB_SYS_$(Sys)_$(Det)_$(Element):V0Setr")
 }   
 
-record(ao, "$(CrName)$(Cr):$(Sl):0$(Ch):I0Setr")
+record(ao, "$(CrName)$(Cr):$(Sl):$(Ch):I0Setr")
 {
-   field(DOL, "$(CrName)$(Cr):$(Sl):0$(Ch).J CPP NMS")
+   field(DOL, "$(CrName)$(Cr):$(Sl):$(Ch).J CPP NMS")
    field(OMSL,"closed_loop")
    field(PREC,"2")
    field(EGU,"uA")
-   alias("BB_DET_$(Det)_$(Sys)_$(Element):I0Setr")
-   alias("BB_SYS_$(Sys)_$(Det)_$(Element):I0Setr")
+#   alias("BB_DET_$(Det)_$(Sys)_$(Element):I0Setr")
+#   alias("BB_SYS_$(Sys)_$(Det)_$(Element):I0Setr")
 }   
 
-record(ao, "$(CrName)$(Cr):$(Sl):0$(Ch):SVMaxr")
+record(ao, "$(CrName)$(Cr):$(Sl):$(Ch):SVMaxr")
 {
-   field(DOL, "$(CrName)$(Cr):$(Sl):0$(Ch).O CPP NMS")
+   field(DOL, "$(CrName)$(Cr):$(Sl):$(Ch).O CPP NMS")
    field(OMSL,"closed_loop")
    field(PREC,"2")
    field(EGU,"V")
-   alias("BB_DET_$(Det)_$(Sys)_$(Element):SVMaxr")
-   alias("BB_SYS_$(Sys)_$(Det)_$(Element):SVMaxr")
+ #  alias("BB_DET_$(Det)_$(Sys)_$(Element):SVMaxr")
+ #  alias("BB_SYS_$(Sys)_$(Det)_$(Element):SVMaxr")
 }   
 
-record(ao, "$(CrName)$(Cr):$(Sl):0$(Ch):RUpr")
+record(ao, "$(CrName)$(Cr):$(Sl):$(Ch):RUpr")
 {
-   field(DOL, "$(CrName)$(Cr):$(Sl):0$(Ch).H CPP NMS")
+   field(DOL, "$(CrName)$(Cr):$(Sl):$(Ch).H CPP NMS")
    field(OMSL,"closed_loop")
    field(PREC,"2")
    field(EGU,"V/s")
-   alias("BB_DET_$(Det)_$(Sys)_$(Element):RUpr")
-   alias("BB_SYS_$(Sys)_$(Det)_$(Element):RUpr")
+ #  alias("BB_DET_$(Det)_$(Sys)_$(Element):RUpr")
+ #  alias("BB_SYS_$(Sys)_$(Det)_$(Element):RUpr")
 }   
 
-record(ao, "$(CrName)$(Cr):$(Sl):0$(Ch):RDWnr")
+record(ao, "$(CrName)$(Cr):$(Sl):$(Ch):RDWnr")
 {
-   field(DOL, "$(CrName)$(Cr):$(Sl):0$(Ch).I CPP NMS")
+   field(DOL, "$(CrName)$(Cr):$(Sl):$(Ch).I CPP NMS")
    field(OMSL,"closed_loop")
    field(PREC,"2")
    field(EGU,"V/s")
-   alias("BB_DET_$(Det)_$(Sys)_$(Element):RDWnr")
-   alias("BB_SYS_$(Sys)_$(Det)_$(Element):RDWnr")
+ #  alias("BB_DET_$(Det)_$(Sys)_$(Element):RDWnr")
+ #  alias("BB_SYS_$(Sys)_$(Det)_$(Element):RDWnr")
 }   
-record(bo, "$(CrName)$(Cr):$(Sl):0$(Ch):rangerbk")
+record(bo, "$(CrName)$(Cr):$(Sl):$(Ch):rangerbk")
 {
-   field(DOL, "$(CrName)$(Cr):$(Sl):0$(Ch).S CPP NMS")
+   field(DOL, "$(CrName)$(Cr):$(Sl):$(Ch).S CPP NMS")
    field(OMSL,"closed_loop")
    field(ZNAM,"High")
    field(ONAM,"Low")
-   alias("BB_DET_$(Det)_$(Sys)_$(Element):rangerbk")
-   alias("BB_SYS_$(Sys)_$(Det)_$(Element):rangerbk")
+ #  alias("BB_DET_$(Det)_$(Sys)_$(Element):rangerbk")
+ #  alias("BB_SYS_$(Sys)_$(Det)_$(Element):rangerbk")
 }   
 
-record(ao, "$(CrName)$(Cr):$(Sl):0$(Ch):Status")
+record(ao, "$(CrName)$(Cr):$(Sl):$(Ch):Status")
 {
-   field(DOL, "$(CrName)$(Cr):$(Sl):0$(Ch).L CPP NMS")
+   field(DOL, "$(CrName)$(Cr):$(Sl):$(Ch).L CPP NMS")
    field(OMSL,"closed_loop")
    field(PREC,"2")
-   alias("BB_DET_$(Det)_$(Sys)_$(Element):Status")
-   alias("BB_SYS_$(Sys)_$(Det)_$(Element):Status")
+ #  alias("BB_DET_$(Det)_$(Sys)_$(Element):Status")
+ #  alias("BB_SYS_$(Sys)_$(Det)_$(Element):Status")
 }   
 
-record(ao, "$(CrName)$(Cr):$(Sl):0$(Ch):comms")
+record(ao, "$(CrName)$(Cr):$(Sl):$(Ch):comms")
 {
    field(DESC,"#GR")
-   field(DOL, "$(CrName)$(Cr):$(Sl):0$(Ch).T CPP NMS")
+   field(DOL, "$(CrName)$(Cr):$(Sl):$(Ch).T CPP NMS")
    field(OMSL,"closed_loop")
    field(PREC,"2")
-   alias("BB_DET_$(Det)_$(Sys)_$(Element):comms")
-   alias("BB_SYS_$(Sys)_$(Det)_$(Element):comms")
+ #  alias("BB_DET_$(Det)_$(Sys)_$(Element):comms")
+ #  alias("BB_SYS_$(Sys)_$(Det)_$(Element):comms")
 }   
 
-record(bo, "$(CrName)$(Cr):$(Sl):0$(Ch):Pwr") 
+record(bo, "$(CrName)$(Cr):$(Sl):$(Ch):Pwr") 
 {
    field(DTYP,"CAEN_HV")
    field(DESC,"#PB")
@@ -188,11 +188,11 @@ record(bo, "$(CrName)$(Cr):$(Sl):0$(Ch):Pwr")
    field(ZNAM,"OFF")
    field(ONAM,"ON")
    field(SCAN,"Passive")
-   alias("$(CrName)$(Cr):$(Sl):0$(Ch):Pw") 
-   alias("BB_DET_$(Det)_$(Sys)_$(Element):Pwr")
-   alias("BB_SYS_$(Sys)_$(Det)_$(Element):Pwr")
+   alias("$(CrName)$(Cr):$(Sl):$(Ch):Pw") 
+#   alias("BB_DET_$(Det)_$(Sys)_$(Element):Pwr")
+#   alias("BB_SYS_$(Sys)_$(Det)_$(Element):Pwr")
 }
-record(bo, "$(CrName)$(Cr):$(Sl):0$(Ch):enable") 
+record(bo, "$(CrName)$(Cr):$(Sl):$(Ch):Enable") 
 {
    field(DTYP,"CAEN_HV")
    field(DESC,"#PB")
@@ -201,11 +201,11 @@ record(bo, "$(CrName)$(Cr):$(Sl):0$(Ch):enable")
    field(ZNAM,"DISABLED")
    field(ONAM,"ENABLED")
    field(SCAN,"Passive")
-   alias("BB_DET_$(Det)_$(Sys)_$(Element):enable")
-   alias("BB_SYS_$(Sys)_$(Det)_$(Element):enable")
+#   alias("BB_DET_$(Det)_$(Sys)_$(Element):enable")
+#   alias("BB_SYS_$(Sys)_$(Det)_$(Element):enable")
 }
 
-record(ao, "$(CrName)$(Cr):$(Sl):0$(Ch):V0Set") 
+record(ao, "$(CrName)$(Cr):$(Sl):$(Ch):V0Set") 
 {
    field(DTYP,"CAEN_HV")
    field(DESC,"#GR")
@@ -214,10 +214,10 @@ record(ao, "$(CrName)$(Cr):$(Sl):0$(Ch):V0Set")
    field(SCAN,"Passive")
    field(ASG,"EXPERT")
    field(EGU,"V")
-   alias("BB_DET_$(Det)_$(Sys)_$(Element):V0Set")
-   alias("BB_SYS_$(Sys)_$(Det)_$(Element):V0Set")
+#   alias("BB_DET_$(Det)_$(Sys)_$(Element):V0Set")
+#   alias("BB_SYS_$(Sys)_$(Det)_$(Element):V0Set")
 }
-record(ao, "$(CrName)$(Cr):$(Sl):0$(Ch):I0Set") 
+record(ao, "$(CrName)$(Cr):$(Sl):$(Ch):I0Set") 
 {
    field(DTYP,"CAEN_HV")
    field(DESC,"#GR")
@@ -226,10 +226,10 @@ record(ao, "$(CrName)$(Cr):$(Sl):0$(Ch):I0Set")
    field(SCAN,"Passive")
    field(ASG,"EXPERT")
    field(EGU,"uA")
-   alias("BB_DET_$(Det)_$(Sys)_$(Element):I0Set")
-   alias("BB_SYS_$(Sys)_$(Det)_$(Element):I0Set")
+#   alias("BB_DET_$(Det)_$(Sys)_$(Element):I0Set")
+#   alias("BB_SYS_$(Sys)_$(Det)_$(Element):I0Set")
 }
-record(ao, "$(CrName)$(Cr):$(Sl):0$(Ch):trip") 
+record(ao, "$(CrName)$(Cr):$(Sl):$(Ch):Trip") 
 {
    field(DTYP,"CAEN_HV")
    field(OUT,"$(CScode) $(trip)")
@@ -237,10 +237,10 @@ record(ao, "$(CrName)$(Cr):$(Sl):0$(Ch):trip")
    field(SCAN,"Passive")
    field(ASG,"EXPERT")
    field(EGU,"s")
-   alias("BB_DET_$(Det)_$(Sys)_$(Element):trip")   
-   alias("BB_SYS_$(Sys)_$(Det)_$(Element):trip")   
+#   alias("BB_DET_$(Det)_$(Sys)_$(Element):trip")   
+#   alias("BB_SYS_$(Sys)_$(Det)_$(Element):trip")   
 }
-record(ao, "$(CrName)$(Cr):$(Sl):0$(Ch):RUp") {
+record(ao, "$(CrName)$(Cr):$(Sl):$(Ch):RUp") {
    field(DTYP,"CAEN_HV")
    field(DESC,"#PD")
    field(OUT,"$(CScode) $(rampup)")
@@ -248,10 +248,10 @@ record(ao, "$(CrName)$(Cr):$(Sl):0$(Ch):RUp") {
    field(SCAN,"Passive")
    field(ASG,"EXPERT")
    field(EGU,"V/s")
-   alias("BB_DET_$(Det)_$(Sys)_$(Element):RUp")   
-   alias("BB_SYS_$(Sys)_$(Det)_$(Element):RUp")   
+#   alias("BB_DET_$(Det)_$(Sys)_$(Element):RUp")   
+#   alias("BB_SYS_$(Sys)_$(Det)_$(Element):RUp")   
 }
-record(ao, "$(CrName)$(Cr):$(Sl):0$(Ch):RDWn") 
+record(ao, "$(CrName)$(Cr):$(Sl):$(Ch):RDWn") 
 {
    field(DTYP,"CAEN_HV")
    field(DESC,"#PD")
@@ -260,10 +260,10 @@ record(ao, "$(CrName)$(Cr):$(Sl):0$(Ch):RDWn")
    field(SCAN,"Passive")
    field(ASG,"EXPERT")
    field(EGU,"V/s")
-   alias("BB_DET_$(Det)_$(Sys)_$(Element):RDWn")   
-   alias("BB_SYS_$(Sys)_$(Det)_$(Element):RDWn")   
+#   alias("BB_DET_$(Det)_$(Sys)_$(Element):RDWn")   
+#   alias("BB_SYS_$(Sys)_$(Det)_$(Element):RDWn")   
 }
-record(ao, "$(CrName)$(Cr):$(Sl):0$(Ch):vmax") 
+record(ao, "$(CrName)$(Cr):$(Sl):$(Ch):SVmax") 
 {
    field(DTYP,"CAEN_HV")
    field(OUT,"$(CScode) $(svmax)")
@@ -271,14 +271,14 @@ record(ao, "$(CrName)$(Cr):$(Sl):0$(Ch):vmax")
    field(SCAN,"Passive")
    field(ASG,"EXPERT")
    field(EGU,"V")
-   alias("BB_DET_$(Det)_$(Sys)_$(Element):vmax")   
-   alias("BB_SYS_$(Sys)_$(Det)_$(Element):vmax")   
+#   alias("BB_DET_$(Det)_$(Sys)_$(Element):SVmax")   
+#   alias("BB_SYS_$(Sys)_$(Det)_$(Element):SVmax")   
 }
 
 # this record is unique to dual-range boards (e.g. 1536HD)
 # signal S0 for CAEN_HV records is disabled.
 #
-record(bo, "$(CrName)$(Cr):$(Sl):0$(Ch):range") 
+record(bo, "$(CrName)$(Cr):$(Sl):$(Ch):range") 
 {
    field(DTYP,"CAEN_HV")
    field(OUT,"$(CScode) S$(range=0)")
@@ -289,15 +289,15 @@ record(bo, "$(CrName)$(Cr):$(Sl):0$(Ch):range")
    field(ONAM,"Low")
    field(DISV,"0")
    field(DISA,"$(range=0)")
-   alias("BB_DET_$(Det)_$(Sys)_$(Element):range")   
-   alias("BB_SYS_$(Sys)_$(Det)_$(Element):range")   
+#   alias("BB_DET_$(Det)_$(Sys)_$(Element):range")   
+#   alias("BB_SYS_$(Sys)_$(Det)_$(Element):range")   
 }
 
-record(ai,"$(CrName)$(Cr):$(Sl):0$(Ch):type")
+record(ai,"$(CrName)$(Cr):$(Sl):$(Ch):type")
 {
    field(VAL,"$(CrType)")
-   alias("BB_DET_$(Det)_$(Sys)_$(Element):type")   
-   alias("BB_SYS_$(Sys)_$(Det)_$(Element):type")   
+#   alias("BB_DET_$(Det)_$(Sys)_$(Element):type")   
+#   alias("BB_SYS_$(Sys)_$(Det)_$(Element):type")   
 }
 
 
@@ -311,11 +311,11 @@ record(ai,"$(CrName)$(Cr):$(Sl):0$(Ch):type")
 # Note, CAEN leaves bit 12 unused.  If we do the same, we run out
 # of mbbi bits (16).  So, if :Status>=2^12, downshift by one bit.
 #
-record(calc,"$(CrName)$(Cr):$(Sl):0$(Ch):hwstatmaxbitcalc")
+record(calc,"$(CrName)$(Cr):$(Sl):$(Ch):hwstatmaxbitcalc")
 {
-    field(INPA, "$(CrName)$(Cr):$(Sl):0$(Ch):Status CPP")
+    field(INPA, "$(CrName)$(Cr):$(Sl):$(Ch):Status CPP")
     field(CALC,"A=0 ? 0 : floor(log(A)/log(2))+1-(A<8192?0:1)")
-    alias("BB_DET_$(Det)_$(Sys)_$(Element):hwstatmaxbitcalc")
+#    alias("BB_DET_$(Det)_$(Sys)_$(Element):hwstatmaxbitcalc")
 }
 
 # :hwstatmaxbit
@@ -324,9 +324,9 @@ record(calc,"$(CrName)$(Cr):$(Sl):0$(Ch):hwstatmaxbitcalc")
 # their corresponding string values and severities, using only
 # the most significant bit from statmaxbitcalc.  Note the shift
 # explained above for stat>=2^12.
-record(mbbi,"$(CrName)$(Cr):$(Sl):0$(Ch):hwstatmaxbit")
+record(mbbi,"$(CrName)$(Cr):$(Sl):$(Ch):hwstatmaxbit")
 {
-    field(INP,"$(CrName)$(Cr):$(Sl):0$(Ch):hwstatmaxbitcalc CPP")
+    field(INP,"$(CrName)$(Cr):$(Sl):$(Ch):hwstatmaxbitcalc CPP")
     field(ZRVL,"0")
     field(ONVL,"1")
     field(TWVL,"2")
@@ -375,7 +375,7 @@ record(mbbi,"$(CrName)$(Cr):$(Sl):0$(Ch):hwstatmaxbit")
     field(TTSV,"MAJOR")
     field(FTSV,"MAJOR")
     field(FFSV,"MAJOR")
-    alias("BB_DET_$(Det)_$(Sys)_$(Element):hwstatmaxbit")   
+#    alias("BB_DET_$(Det)_$(Sys)_$(Element):hwstatmaxbit")   
 }
 
 # This is the final status summary record.  Precendence order is:
@@ -383,14 +383,14 @@ record(mbbi,"$(CrName)$(Cr):$(Sl):0$(Ch):hwstatmaxbit")
 # 2. Hardware errors
 # 3. Mismatch between measured/demand on/off 
 # 4. Mismatch measured/demand voltage
-#record(calc,"$(CrName)$(Cr):$(Sl):0$(Ch):statcalc")
+#record(calc,"$(CrName)$(Cr):$(Sl):$(Ch):statcalc")
 #{
-#    field(INPA,"$(CrName)$(Cr):$(Sl):0$(Ch):comms CPP")
-#    field(INPB,"$(CrName)$(Cr):$(Sl):0$(Ch):statmaxbit CPP")
-#    field(INPC,"$(CrName)$(Cr):$(Sl):0$(Ch):VMon CPP")
-#    field(INPD,"$(CrName)$(Cr):$(Sl):0$(Ch):V0Setr CPP")
-#    field(INPE,"$(CrName)$(Cr):$(Sl):0$(Ch):Status CPP")
-#    field(INPF,"$(CrName)$(Cr):$(Sl):0$(Ch):Pwr CPP")
+#    field(INPA,"$(CrName)$(Cr):$(Sl):$(Ch):comms CPP")
+#    field(INPB,"$(CrName)$(Cr):$(Sl):$(Ch):statmaxbit CPP")
+#    field(INPC,"$(CrName)$(Cr):$(Sl):$(Ch):VMon CPP")
+#    field(INPD,"$(CrName)$(Cr):$(Sl):$(Ch):V0Setr CPP")
+#    field(INPE,"$(CrName)$(Cr):$(Sl):$(Ch):Status CPP")
+#    field(INPF,"$(CrName)$(Cr):$(Sl):$(Ch):Pwr CPP")
 #    field(HIHI,9999)
 #    field(HIGH,10)
 #    field(LOW,-10)

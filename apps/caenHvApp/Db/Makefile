@@ -9,9 +9,9 @@ include $(TOP)/configure/CONFIG
 
 #----------------------------------------------------
 DB    += caenhv.db
-DB    += caenhv_common.db
-DB    += caenhv_primary.db
-DB    += caenhv_distributed.db
+#DB    += caenhv_common.db
+#DB    += caenhv_primary.db
+#DB    += caenhv_distributed.db
 DB    += caenboard.db
 DB    += caenchassis.db
 DB    += accessControl.db

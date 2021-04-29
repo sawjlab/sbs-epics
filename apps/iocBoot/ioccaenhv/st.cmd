@@ -19,13 +19,9 @@ Start_CAEN(0, "129.57.37.95")
 #dbLoadRecords("$(DEVIOCSTATS)/db/iocAdminSoft.db", "IOC=$(IOC)")
 #dbLoadRecords("db/save_restoreStatus.db","P=${IOC}:")
 
-dbLoadRecords("db/caenchassis.db","CrName=BBTH-HV,CScode=#C0")
-#dbLoadRecords("db/caenchassis.db","CrName=HVBAND2,CScode=#C2")
+dbLoadRecords("db/caenchassis.db","CrName=HAHV0,CScode=#C0")
 
 dbLoadTemplate("db/HVBBHODO.substitutions")
-#dbLoadTemplate("db/HVBBHODO_common.substitutions")
-#dbLoadTemplate("db/HVBBHODO_primary.substitutions")
-#dbLoadTemplate("db/HVBBHODO_distributed.substitutions")
 
 cd ${TOP}/iocBoot/${IOC}
 

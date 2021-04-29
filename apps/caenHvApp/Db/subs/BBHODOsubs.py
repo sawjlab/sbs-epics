@@ -39,13 +39,18 @@ reducedsethandles = {
 outfilebase = "HVBBHODO"
 GUINAMEPREFIX = "HODO"
 
+SIDES = {"Right":0, "Left":1}
+RANGES = [45,90]
+GROUPNAME = "BBHODO Bars"
+
 CRATE = 0
-CRNAME = "HABBHV"
+CRNAME = "HAHV"
 CRTYPE = "1527"
 SYSTEM = "HV"
 DETECTOR = "HODO"
 PRIMARY_NAME = "HV_BBhodo_"
 GUIFILE = "HV.hvc"
+GUIGROUPFILE = "HV.group"
 
 hvrows = [];
 
@@ -113,7 +118,7 @@ def xl2sub(csvfile):
             detector = DETECTOR
             element = row[7]
 
-            values = ["%d"%crate, crname, crtype, "%.2d"%slot, "%.2d"%chan,
+            values = ["%d"%crate, crname, crtype, "%.2d"%slot, "%.3d"%chan,
                       system, detector, element, cscode]
             values += ["S%d"%(command_codes[x]*256+chan) for x in command_codes]
             rowstring = "\t\t{" + '"{}"'.format('", "'.join(values)) + "}"
@@ -123,10 +128,16 @@ def xl2sub(csvfile):
             bar = int(row[0])
             side = row[1]
             group = slot/2+1
-            if side=="Left" or side=="Right":
+            if side in SIDES:
+                group = 1 + SIDES[side]
+                for limit in RANGES:
+                    if bar < limit:
+                        break
+                    group += len(RANGES)
                 guiline = "%s_%d_%s %d %d %d %d" \
                     %(DETECTOR,bar,side,CRATE,slot,chan,group)
-                guilines[slotchan] = guiline
+                sortkey = 1000*group+bar
+                guilines[sortkey] = guiline
 
     # Define the Primary channels for each slot
     for slot in slots:
@@ -139,17 +150,18 @@ def xl2sub(csvfile):
         system = SYSTEM
         detector = DETECTOR
         element = PRIMARY_NAME+str(slot)
-        values = ["%d"%crate, crname, crtype, "%.2d"%slot, "%.2d"%chan,
+        values = ["%d"%crate, crname, crtype, "%.2d"%slot, "%.3d"%chan,
                   system, detector, element, cscode]
         values += ["S%d"%(command_codes[x]*256+chan) for x in command_codes]
         rowstring = "\t\t{" + '"{}"'.format('", "'.join(values)) + "}"
         for dbset in reducedsethandles.keys():
             print(rowstring,file=reducedsethandles[dbset])
 
-        group = slot/2+1
+        group = len(RANGES)*len(SIDES)+1
         slotchan = "%d.%.4d"%(slot,chan)
         guiline = "%s_SL%d_Primary %d %d %d %d"%(DETECTOR,slot,CRATE,slot,chan,group)
-        guilines[slotchan] = guiline
+        sortkey = 10000+slot
+        guilines[sortkey] = guiline
                 
     for dbset in reducedsethandles.keys():
         print('}', file=reducedsethandles[dbset])
@@ -165,7 +177,18 @@ def xl2sub(csvfile):
     print('#',file=gui)
     for key in sorted(guilines.keys()):
         print(guilines[key],file=gui)
-        
+
+    # Output HV GUI group file
+    guigroup = open(GUIGROUPFILE,"w")
+    lastlim = 0
+    for i in range(len(RANGES)):
+        for side in SIDES:
+            limit = RANGES[i]
+            group = 1 + SIDES[side] + i*len(SIDES)
+            groupname = "%s %s %d-%d"%(GROUPNAME,side,lastlim,limit-1)
+            print(group,groupname,file=guigroup)
+        lastlim = limit
+    print(1+len(SIDES)*len(RANGES),"Primary Channels",file=guigroup)
 
     return
 
