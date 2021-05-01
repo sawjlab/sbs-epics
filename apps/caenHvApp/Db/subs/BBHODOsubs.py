@@ -30,6 +30,12 @@ command_codes = {
     "svmax": 0x0D,
     "enable": 0x01
 }
+alarm_limits = {
+    "lolo": -50,
+    "low": -25,
+    "high": 25,
+    "hihi": 50
+}
 
 reducedsethandles = {
     '':0,
@@ -98,7 +104,9 @@ def xl2sub(csvfile):
         else:
             print('file \"db/caenhv.db\" {',file=reducedsethandles[dbset])
         print('\tpattern { Cr,   CrName,    CrType, Sl,   Ch,   Sys,  Det,    Element, CScode, ',end='',file=reducedsethandles[dbset])
-        print(', '.join([x for x in command_codes])+"}", file=reducedsethandles[dbset])
+        print(', '.join([x for x in command_codes]),end='', file=reducedsethandles[dbset])
+        print(',',', '.join([x for x in alarm_limits])+"}", file=reducedsethandles[dbset])
+
 
     slots = set()
     guilines = {}
@@ -121,6 +129,7 @@ def xl2sub(csvfile):
             values = ["%d"%crate, crname, crtype, "%.2d"%slot, "%.3d"%chan,
                       system, detector, element, cscode]
             values += ["S%d"%(command_codes[x]*256+chan) for x in command_codes]
+            values += [str(alarm_limits[x]) for x in alarm_limits]
             rowstring = "\t\t{" + '"{}"'.format('", "'.join(values)) + "}"
             for dbset in reducedsethandles.keys():
                 print(rowstring,file=reducedsethandles[dbset])
@@ -153,6 +162,7 @@ def xl2sub(csvfile):
         values = ["%d"%crate, crname, crtype, "%.2d"%slot, "%.3d"%chan,
                   system, detector, element, cscode]
         values += ["S%d"%(command_codes[x]*256+chan) for x in command_codes]
+        values += [str(alarm_limits[x]) for x in alarm_limits]
         rowstring = "\t\t{" + '"{}"'.format('", "'.join(values)) + "}"
         for dbset in reducedsethandles.keys():
             print(rowstring,file=reducedsethandles[dbset])
