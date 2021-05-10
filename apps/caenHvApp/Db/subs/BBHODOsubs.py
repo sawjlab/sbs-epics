@@ -99,10 +99,16 @@ def xl2sub(csvfile):
     #The 1st 8 come from the spreadsheet. The resta are calculated
 
     for dbset in reducedsethandles.keys():
+        if not dbset:
+            print('file \"db/caenchassis.db\" {',file=reducedsethandles[dbset])
+            print("\tpattern { Cr, CrName, CScode }", file=reducedsethandles[dbset])
+            print('   { "%d", "%s", "#C%d" }'%(CRATE, CRNAME, CRATE), file=reducedsethandles[dbset])
+            print('}', file=reducedsethandles[dbset])
         if dbset:
             print('file \"db/caenhv_'+dbset+'.db\" {',file=reducedsethandles[dbset])
         else:
             print('file \"db/caenhv.db\" {',file=reducedsethandles[dbset])
+
         print('\tpattern { Cr,   CrName,    CrType, Sl,   Ch,   Sys,  Det,    Element, CScode, ',end='',file=reducedsethandles[dbset])
         print(', '.join([x for x in command_codes]),end='', file=reducedsethandles[dbset])
         print(',',', '.join([x for x in alarm_limits])+"}", file=reducedsethandles[dbset])

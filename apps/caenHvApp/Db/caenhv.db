@@ -63,7 +63,7 @@ record(ai, "$(CrName)$(Cr):$(Sl):$(Ch):Chan")
    field(PREC,"0")
 }   
 # Current
-record(ai, "$(CrName):$(Sl):$(Ch):IMon")
+record(ai, "$(CrName)$(Cr):$(Sl):$(Ch):IMon")
 {
    field(DTYP, "Soft Channel")
    field(INP, "$(CrName)$(Cr):$(Sl):$(Ch):bigsub.E CPP")

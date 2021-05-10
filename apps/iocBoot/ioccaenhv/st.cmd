@@ -19,8 +19,6 @@ Start_CAEN(0, "129.57.37.95")
 #dbLoadRecords("$(DEVIOCSTATS)/db/iocAdminSoft.db", "IOC=$(IOC)")
 #dbLoadRecords("db/save_restoreStatus.db","P=${IOC}:")
 
-dbLoadRecords("db/caenchassis.db","CrName=HAHV0,CScode=#C0")
-
 dbLoadTemplate("db/HVBBHODO.substitutions")
 
 cd ${TOP}/iocBoot/${IOC}
