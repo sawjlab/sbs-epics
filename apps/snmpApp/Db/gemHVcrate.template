@@ -1,0 +1,41 @@
+#     GROUP : Group number channel belongs to
+#                0   : whole crate
+#                64  : all HV modules
+#                128 : all LV modules
+
+record(seq, "$(DEV):ResetCommand")
+{
+  field(DESC, "Reset sequence")
+  field(SCAN, "Passive")
+  field(PREC, "1")
+  field(SELM, "All")
+## clear events
+  field(DLY1, "2.0")
+  field(DOL1, "10")
+  field(LNK1, "$(DEV):Group  PP NMS")
+## disable "kill"
+  field(DLY2, "2.0")
+  field(DOL2, "4")
+  field(LNK2, "$(DEV):Group  PP NMS")
+## clear emergency stop
+  field(DLY3, "2.0")
+  field(DOL3, "2")
+  field(LNK3, "$(DEV):Group  PP NMS")
+}
+# On off for crate.
+# Group 0 is everything
+# Group 64 is just HV
+# Group 128 is just LV
+
+# Write 0 for off.  -1 for on.
+# Can write 1 too.  But readback will be -1
+# Probably should procede this record with a bo record
+
+record(longout, "$(DEV):Group")
+{
+  field(DESC, "SNMP channel")
+  field(DTYP, "Snmp")
+  field(SCAN, "Passive")
+  field(EGU,  "")
+  field(OUT,  "@%(H) guru WIENER-CRATE-MIB::groupsSwitch.0 INTEGER: 100 i")
+}

@@ -1,0 +1,16 @@
+Edit the epicsEnvSet definition of "H" in st.cmd to change
+the IP address of the Wiener Mpod crate.
+
+Copy the file ../../mibs/WIENER-CRATE-MIB.txt to ~/.snmp/mibs.
+The defintion of MIBDIRS in st.cmd should remove the need to do
+this, but seems not to work.
+
+To start the ioc from this directory execute the command
+    ../../bin/linux-x86/<appname> st.cmd
+
+Alternatively make the st.cmd file directly executable with
+    chmod +x st.cmd
+and check the executable name on the first line of the st.cmd file 
+
+You may need to change the name of the .dbd file given in the
+st.cmd's dbLoadDatabase() command before starting the ioc.

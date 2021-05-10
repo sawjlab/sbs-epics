@@ -1,0 +1,85 @@
+#
+#  Basic PVs for a Wiener/ISEG/MPOD power supply channel
+#
+#  Macros required:
+#     DEV   : base device name
+#     HOST  : SNMP host
+#     CHAN  : ISEG slot/channel ID, for example u300 = slot 4 channel 0
+#     GROUP : Group number channel belongs to
+#                0   : whole crate
+#                64  : all HV modules
+#                128 : all LV modules
+#             (older Wiener/ISEGs may instead have group numbers for each slot)
+
+record(longout, "$(DEV):$(Sl):$(Ch):Pw")
+{
+  field(DESC, "SNMP channel")
+  field(DTYP, "Snmp")
+  field(SCAN, "Passive")
+  field(OUT, "@%(H) guru %(W)outputSwitch.$(CHAN) ( 100 i")
+}
+
+record(longin, "$(DEV):$(Sl):$(Ch):Pwr")
+{
+  field(DESC, "SNMP channel")
+  field(SCAN, "1 second")
+  field(DTYP, "Snmp")
+  field(INP, "@%(H) guru %(W)outputSwitch.$(CHAN) ( 100 i")
+}
+
+record(ai, "$(DEV):$(Sl):$(Ch):VMon")
+{
+  field(DESC, "SNMP channel")
+  field(DTYP, "Snmp")
+  field(SCAN, "2 second")
+  field(PREC, "3")
+  field(INP, "@%(H) guru %(W)outputMeasurementSenseVoltage.$(CHAN) Float: 100")
+}
+
+record(ao, "$(DEV):$(Sl):$(Ch):V0Set")
+{
+  field(DESC, "SNMP channel")
+  field(DTYP, "Snmp")
+  field(SCAN, "Passive")
+  field(PREC, "3")
+  field(OUT, "@%(H) guru %(W)outputVoltage.$(CHAN) Float: 100 F")
+}
+
+record(ai, "$(DEV):$(Sl):$(Ch):IMon")
+{
+  field(DESC, "SNMP channel")
+  field(DTYP, "Snmp")
+  field(SCAN, "2 second")
+  field(PREC, "3")
+  field(INP, "@%(H) guru %(W)outputMeasurementCurrent.$(CHAN) Float: 100")
+}
+
+record(ao, "$(DEV):$(Sl):$(Ch):I0Set")
+{
+  field(DESC, "SNMP channel")
+  field(DTYP, "Snmp")
+  field(SCAN, "Passive")
+  field(PREC, "3")
+  field(OUT, "@%(H) guru %(W)outputCurrent.$(CHAN) Float: 100 F")
+}
+
+record(ao, "$(DEV):$(Sl):$(Ch):RUp")
+{
+  field(DESC, "SNMP channel")
+  field(DTYP, "Snmp")
+  field(SCAN, "Passive")
+  field(PREC, "3")
+  field(OUT, "@%(H) guru %(W)outputVoltageRiseRate.$(CHAN) Float: 100 F")
+  alias("$(DEV):$(Sl):$(Ch):RUpr")
+}
+
+record(ao, "$(DEV):$(Sl):$(Ch):RDWn")
+{
+  field(DESC, "SNMP channel")
+  field(DTYP, "Snmp")
+  field(SCAN, "Passive")
+  field(PREC, "3")
+  field(OUT, "@%(H) guru %(W)outputVoltageFallRate.$(CHAN) Float: 100 F")
+  alias("$(DEV):$(Sl):$(Ch):RDWnr")
+}
+
