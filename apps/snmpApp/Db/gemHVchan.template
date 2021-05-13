@@ -11,6 +11,15 @@
 #                128 : all LV modules
 #             (older Wiener/ISEGs may instead have group numbers for each slot)
 
+# See https://www.jlab.org/Hall-B/svt/documents/manuals/MPOD.pdf for
+# information on SNMP commands
+
+# Preceed/Follow these with bo, bi records?
+# 0 Off
+# 1 On
+# 2 resetEmergencyoff
+# 3 setEmergencyOff
+# 10 clearEvents
 record(longout, "$(DEV):$(Sl):$(Ch):Pw")
 {
   field(DESC, "SNMP channel")
@@ -29,20 +38,32 @@ record(longin, "$(DEV):$(Sl):$(Ch):Pwr")
 
 record(ai, "$(DEV):$(Sl):$(Ch):VMon")
 {
-  field(DESC, "SNMP channel")
+  field(DESC, "Actual Voltage")
   field(DTYP, "Snmp")
   field(SCAN, "2 second")
   field(PREC, "3")
+  field(EGU, "V")
   field(INP, "@%(H) guru %(W)outputMeasurementSenseVoltage.$(CHAN) Float: 100")
 }
 
 record(ao, "$(DEV):$(Sl):$(Ch):V0Set")
 {
-  field(DESC, "SNMP channel")
+  field(DESC, "Set Voltage")
   field(DTYP, "Snmp")
   field(SCAN, "Passive")
   field(PREC, "3")
+  field(EGU, "V")
   field(OUT, "@%(H) guru %(W)outputVoltage.$(CHAN) Float: 100 F")
+}
+
+record(ai, "$(DEV):$(Sl):$(Ch):V0Setr")
+{
+  field(DESC, "Readback of Set Voltage")
+  field(DTYP, "Snmp")
+  field(SCAN, "2 second")
+  field(PREC, "3")
+  field(EGU, "V")
+  field(INP, "@%(H) guru %(W)outputVoltage.$(CHAN) Float: 100 F")
 }
 
 record(ai, "$(DEV):$(Sl):$(Ch):IMon")
@@ -51,16 +72,28 @@ record(ai, "$(DEV):$(Sl):$(Ch):IMon")
   field(DTYP, "Snmp")
   field(SCAN, "2 second")
   field(PREC, "3")
+  field(EGU, "A")
   field(INP, "@%(H) guru %(W)outputMeasurementCurrent.$(CHAN) Float: 100")
 }
 
 record(ao, "$(DEV):$(Sl):$(Ch):I0Set")
 {
-  field(DESC, "SNMP channel")
+  field(DESC, "Set Trip Current")
   field(DTYP, "Snmp")
   field(SCAN, "Passive")
   field(PREC, "3")
+  field(EGU, "A")
   field(OUT, "@%(H) guru %(W)outputCurrent.$(CHAN) Float: 100 F")
+}
+
+record(ai, "$(DEV):$(Sl):$(Ch):I0Setr")
+{
+  field(DESC, "Readback of Trip Current Setting")
+  field(DTYP, "Snmp")
+  field(SCAN, "2 second")
+  field(PREC, "3")
+  field(EGU, "A")
+  field(INP, "@%(H) guru %(W)outputCurrent.$(CHAN) Float: 100")
 }
 
 record(ao, "$(DEV):$(Sl):$(Ch):RUp")
@@ -82,4 +115,60 @@ record(ao, "$(DEV):$(Sl):$(Ch):RDWn")
   field(OUT, "@%(H) guru %(W)outputVoltageFallRate.$(CHAN) Float: 100 F")
   alias("$(DEV):$(Sl):$(Ch):RDWnr")
 }
+record(ai, "$(DEV):$(Sl):$(Ch):SVMaxr")
+{
+  field(DESC, "Max Voltage")
+  field(DTYP, "Snmp")
+  field(SCAN, "2 second")
+  field(PREC, "3")
+  field(EGU, "V")
+  field(INP, "@%(H) guru %(W)outputConfigMaxSenseVoltage.$(CHAN) Float: 100")
+}
 
+# Haven't figured out how to set the max voltage.
+# Just make a dummy record for now for GUI compatibility
+record(ao, "$(DEV):$(Sl):$(Ch):SVMax")
+{
+  field(DESC, "Dummy max voltage record")
+  field(DTYP, "Soft Channel")
+  field(SCAN, "Passive")
+  field(EGU, "V")
+}
+
+# Bits:
+#   0:  Output on
+#   1:  Output inhibit
+#  13:  Output Enable Kill
+#  14   Output Emergency Off
+#
+#  Perhaps use this with a CALC record to get Pwr
+#
+record(longin, "$(DEV):$(Sl):$(Ch):Status")
+{
+  field(DESC, "Channel status")
+  field(DTYP, "Snmp")
+  field(SCAN, "2 second")
+  field(INP, "@%(H) guru %(W)outputStatus.$(CHAN) BITS: 100 shr")
+}
+
+#
+# Record for alarms
+#
+record(calc, "$(DEV):$(Sl):$(Ch):VDiff")
+{
+    field(DESC, "Alarm Record: Voltage Difference")
+    field(INPA, "$(DEV):(Sl):$(Ch):VMon")
+    field(INPB, "$(DEV):$(Sl):$(Ch):V0Setr")
+    field(CALC, "(A-B)")
+    field(PREC, "1")
+    field(SCAN, "Passive")
+    field(LOLO, "$(lolo)")
+    field(LOW, "$(low)")
+    field(HIGH, "$(high)")
+    field(HIHI, "$(hihi)")
+    field(LLSV, "MAJOR")
+    field(LSV, "MINOR")
+    field(HSV, "MINOR")
+    field(HHSV, "MAJOR")
+    field(EGU, "V")
+}

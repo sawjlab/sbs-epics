@@ -27,9 +27,15 @@ record(seq, "$(DEV):ResetCommand")
 # Group 64 is just HV
 # Group 128 is just LV
 
-# Write 0 for off.  -1 for on.
-# Can write 1 too.  But readback will be -1
-# Probably should procede this record with a bo record
+# 0 Off
+# 1 On
+# 2 resetEmergencyoff
+# 3 setEmergencyOff
+# 4 disableKill
+# 5 enableKill
+# 10 clearEvents
+
+# Reading this seems to return 0 or -1.
 
 record(longout, "$(DEV):Group")
 {
