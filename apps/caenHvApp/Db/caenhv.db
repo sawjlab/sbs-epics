@@ -235,7 +235,7 @@ record(ao, "$(CrName)$(Cr):$(Sl):$(Ch):RDWn")
    field(ASG,"EXPERT")
    field(EGU,"V/s")
 }
-record(ao, "$(CrName)$(Cr):$(Sl):$(Ch):SVmax") 
+record(ao, "$(CrName)$(Cr):$(Sl):$(Ch):SVMax") 
 {
    field(DTYP,"CAEN_HV")
    field(OUT,"$(CScode) $(svmax)")
