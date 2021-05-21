@@ -1,0 +1,27 @@
+#
+#include "base.dbd"
+include "bigsubRecord.dbd"
+
+#include "cebafApp.dbd"
+# Include your customized record dbd file here
+# and put myRecord.dbd file in this directory.
+# example:
+# include "myRecord.dbd"
+  
+# Define your device support definitions here
+# devSup definition in R3.13 is like
+# device(xxx,CONSTANT,devXxxSoft,"Soft Channel")
+# which in R3.12 devSup.ascii is equivalent to 
+# "xxx" CONSTANT "devXxxSoft" "Soft Channel"
+# Examples:
+# for Pentek 4261A waveform devSup:
+# device(waveform, VME_IO, devWfPentek4261, "Pentek 4261A")
+# and for CAMAC ao devSup:
+# device(ao, CAMAC_IO, devAoCamac, "Cebaf Camac")
+#
+device(ao, CAMAC_IO, devAoLecroy, "LecroyHV")
+device(bo, CAMAC_IO, devBoLecroy, "LecroyHV")
+device(bi, CAMAC_IO, devBiLecroy, "LecroyHV")
+
+function(InitChannel)
+function(ScanChannel)

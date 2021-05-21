@@ -1,0 +1,12 @@
+file "db/lecroycrate.db" {
+pattern
+ { Cr, CrName}
+ { "1", "HAHV01"}
+
+}
+file "db/lecroychan.db" {
+pattern
+ { Cr, CrName, Sl, Ch, CScode, pwonoff, v0set, i0set, rampdn, rampup}
+ {"1", "HAHV01", "0", "0", "#C1", "S256", "S512", "S1280", "S768", "S1024" }
+ {"1", "HAHV01", "0", "1", "#C1", "S257", "S513", "S1281", "S769", "S1025" }
+}

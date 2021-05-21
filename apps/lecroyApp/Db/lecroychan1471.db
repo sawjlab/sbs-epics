@@ -1,0 +1,68 @@
+#
+# Lecroy EPICS records
+#
+# Records that are unique the 1471N card and the VDCs relay thingy
+#
+# Commnds:
+#define NoSupport 0x00    /* No device support for PV       */
+#define G_Valid   0x80    /* Get HV validity                */
+#define G_HV      0x81    /* Get HV on/off                  */
+#define G_Alarm   0x82    /* Get Chassis alarm status       */
+#define S_CE      0x01    /* Set enable/disable             */
+#define S_DV      0x02    /* Set demand voltage             */
+#define S_RDN     0x03    /* Set ramp down                  */
+#define S_RUP     0x04    /* Set ramp up                    */
+#define S_TC      0x05    /* Set trip current               */
+#define S_MVDZ    0x06    /* Set measured voltage dead-zone */
+#define S_MCDZ    0x07    /* Set measured current dead-zone */
+#define S_HV      0x08    /* Set HV on/off                  */
+#define S_SOT     0x09    /* Set samples over threshold     */
+#define S_PRD     0x0A    /* Set post ramp delay            */
+#define S_RTE     0x0B    /* Set RTE                        */
+#define S_RLY     0x0C    /* Set VDC relay                  */
+
+# RTE
+# Uses the CE - Channel Enable command
+record(bo, "$(CrName):$(Sl):$(Ch):RTE") 
+{
+   field(DTYP,"LecroyHV")
+   field(DESC,"RTE")
+   field(OUT,"#B0 C$(Cr) N$(Sl) A$(Ch) F11 @")
+   field(OMSL,"supervisory")
+   field(ZNAM,"OFF")
+   field(ONAM,"ON")
+   field(SCAN,"Passive")
+}
+record(bo, "$(CrName):$(Sl):$(Ch):RLY") 
+{
+   field(DTYP,"LecroyHV")
+   field(DESC,"RLY")
+   field(OUT,"#B0 C$(Cr) N$(Sl) A$(Ch) F12 @")
+   field(OMSL,"supervisory")
+   field(ZNAM,"Disabled")
+   field(ONAM,"Enabled")
+   field(SCAN,"Passive")
+}
+
+# Big sub record.  All the readbacks
+# Outputs:  (Extra For 1461)
+#  P: MCpk
+#  Q: TC_pk
+#  R: RTE
+#  S: RLY
+
+#Alias records for the bigsub
+record(ai, "$(CrName):$(Sl):$(Ch):RTEr")
+{
+  field(DTYP, "Soft Channel")
+  field(DESC, "RTE readback")
+  field(INP, "$(CrName):$(Sl):$(Ch):bigsub.R CPP")
+  field(SCAN, "Passive")
+}
+record(ai, "$(CrName):$(Sl):$(Ch):RLYr")
+{
+  field(DTYP, "Soft Channel")
+  field(DESC, "RLY readback")
+  field(INP, "$(CrName):$(Sl):$(Ch):bigsub.S CPP")
+  field(SCAN, "Passive")
+}

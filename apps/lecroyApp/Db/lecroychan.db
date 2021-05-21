@@ -1,0 +1,248 @@
+#
+# Lecroy EPICS records
+#
+# INP OUT.
+# Card and signal numbers
+# Card: crate*256+slot
+# Signal: command*256+channel
+#
+# Commnds:
+#define NoSupport 0x00    /* No device support for PV       */
+#define G_Valid   0x80    /* Get HV validity                */
+#define G_HV      0x81    /* Get HV on/off                  */
+#define G_Alarm   0x82    /* Get Chassis alarm status       */
+#define S_CE      0x01    /* Set enable/disable             */
+#define S_DV      0x02    /* Set demand voltage             */
+#define S_RDN     0x03    /* Set ramp down                  */
+#define S_RUP     0x04    /* Set ramp up                    */
+#define S_TC      0x05    /* Set trip current               */
+#define S_MVDZ    0x06    /* Set measured voltage dead-zone */
+#define S_MCDZ    0x07    /* Set measured current dead-zone */
+#define S_HV      0x08    /* Set HV on/off                  */
+#define S_SOT     0x09    /* Set samples over threshold     */
+#define S_PRD     0x0A    /* Set post ramp delay            */
+
+#DV
+record(ao, "$(CrName):$(Sl):$(Ch):V0Set") 
+{
+   field(DTYP,"LecroyHV")
+   field(DESC,"#GR")
+   field(OUT,"#B0 C$(Cr) N$(Sl) A$(Ch) F2 @")
+   field(OMSL,"supervisory")
+   field(SCAN,"Passive")
+   field(ASG,"DEFAULT")
+   field(EGU,"V")
+}
+
+#RUP
+record(ao, "$(CrName):$(Sl):$(Ch):RUp") {
+   field(DTYP,"LecroyHV")
+   field(DESC,"#PD")
+   field(OUT,"#B0 C$(Cr) N$(Sl) A$(Ch) F4 @")
+   field(OMSL,"supervisory")
+   field(SCAN,"Passive")
+   field(ASG,"EXPERT")
+   field(EGU,"V/s")
+}
+#RDN
+record(ao, "$(CrName):$(Sl):$(Ch):RDWn") 
+{
+   field(DTYP,"LecroyHV")
+   field(DESC,"#PD")
+   field(OUT,"#B0 C$(Cr) N$(Sl) A$(Ch) F3 @")
+   field(OMSL,"supervisory")
+   field(SCAN,"Passive")
+   field(ASG,"EXPERT")
+   field(EGU,"V/s")
+}
+
+#MVDZ
+record(ao, "$(CrName):$(Sl):$(Ch):VMonDZ") 
+{
+   field(DTYP,"LecroyHV")
+   field(DESC,"#PD")
+   field(OUT,"#B0 C$(Cr) N$(Sl) A$(Ch) F6 @")
+   field(OMSL,"supervisory")
+   field(SCAN,"Passive")
+   field(ASG,"EXPERT")
+   field(EGU,"V")
+}
+#MCDZ
+record(ao, "$(CrName):$(Sl):$(Ch):IMonDZ") 
+{
+   field(DTYP,"LecroyHV")
+   field(DESC,"#PD")
+   field(OUT,"#B0 C$(Cr) N$(Sl) A$(Ch) F7 @")
+   field(OMSL,"supervisory")
+   field(SCAN,"Passive")
+   field(ASG,"EXPERT")
+   field(EGU,"V")
+}
+
+#TC
+record(ao, "$(CrName):$(Sl):$(Ch):I0Set") 
+{
+   field(DTYP,"LecroyHV")
+   field(DESC,"#GR")
+   field(OUT,"#B0 C$(Cr) N$(Sl) A$(Ch) F5 @")
+   field(OMSL,"supervisory")
+   field(SCAN,"Passive")
+   field(ASG,"EXPERT")
+   field(EGU,"uA")
+}
+
+# Skip PRD Post ramp delay
+# Skip SOT Samples over threshold
+
+# Power On/Off
+# Uses the CE - Channel Enable command
+record(bo, "$(CrName):$(Sl):$(Ch):Pw") 
+{
+   field(DTYP,"LecroyHV")
+   field(DESC,"#PB")
+   field(OUT,"#B0 C$(Cr) N$(Sl) A$(Ch) F1 @")
+   field(OMSL,"supervisory")
+   field(ZNAM,"OFF")
+   field(ONAM,"ON")
+   field(SCAN,"Passive")
+}
+
+# Big sub record.  All the readbacks
+# Outputs:  (For 1461)
+#  E: Measured current
+#  F: Measured voltage
+#  G: DemandVoltage
+#  H: Rup
+#  I: Rdn
+#  J: TC
+#  K: CE Enable/Disable (On/Off)
+#  L: ST
+#  M: MVDZ
+#  N: MCDZ
+#  O: HVL
+
+record(bigsub, "$(CrName):$(Sl):$(Ch):bigsub")
+{
+   field(DESC,"Bigsub channel")
+   field(INAM,"InitChannel")
+   field(SNAM,"ScanChannel")
+   field(INPA,"$(Cr)")
+   field(INPB,"$(Sl)")
+   field(INPC,"$(Ch)")
+   field(INPD,"0")
+   field(PREC,"1")
+   field(SCAN,"2 second")
+#   field(SCAN,"2 second")
+}
+#Alias records for the bigsub
+# Current
+record(ai, "$(CrName):$(Sl):$(Ch):IMon")
+{
+  field(DTYP, "Soft Channel")
+  field(INP, "$(CrName):$(Sl):$(Ch):bigsub.E CPP")
+  field(SCAN, "Passive")
+  field(EGU, "uA")
+}
+# Measured voltage
+record(ai, "$(CrName):$(Sl):$(Ch):VMon")
+{
+  field(DTYP, "Soft Channel")
+  field(INP, "$(CrName):$(Sl):$(Ch):bigsub.F CPP")
+  field(SCAN, "Passive")
+  field(EGU, "V")
+  field(FLNK, "$(CrName):$(Sl):$(Ch):VDiff")
+}
+record(ai, "$(CrName):$(Sl):$(Ch):V0Setr")
+{
+  field(DTYP, "Soft Channel")
+  field(INP, "$(CrName):$(Sl):$(Ch):bigsub.G CPP")
+  field(SCAN, "Passive")
+  field(EGU, "V")
+}
+record(ai, "$(CrName):$(Sl):$(Ch):RUpr")
+{
+  field(DTYP, "Soft Channel")
+  field(INP, "$(CrName):$(Sl):$(Ch):bigsub.H CPP")
+  field(SCAN, "Passive")
+  field(EGU, "V/s")
+}
+record(ai, "$(CrName):$(Sl):$(Ch):RDWnr")
+{
+  field(DTYP, "Soft Channel")
+  field(INP, "$(CrName):$(Sl):$(Ch):bigsub.I CPP")
+  field(SCAN, "Passive")
+  field(EGU, "V/s")
+}
+record(ai, "$(CrName):$(Sl):$(Ch):I0Setr")
+{
+  field(DTYP, "Soft Channel")
+  field(INP, "$(CrName):$(Sl):$(Ch):bigsub.J CPP")
+  field(SCAN, "Passive")
+  field(EGU, "uA")
+}
+record(ai, "$(CrName):$(Sl):$(Ch):Pwr")
+{
+  field(DTYP, "Soft Channel")
+  field(INP, "$(CrName):$(Sl):$(Ch):bigsub.K CPP")
+  field(SCAN, "Passive")
+#  field(EGU, "V")
+}
+record(ai, "$(CrName):$(Sl):$(Ch):Status")
+{
+  field(DTYP, "Soft Channel")
+  field(INP, "$(CrName):$(Sl):$(Ch):bigsub.L CPP")
+  field(SCAN, "Passive")
+#  field(EGU, "V")
+}
+record(ai, "$(CrName):$(Sl):$(Ch):VMonDZr")
+{
+  field(DTYP, "Soft Channel")
+  field(INP, "$(CrName):$(Sl):$(Ch):bigsub.M CPP")
+  field(SCAN, "Passive")
+  field(EGU, "V")
+}
+record(ai, "$(CrName):$(Sl):$(Ch):IMonDZr")
+{
+  field(DTYP, "Soft Channel")
+  field(INP, "$(CrName):$(Sl):$(Ch):bigsub.N CPP")
+  field(SCAN, "Passive")
+  field(EGU, "uA")
+}
+record(ai, "$(CrName):$(Sl):$(Ch):SVMaxr")
+{
+  field(DTYP, "Soft Channel")
+  field(INP, "$(CrName):$(Sl):$(Ch):bigsub.O CPP")
+  field(SCAN, "Passive")
+  field(EGU, "V")
+}
+# No way to set maximum voltage
+# Just make a dummy record for now for GUI compatibility
+record(ao, "$(CrName):$(Sl):$(Ch):SVMax")
+{
+  field(DESC, "Dummy max voltage record")
+  field(DTYP, "Soft Channel")
+  field(SCAN, "Passive")
+  field(EGU, "V")
+}
+
+#
+# Record for alarms
+#
+record(calc, "$(CrName):$(Sl):$(Ch):VDiff")
+{
+    field(DESC, "Alarm Record: Voltage Difference")
+    field(INPA, "$(CrName):$(Sl):$(Ch):VMon")
+    field(INPB, "$(CrName):$(Sl):$(Ch):V0Setr")
+    field(CALC, "(A-B)")
+    field(PREC, "1")
+    field(SCAN, "Passive")
+    field(LOLO, "$(lolo)")
+    field(LOW, "$(low)")
+    field(HIGH, "$(high)")
+    field(HIHI, "$(hihi)")
+    field(LLSV, "MAJOR")
+    field(LSV, "MINOR")
+    field(HSV, "MINOR")
+    field(HHSV, "MAJOR")
+    field(EGU, "V")
+}

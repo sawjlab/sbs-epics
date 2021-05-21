@@ -1,0 +1,59 @@
+#
+# Lecroy EPICS records
+#
+# Crate level signals
+#
+# INP OUT.
+# Card and signal numbers
+# Card: slot*256+chassis
+# Signal: command*256+channel
+#
+# Commnds:
+#define NoSupport 0x00    /* No device support for PV       */
+#define G_Valid   0x80    /* Get HV validity                */
+#define G_HV      0x81    /* Get HV on/off                  */
+#define G_Alarm   0x82    /* Get Chassis alarm status       */
+#define S_CE      0x01    /* Set enable/disable             */
+#define S_DV      0x02    /* Set demand voltage             */
+#define S_RDN     0x03    /* Set ramp down                  */
+#define S_RUP     0x04    /* Set ramp up                    */
+#define S_TC      0x05    /* Set trip current               */
+#define S_MVDZ    0x06    /* Set measured voltage dead-zone */
+#define S_MCDZ    0x07    /* Set measured current dead-zone */
+#define S_HV      0x08    /* Set HV on/off                  */
+#define S_SOT     0x09    /* Set samples over threshold     */
+#define S_PRD     0x0A    /* Set post ramp delay            */
+
+#PV: MF7valid      Type: bi               (lecroyAppha22)
+#PV: MF7HVon       Type: bi               (lecroyAppha22)
+#PV: MF7alarm      Type: bi               (lecroyAppha22)
+#PV: MF7HVcmd      Type: bo               (lecroyAppha22)
+
+record(bo, "$(CrName):Pw")
+{
+   field(DTYP,"LecroyHV")
+   field(DESC,"Valid")
+   field(SCAN,"Passive")
+   field(OUT, "#B0 C$(Cr) N0 A0 F8 @")
+   field(ZNAM, "Off")
+   field(ONAM, "On")
+   field(OMSL,"supervisory")
+}
+record(bi, "$(CrName):Pwr")
+{
+   field(DTYP,"LecroyHV")
+   field(DESC,"Valid")
+   field(SCAN,"2 second")
+   field(INP, "#B0 C$(Cr) N0 A0 F129 @")
+   field(ZNAM, "Off")
+   field(ONAM, "On")
+}
+record(bi, "$(CrName):Alarm")
+{
+   field(DTYP,"LecroyHV")
+   field(DESC,"Valid")
+   field(SCAN,"2 second")
+   field(INP, "#B0 C$(Cr) N0 A0 F130 @")
+   field(ZNAM, "No Alarm")
+   field(ONAM, "Alarm")
+}
