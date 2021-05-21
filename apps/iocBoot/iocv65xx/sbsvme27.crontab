@@ -1,0 +1,7 @@
+# /home/sbs-onl/EPICS/sbsvme27.crontab
+#
+# Add this to the crontab on the cvxwrks account on all machines
+# that will run soft iocs
+PATH=/usr/local/bin:/bin:/usr/bin
+
+0,5,10,15,20,25,30,35,40,45,50,55 * * * * /home/sbs-onl/EPICS/v65xx-epics/tools/procServMgr/procServMgr check >> /home/sbs-onl/EPICS/logs/`hostname -s`.log

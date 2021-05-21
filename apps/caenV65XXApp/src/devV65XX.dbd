@@ -1,0 +1,7 @@
+device(ao, CAMAC_IO, devAoV65XX, "V65XX")
+device(ai, CAMAC_IO, devAiV65XX, "V65XX")
+device(bo, CAMAC_IO, devBoV65XX, "V65XX")
+device(bi, CAMAC_IO, devBiV65XX, "V65XX")
+
+#function(InitChannel)
+#function(ScanChannel)

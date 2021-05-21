@@ -1,0 +1,191 @@
+#
+# V6521 EPICS records
+#
+# INP OUT.
+# Card and signal numbers
+# Card: slot
+# Signal: command*256+channel
+
+# Commands:
+
+#define S_CE      0    /* Set enable/disable             */
+#define S_DV      1    /* Set demand voltage             */
+#define S_RDN     2    /* Set ramp down                  */
+#define S_RUP     3    /* Set ramp up                    */
+#define S_TC      4    /* Set trip current               */
+#define S_MVDZ    5    /* Set measured voltage dead-zone */
+#define S_MCDZ    6    /* Set measured current dead-zone */
+#define S_HV      7    /* Set HV on/off                  */
+###define S_SOT     8    /* Set samples over threshold     */
+#define S_PWDOWN  8    /* Set Ramp or Kill on power off  */
+#define S_PRD     9    /* Set post ramp delay            */
+#define S_CHHV    10   /* Set Channel HV on/off          */
+#define S_BDHV    11   /* Set board HV on/of             */
+#define S_VMAX    12   /* Set Max channel voltage        */
+#define G_STAT    13   /* Get Channel Status             */
+#define G_VMON    14   /* Get Measured Voltage           */
+#define G_IMON    15   /* Get Measured Current           */
+#define G_Valid   16   /* Get HV validity                */
+#define G_HV      17   /* Get HV on/off                  */
+#define G_Alarm   18   /* Get Chassis alarm status       */
+
+# Read records
+
+record(bi, "$(CrName):$(Sl):$(Ch):Pwr")
+{
+  field(DTYP,"V65XX")
+  field(DESC,"Power")
+  field(INP, "#B0 C0 N$(Sl) A$(Ch) F10 @")
+  field(SCAN,"2 second")
+  field(ZNAM,"OFF")
+  field(ONAM,"ON")
+}
+record(bi, "$(CrName):$(Sl):$(Ch):PDwnr")
+{
+  field(DTYP,"V65XX")
+  field(DESC,"Power off mode")
+  field(INP, "#B0 C0 N$(Sl) A$(Ch) F8 @")
+  field(SCAN,"2 second")
+  field(ZNAM,"Kill")
+  field(ONAM,"Ramp")
+}
+record(ai, "$(CrName):$(Sl):$(Ch):V0Setr")
+{
+  field(DTYP,"V65XX")
+  field(DESC,"Set Voltage Readback")
+  field(INP, "#B0 C0 N$(Sl) A$(Ch) F1 @")
+  field(SCAN,"2 second")
+  field(ASLO,"0.1")
+  field(AOFF,"0.0")	
+  field(EGU,"V")
+}
+record(ai, "$(CrName):$(Sl):$(Ch):I0Setr")
+{
+  field(DTYP,"V65XX")
+  field(DESC,"Trip Current")
+  field(INP, "#B0 C0 N$(Sl) A$(Ch) F4 @")
+  field(SCAN,"2 second")
+  field(ASLO,"0.005")
+  field(AOFF,"0.0")	
+  field(EGU,"uA")
+}
+record(ai, "$(CrName):$(Sl):$(Ch):VMon")
+{
+  field(DTYP,"V65XX")
+  field(DESC,"Actual Voltage")
+  field(INP, "#B0 C0 N$(Sl) A$(Ch) F14 @")
+  field(SCAN,"2 second")
+  field(ASLO,"0.1")
+  field(AOFF,"0.0")	
+  field(EGU,"V")
+}
+record(ai, "$(CrName):$(Sl):$(Ch):IMon")
+{
+  field(DTYP,"V65XX")
+  field(DESC,"Current")
+  field(INP, "#B0 C0 N$(Sl) A$(Ch) F15 @")
+  field(SCAN,"2 second")
+  field(ASLO,"0.005")
+  field(AOFF,"0.0")	
+  field(EGU,"uA")
+}
+record(ai, "$(CrName):$(Sl):$(Ch):RUpr")
+{
+  field(DTYP,"V65XX")
+  field(DESC,"Rampup rate")
+  field(INP, "#B0 C0 N$(Sl) A$(Ch) F3 @")
+  field(SCAN,"2 second")
+  field(EGU,"V/s")
+}
+record(ai, "$(CrName):$(Sl):$(Ch):RDWnr")
+{
+  field(DTYP,"V65XX")
+  field(DESC,"Rampdown rate")
+  field(INP, "#B0 C0 N$(Sl) A$(Ch) F2 @")
+  field(SCAN,"2 second")
+  field(EGU,"V/s")
+}
+
+# Write records
+record(bo, "$(CrName):$(Sl):$(Ch):Pw")
+{
+  field(DTYP,"V65XX")
+  field(DESC,"Power")
+  field(OUT, "#B0 C0 N$(Sl) A$(Ch) F10 @")
+  field(OMSL, "supervisory")
+  field(SCAN,"Passive")
+  field(ZNAM,"OFF")
+  field(ONAM,"ON")
+}
+record(bo, "$(CrName):$(Sl):$(Ch):PDwn")
+{
+  field(DTYP,"V65XX")
+  field(DESC,"Power off mode")
+  field(OUT, "#B0 C0 N$(Sl) A$(Ch) F8 @")
+  field(OMSL, "supervisory")
+  field(SCAN,"Passive")
+  field(ZNAM,"Kill")
+  field(ONAM,"Ramp")
+}
+record(ao, "$(CrName):$(Sl):$(Ch):V0Set")
+{
+  field(DTYP,"V65XX")
+  field(DESC,"Set Voltage")
+  field(OUT, "#B0 C0 N$(Sl) A$(Ch) F1 @")
+  field(OMSL, "supervisory")
+  field(SCAN,"Passive")
+  field(ASLO,"0.1")
+  field(AOFF,"0.0")	
+  field(EGU,"V")
+}
+record(ao, "$(CrName):$(Sl):$(Ch):I0Set")
+{
+  field(DTYP,"V65XX")
+  field(DESC,"Trip Current")
+  field(OUT, "#B0 C0 N$(Sl) A$(Ch) F4 @")
+  field(OMSL, "supervisory")
+  field(SCAN,"Passive")
+  field(ASLO,"0.005")
+  field(AOFF,"0.0")	
+  field(EGU,"uA")
+}
+record(ao, "$(CrName):$(Sl):$(Ch):RUp")
+{
+  field(DTYP,"V65XX")
+  field(DESC,"Rampup rate")
+  field(OUT, "#B0 C0 N$(Sl) A$(Ch) F3 @")
+  field(OMSL, "supervisory")
+  field(SCAN,"Passive")
+  field(EGU,"V/s")
+}
+record(ao, "$(CrName):$(Sl):$(Ch):RDWn")
+{
+  field(DTYP,"V65XX")
+  field(DESC,"Rampdown rate")
+  field(OUT, "#B0 C0 N$(Sl) A$(Ch) F2 @")
+  field(OMSL, "supervisory")
+  field(SCAN,"Passive")
+  field(EGU,"V/s")
+}
+#
+# Record for alarms
+#
+record(calc, "$(CrName):$(Sl):$(Ch):VDiff")
+{
+  field(DESC, "Alarm Record: Voltage Difference") 
+  field(INPA, "$(CrName):$(Sl):$(Ch):VMon")
+  field(INPB, "$(CrName):$(Sl):$(Ch):V0Setr")
+  field(CALC, "(A-B)")
+  field(PREC, "1")
+  field(SCAN, "Passive")
+  field(LOLO, "$(lolo)")
+  field(LOW, "$(low)")
+  field(HIGH, "$(high)")
+  field(HIHI, "$(hihi)")
+  field(LLSV, "MAJOR")
+  field(LSV, "MINOR")
+  field(HSV, "MINOR")
+  field(HHSV, "MAJOR")
+  field(EGU, "V")
+}
+
