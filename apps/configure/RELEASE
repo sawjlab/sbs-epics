@@ -29,13 +29,7 @@
 #SNCSEQ = $(MODULES)/seq-ver
 
 # EPICS_BASE should appear last so earlier modules can override stuff:
-#EPICS_BASE = $(TOP)/../../base-R7.0.4.1
-# Use different EPICS_BASE on cdaq systems
-ifneq (,$(findstring cdaql,$(shell hostname -s)))
-  EPICS_BASE = $(TOP)/../../R3.14.12.5/base
-else	     
-  EPICS_BASE = $(TOP)/../../base-3.14.12.5
-endif
+EPICS_BASE = $(TOP)/../../base-3.15.8
 
 # Set RULES here if you want to use build rules from somewhere
 # other than EPICS_BASE:
