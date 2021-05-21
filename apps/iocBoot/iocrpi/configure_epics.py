@@ -19,7 +19,7 @@ import sys
 
 DEFAULTCRATE=1
 SLOTLISTFILE="/tmp/LecroySlotList.txt"
-EPICSAPPROOT="/home/pi/epics/lecroy-epics/apps"
+EPICSAPPROOT="/home/pi/epics/sbs-epics/apps"
 STADDCRATE= "%s/iocBoot/iocrpi/hvaddcrate"%EPICSAPPROOT
 DBDIR= "%s/db"%EPICSAPPROOT
 SUBFILENAME="%s/LecroyHV.substitutions"%DBDIR
