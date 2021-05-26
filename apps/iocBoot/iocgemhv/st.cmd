@@ -2,8 +2,8 @@
 
 < envPaths
 cd "${TOP}"
-# This seems not to work.  Copy $(TOP)/mibs/WIENER-CRATE-MIB.txt
-# into ~/.snmp/mibs if it doesn't.
+# If MIB file is not found, copy $(TOP)/mibs/WIENER-CRATE-MIB.txt
+# into ~/.snmp/mibs
 epicsEnvSet("MIBDIRS", "+$(TOP)/mibs")
 epicsEnvSet("W", "WIENER-CRATE-MIB::")
 
