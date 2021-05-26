@@ -1,0 +1,7 @@
+# /adaqfs/home/aslow/EPICS/sbs-epics/tools/procServMgr/adaqsc.crontab
+#
+# Add this to the crontab on the aslow account on all machines
+# that will run soft iocs
+PATH=/usr/local/bin:/bin:/usr/bin
+
+0,5,10,15,20,25,30,35,40,45,50,55 * * * * /adaqfs/home/aslow/EPICS/sbs-epics/tools/procServMgr/procServMgr check >> /adaqfs/home/aslow/EPICS/logs/`hostname -s`.log

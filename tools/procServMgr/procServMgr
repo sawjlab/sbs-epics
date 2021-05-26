@@ -22,17 +22,15 @@
 #-----------------------------------------------------------------------
 # Global Variables
 #-----------------------------------------------------------------------
-SCRIPT_USER=bbhodo
-#SCRIPT_USER=wmoore
-#SCRIPT_USER=phansson
+SCRIPT_USER=aslow
 SCRIPT_NAME=procServMgr
 
 #-----------------------------------------------------------------------
 # Data File Locations
 #-----------------------------------------------------------------------
-CONFIG_DIR=/home/bbhodo/EPICS/sbs-epics/apps/iocBoot
-LOG_DIR=/home/bbhodo/EPICS/logs
-APP_DIR=/home/bbhodo/EPICS/sbs-epics/apps/bin/linux-x86_64
+CONFIG_DIR=/adaqfs/home/aslow/EPICS/sbs-epics/apps/iocBoot
+LOG_DIR=/adaqfs/home/aslow/EPICS/logs
+APP_DIR=/adaqfs/home/aslow/EPICS/sbs-epics/apps/bin/linux-x86_64
 IOC_DIR=$CONFIG_DIR
 DIR_LIST="$APP_DIR $CONFIG_DIR $IOC_DIR $LOG_DIR"
 

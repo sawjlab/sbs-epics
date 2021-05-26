@@ -6,7 +6,7 @@
 #
 
 # All log files
-/home/bbhodo/EPICS/logs/*.log {
+/adaqfs/home/aslow/EPICS/logs/*.log {
     notifempty
     copytruncate
     daily

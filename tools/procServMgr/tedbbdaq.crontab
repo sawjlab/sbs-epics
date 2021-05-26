@@ -1,7 +1,0 @@
-# /home/cvxwrks/Epics12GeV/crontabs/cvxwrks.crontab
-#
-# Add this to the crontab on the cvxwrks account on all machines
-# that will run soft iocs
-PATH=/usr/local/bin:/bin:/usr/bin
-
-0,5,10,15,20,25,30,35,40,45,50,55 * * * * /home/bbhodo/EPICS/sbs-epics/tools/procServMgr/procServMgr check >> /home/bbhodo/EPICS/logs/`hostname -s`.log
