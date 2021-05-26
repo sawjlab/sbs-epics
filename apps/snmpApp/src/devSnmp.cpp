@@ -7,9 +7,9 @@
 */
 
 #define OUR_VERSION_MAJOR       1
-#define OUR_VERSION_MINOR       0
+#define OUR_VERSION_MINOR       1
 #define OUR_VERSION_REVISION    0
-#define OUR_VERSION_PATCHLEVEL  1
+#define OUR_VERSION_PATCHLEVEL  2
 #define _STR_HELPER(x) #x
 #define _STR(x) _STR_HELPER(x)
 #define OUR_VERSION_STRING "devSnmp " \
@@ -38,6 +38,7 @@
 #include <stdlib.h>
 #include <stdio.h>
 #include <string.h>
+#include <strings.h>
 #include <ctype.h>
 #include <errno.h>
 
@@ -153,7 +154,6 @@ static int snmpThreadSleepMSec = 20;
 static int snmpSessionRetries = 5;
 static int snmpSessionTimeout = 10000000;  // = 1 second
 
-
 typedef struct {
   const char *paramName;
   int *valuePointer;
@@ -200,7 +200,7 @@ static char *tnow(void)
   return(_TimeStr);
 }
 //----------------------------------------------------------------------
-static void copy_string(char *target, int maxsize, char *source)
+static void copy_string(char *target, int maxsize, const char *source)
 {
   int len = strlen(source);
   if (len < maxsize)
@@ -211,6 +211,19 @@ static void copy_string(char *target, int maxsize, char *source)
   }
 }
 //----------------------------------------------------------------------
+static void trimup(char *str)
+{
+  int kk = strlen(str);
+  int ii = 0;
+  while ((ii < kk) && (str[ii] <= ' ')) ii++;
+  if (ii != 0) memmove(str,str+ii,kk-ii+1);
+  ii = strlen(str) - 1;
+  while ((ii >= 0) && (str[ii] <= ' ')) {
+    str[ii] = 0;
+    ii--;
+  }
+}
+//--------------------------------------------------------------------
 static int snmpScanLong(char *str, long *dest, int base = 10)
 {
   char *endp;
@@ -407,7 +420,8 @@ static int snmpSendTask(devSnmp_manager *pMgr)
 static int snmpSessionCallback(int op, SNMP_SESSION *sp, int reqId, SNMP_PDU *pdu, void *magic)
 {
   // get pointer to devSnmp_session callback is for, ignore if is NULL
-  devSnmp_session *pSession = (devSnmp_session *) magic;
+  devSnmp_magic *mstruct = (devSnmp_magic *) magic;
+  devSnmp_session *pSession = (devSnmp_session *) mstruct->sessionObject;
   if (! pSession) return(epicsOk);
 
   // tell session to process itself, return its status
@@ -1032,6 +1046,8 @@ devSnmp_session::devSnmp_session(devSnmp_manager *pMgr, devSnmp_group *pGroup, b
   oidList     = new snmpPointerList();
   timeStarted.start(&globalLastTick);
   timeSent.clear();
+  memset(&ourMagic,0,sizeof(devSnmp_magic));
+  ourMagic.sessionObject = this;
 }
 //--------------------------------------------------------------------
 devSnmp_session::~devSnmp_session(void)
@@ -1183,7 +1199,7 @@ bool devSnmp_session::open(SNMP_SESSION *psess)
   session = snmp_open(psess);
   if (! session) return(false);
   session->callback = snmpSessionCallback;
-  session->callback_magic = this;
+  session->callback_magic = &ourMagic;
 
   // create PDU
   pdu = snmp_pdu_create( (is_setting) ? SNMP_MSG_SET : SNMP_MSG_GET );
@@ -1234,6 +1250,7 @@ bool devSnmp_session::send(void)
     pOurMgr->incActiveRequests();
     state = true;
   } else {
+    sent = false;
     state = false;
   }
 
@@ -1569,6 +1586,10 @@ void devSnmp_oid::storeData(netsnmp_variable_list *var)
   snprint_value(buffer, sizeof(buffer), var->name, var->name_length, var);
   copy_string(reading.read_string,data_len,buffer);
   reading.valid = true;
+
+  if (snmpDebugLevel >= 4) {
+    printf("%s  devSnmp %s received string data = '%s'\n",tnow(),oidName(),reading.read_string);
+  }
 
   // store double or long value if type returned is acceptable
   reading.has_double = false;
@@ -2553,6 +2574,7 @@ devSnmp_group::devSnmp_group(devSnmp_manager *pMgr, devSnmp_host *host, char *co
   base_session = new SNMP_SESSION;
   if (! base_session) return;
   memset(base_session,0,sizeof(SNMP_SESSION));
+  memset(&v3params,0,sizeof(devSnmp_v3params));
 
   // initialize base session structure
   snmp_sess_init(base_session);
@@ -2563,6 +2585,45 @@ devSnmp_group::devSnmp_group(devSnmp_manager *pMgr, devSnmp_host *host, char *co
   base_session->community_len = strlen(community);
   base_session->version       = pOurMgr->getHostSnmpVersion(base_session->peername);
   base_session->callback      = snmpSessionCallback;
+
+  // apply SNMPv3 params if using that version
+  if (base_session->version == SNMP_VERSION_3) {
+    pOurMgr->getHostSnmpV3Params(base_session->peername,&v3params);
+    base_session->securityAuthProto    = v3params.securityAuthProto;
+    base_session->securityAuthProtoLen = v3params.securityAuthProtoLen;
+    base_session->securityPrivProto    = v3params.securityPrivProto;
+    base_session->securityPrivProtoLen = v3params.securityPrivProtoLen;
+    base_session->securityLevel        = v3params.securityLevel;
+    base_session->securityName         = dup_string(v3params.securityName);
+    base_session->securityNameLen      = strlen(v3params.securityName);
+    base_session->contextName          = dup_string(v3params.context);
+    base_session->contextNameLen       = strlen(v3params.context);
+    long errCode;
+    if (strlen(v3params.authPassPhrase) > 0) {
+      base_session->securityAuthKeyLen = USM_AUTH_KU_LEN;
+      errCode = generate_Ku(base_session->securityAuthProto,
+                            base_session->securityAuthProtoLen,
+                            (u_char *) v3params.authPassPhrase,
+                            strlen(v3params.authPassPhrase),
+                            base_session->securityAuthKey,
+                            &base_session->securityAuthKeyLen);
+      if (errCode != SNMPERR_SUCCESS) {
+        printf("devSnmp ERROR: generate_Ku [authPassPhrase] FAILED: errcode %ld : %s\n",errCode,snmp_errstring(errCode));
+      }
+    }
+    if (strlen(v3params.privPassPhrase) > 0) {
+      base_session->securityPrivKeyLen = USM_PRIV_KU_LEN;
+      errCode = generate_Ku(base_session->securityAuthProto,
+                            base_session->securityAuthProtoLen,
+                            (u_char *) v3params.privPassPhrase,
+                            strlen(v3params.privPassPhrase),
+                            base_session->securityPrivKey,
+                            &base_session->securityPrivKeyLen);
+      if (errCode != SNMPERR_SUCCESS) {
+        printf("devSnmp ERROR: generate_Ku [privPassPhrase] FAILED: errcode %ld %s\n",errCode,snmp_errstring(errCode));
+      }
+    }
+  }
 
   (*okay) = true;
 }
@@ -2603,6 +2664,8 @@ devSnmp_group::~devSnmp_group(void)
   if (base_session) {
     delete [] base_session->peername;
     delete [] base_session->community;
+    if (base_session->securityName) delete [] base_session->securityName;
+    if (base_session->contextName) delete [] base_session->contextName;
     delete base_session;
     base_session = NULL;
   }
@@ -2972,10 +3035,14 @@ devSnmp_host::devSnmp_host(devSnmp_manager *pMgr, char *host, bool *okay)
   getQueue          = new snmpPointerList();
   setQueue          = new snmpPointerList();
   activeSessionList = new snmpPointerList();
+  memset(&v3params,0,sizeof(devSnmp_v3params));
 
   // set some defaults (user can override later)
   snmpVersion   = SNMP_VERSION_2c;
   maxOidsPerReq = DEFAULT_MAX_OIDS_PER_REQ;
+  setSnmpV3Param("authType",      "MD5",          true);
+  setSnmpV3Param("privType",      "AES",          true);
+  setSnmpV3Param("securityLevel", "noAuthNoPriv", true);
 
   (*okay) = true;
 }
@@ -3125,6 +3192,139 @@ int devSnmp_host::getSnmpVersion(void)
 void devSnmp_host::setSnmpVersion(int version)
 {
   snmpVersion = version;
+}
+//--------------------------------------------------------------------
+void devSnmp_host::setSnmpV3Param(const char *param, const char *value, bool ignoreVersion)
+{
+/*
+  mimics parameters used in snmpget/snmpwalk utilities snmp.conf files
+  (though without 'def' got token name, setSnmpV3ConfigFile strips off 'def' if encountered)
+
+  see: http://net-snmp.sourceforge.net/wiki/index.php/TUT:SNMPv3_Options
+
+  Parameter      Command Line Flag                      snmp.conf token
+  -------------  -----------------                      ---------------
+  securityName   -u NAME                                defSecurityName NAME
+  authProtocol   -a (MD5|SHA)                           defAuthType (MD5|SHA)
+  privProtocol   -x (AES|DES)                           defPrivType DES
+  authKey        -A PASSPHRASE                          defAuthPassphrase PASSPHRASE
+  privKey        -X PASSPHRASE                          defPrivPassphrase PASSPHRASE
+  securityLevel  -l (noAuthNoPriv|authNoPriv|authPriv)  defSecurityLevel (noAuthNoPriv|authNoPriv|authPriv)
+  context        -n CONTEXTNAME                         defContext CONTEXTNAME
+*/
+  if ((! ignoreVersion) && (snmpVersion != SNMP_VERSION_3)) {
+    printf("devSnmp ERROR: host '%s' is not using SNMP_VERSION_3 - set it with devSnmpSetSnmpVersion first\n",hostname);
+    return;
+  }
+
+  if (strcasecmp(param,"securityName") == 0) {
+    // securityName -u NAME
+    copy_string(v3params.securityName,sizeof(v3params.securityName),value);
+    return;
+  }
+
+  if (strcasecmp(param,"authType") == 0) {
+    // authProtocol -a (MD5|SHA)
+    if (strcasecmp(value, "MD5") == 0) {
+      v3params.securityAuthProto    = snmp_duplicate_objid(usmHMACMD5AuthProtocol,USM_AUTH_PROTO_MD5_LEN);
+      v3params.securityAuthProtoLen = USM_AUTH_PROTO_MD5_LEN;
+    } else if (strcasecmp(value, "SHA") == 0) {
+      v3params.securityAuthProto    = snmp_duplicate_objid(usmHMACSHA1AuthProtocol,USM_AUTH_PROTO_SHA_LEN);
+      v3params.securityAuthProtoLen = USM_AUTH_PROTO_SHA_LEN;
+    } else {
+      printf("devSnmp ERROR: unknown SNMPv3 authProtocol selection '%s'\n",value);
+    }
+    return;
+  }
+
+  if (strcasecmp(param,"privType") == 0) {
+    // privProtocol -x (AES|DES)
+    if (strcasecmp(value, "DES") == 0) {
+      v3params.securityPrivProto    = snmp_duplicate_objid(usmDESPrivProtocol,USM_PRIV_PROTO_DES_LEN);
+      v3params.securityPrivProtoLen = USM_PRIV_PROTO_DES_LEN;
+    } else if ((strcasecmp(value, "AES") == 0) || (strcasecmp(value, "AES128") == 0)) {
+      v3params.securityPrivProto    = snmp_duplicate_objid(usmAESPrivProtocol,USM_PRIV_PROTO_AES_LEN);
+      v3params.securityPrivProtoLen = USM_PRIV_PROTO_AES_LEN;
+    } else {
+      printf("devSnmp ERROR: unknown SNMPv3 privProtocol selection '%s'\n",value);
+    }
+    return;
+  }
+
+  if (strcasecmp(param,"authPassPhrase") == 0) {
+    // authKey  -A PASSPHRASE
+    copy_string(v3params.authPassPhrase,sizeof(v3params.authPassPhrase),value);
+    return;
+  }
+
+  if (strcasecmp(param,"privPassPhrase") == 0) {
+    // privKey  -X PASSPHRASE
+    copy_string(v3params.privPassPhrase,sizeof(v3params.privPassPhrase),value);
+    return;
+  }
+
+  if (strcasecmp(param,"securityLevel") == 0) {
+    // securityLevel  -l (noAuthNoPriv|authNoPriv|authPriv)
+    if (strcasecmp(value, "noAuthNoPriv") == 0) {
+      v3params.securityLevel = SNMP_SEC_LEVEL_NOAUTH;
+    } else if (strcasecmp(value, "authNoPriv") == 0) {
+      v3params.securityLevel = SNMP_SEC_LEVEL_AUTHNOPRIV;
+    } else if (strcasecmp(value, "authPriv") == 0) {
+      v3params.securityLevel = SNMP_SEC_LEVEL_AUTHPRIV;
+    } else {
+      printf("devSnmp ERROR: unknown SNMPv3 securityLevel selection '%s'\n",value);
+    }
+    return;
+  }
+
+  if (strcasecmp(param,"context") == 0) {
+    // context  -n CONTEXTNAME
+    copy_string(v3params.context,sizeof(v3params.context),value);
+    return;
+  }
+
+  // nothing we know about...
+  printf("devSnmp ERROR: unknown SNMPv3 parameter '%s'\n",param);
+}
+//--------------------------------------------------------------------
+void devSnmp_host::setSnmpV3ConfigFile(const char *fileName)
+{
+  if (snmpVersion != SNMP_VERSION_3) {
+    printf("devSnmp ERROR: host '%s' is not using SNMP_VERSION_3 - set it with devSnmpSetSnmpVersion first\n",hostname);
+    return;
+  }
+
+  FILE *fi = fopen(fileName,"r");
+  if (! fi) {
+    printf("devSnmp ERROR: unable to open file for read '%s'\n",fileName);
+    return;
+  }
+  char line[1024];
+  while (fgets(line,sizeof(line),fi) != NULL) {
+    trimup(line);
+    if (line[0] == 0) continue;    // skip blank lines
+    if (line[0] == '#') continue;  // skip comments
+    char *value = strchr(line,' ');
+    if (! value) value = strchr(line,'\t');
+    if (! value) {
+      printf("devSnmp ERROR: invalid SNMPv3 config file line '%s'\n",line);
+      continue;
+    }
+    (*value) = 0;
+    value++;
+    trimup(value);
+    char *param = line;
+    // allow 'def' prefix of param name
+    // these are key names snmpwalk / snmpget config files use
+    if (strncasecmp(param,"def",3) == 0) param += 3;
+    setSnmpV3Param(param,value);
+  }
+  fclose(fi);
+}
+//--------------------------------------------------------------------
+void devSnmp_host::getSnmpV3Params(devSnmp_v3params *params)
+{
+  memcpy(params,&v3params,sizeof(devSnmp_v3params));
 }
 //--------------------------------------------------------------------
 void devSnmp_host::setMaxOidsPerReq(int maxoids)
@@ -3302,7 +3502,7 @@ void devSnmp_host::report(int level, char *match)
 //--------------------------------------------------------------------
 devSnmp_manager::devSnmp_manager(void)
 {
-  init_snmp("asynchapp");
+  init_snmp("devSnmp");
 #if devSnmp_NETSNMP_VERSION < 50400
   init_mib();
 #else
@@ -3502,6 +3702,37 @@ void devSnmp_manager::setHostSnmpVersion(char *host, char *versionStr)
 
   // set version for host
   if (pHost) pHost->setSnmpVersion(vers);
+}
+//--------------------------------------------------------------------
+void devSnmp_manager::setHostSnmpV3Param(char *host, char *param, char *value)
+{
+  // locate matching host
+  devSnmp_host *pHost = findHost(host);
+
+  // if host does not exist, create it
+  if (! pHost) pHost = createHost(host);
+
+  // call host object method to set parameter
+  pHost->setSnmpV3Param(param,value);
+}
+//--------------------------------------------------------------------
+void devSnmp_manager::setHostSnmpV3ConfigFile(char *host, char *fileName)
+{
+  // locate matching host
+  devSnmp_host *pHost = findHost(host);
+
+  // if host does not exist, create it
+  if (! pHost) pHost = createHost(host);
+
+  // call host object method to set parameter
+  pHost->setSnmpV3ConfigFile(fileName);
+}
+//--------------------------------------------------------------------
+void devSnmp_manager::getHostSnmpV3Params(char *host, devSnmp_v3params *v3params)
+{
+  memset(v3params,0,sizeof(devSnmp_v3params));
+  devSnmp_host *pHost = findHost(host);
+  if (pHost) pHost->getSnmpV3Params(v3params);
 }
 //--------------------------------------------------------------------
 void devSnmp_manager::setMaxOidsPerReq(char *host, int maxoids)
@@ -4055,6 +4286,20 @@ int devSnmpSetSnmpVersion(char *hostName, char *versionStr)
 {
   if (! checkInit()) return(epicsError);
   pManager->setHostSnmpVersion(hostName,versionStr);
+  return(epicsOk);
+}
+//--------------------------------------------------------------------
+int devSnmpSetSnmpV3Param(char *hostName, char *paramName, char *value)
+{
+  if (! checkInit()) return(epicsError);
+  pManager->setHostSnmpV3Param(hostName,paramName,value);
+  return(epicsOk);
+}
+//--------------------------------------------------------------------
+int devSnmpSetSnmpV3ConfigFile(char *hostName, char *fileName)
+{
+  if (! checkInit()) return(epicsError);
+  pManager->setHostSnmpV3ConfigFile(hostName,fileName);
   return(epicsOk);
 }
 //--------------------------------------------------------------------

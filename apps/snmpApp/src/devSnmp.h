@@ -60,6 +60,19 @@ typedef struct {
   long special_flags;
 } configDataPV;
 
+#define V3_TXT_LEN 512
+typedef struct {
+  char   securityName[V3_TXT_LEN];
+  char   authPassPhrase[V3_TXT_LEN];
+  char   privPassPhrase[V3_TXT_LEN];
+  char   context[V3_TXT_LEN];
+  oid   *securityAuthProto;
+  size_t securityAuthProtoLen;
+  oid   *securityPrivProto;
+  size_t securityPrivProtoLen;
+  int    securityLevel;
+} devSnmp_v3params;
+
 typedef struct snmp_session SNMP_SESSION;
 typedef struct snmp_pdu SNMP_PDU;
 typedef struct __oid OID;
@@ -174,6 +187,21 @@ class devSnmp_setting
     char *settingString;
 };
 //----------------------------------------------------------------------
+
+/*
+  NET-SNMP changed somewhere around version 5.6 to assume the callback_magic
+  field of snmp_session was a pointer to 'struct synch_state'.
+
+  We therefore define a devSnmp_magic structure that includes a struct
+  synch_state as its first element, and whatever content we want (such as the
+  pointer to a netSnmp_session) comes after that.
+*/
+typedef struct {
+  struct synch_state SS;
+  unsigned char padding[64];
+  devSnmp_session *sessionObject;
+} devSnmp_magic;
+
 class devSnmp_session
 /* one of these structures exists for each active session, GET or SET,
    kept track of in devSnmp_host item's activeSessionList list */
@@ -201,6 +229,7 @@ class devSnmp_session
     SNMP_SESSION *getSession(void);
 
   protected:
+    devSnmp_magic    ourMagic;
     devSnmp_manager *pOurMgr;
     devSnmp_group   *pOurGroup;
     SNMP_SESSION    *session;
@@ -496,12 +525,14 @@ class devSnmp_group
     long                  replyCount;
     long                  errorCount;
     int                   maxOidsPerReq;
+    devSnmp_v3params      v3params;
 
     devSnmp_oid *findOID(char *oidStr);
     devSnmp_oid *createOID(configDataOid *base, OID *oid);
     devSnmp_pv *createPV(configDataPV *extra, devSnmp_oid *pOID, struct dbCommon *pRecord);
 };
 //----------------------------------------------------------------------
+
 class devSnmp_host
 // one of these exists for every SNMP remote host
 {
@@ -522,6 +553,9 @@ class devSnmp_host
 
     int getSnmpVersion(void);
     void setSnmpVersion(int version);
+    void setSnmpV3Param(const char *param, const char *value, bool ignoreVersion=false);
+    void setSnmpV3ConfigFile(const char *fileName);
+    void getSnmpV3Params(devSnmp_v3params *params);
 
     int getMaxOidsPerReq(void);
     void setMaxOidsPerReq(int maxoids);
@@ -539,6 +573,8 @@ class devSnmp_host
     int              snmpVersion;
     int              maxOidsPerReq;
 
+    devSnmp_v3params v3params;
+
     devSnmp_group *findGroup(char *community);
     devSnmp_group *createGroup(char *community);
 };
@@ -551,7 +587,10 @@ class devSnmp_manager
     devSnmp_manager(void);
     virtual ~devSnmp_manager(void);
     void setHostSnmpVersion(char *host, char *versionStr);
+    void setHostSnmpV3Param(char *host, char *param, char *value);
+    void setHostSnmpV3ConfigFile(char *host, char *fileName);
     int getHostSnmpVersion(char *host);
+    void getHostSnmpV3Params(char *host, devSnmp_v3params *v3params);
     int getHostMaxOidsPerReq(char *host);
     void setMaxOidsPerReq(char *host, int maxoids);
     devSnmp_pv *addPV(struct dbCommon *pRec, struct link *pLink);
@@ -600,6 +639,7 @@ class devSnmp_manager
 
     devSnmp_host *findHost(char *host);
     devSnmp_host *createHost(char *host);
+
 };
 //----------------------------------------------------------------------
 class snmpPollAggregate
@@ -622,6 +662,8 @@ extern "C" {
   // externally callable routines
   int epicsSnmpInit(int param);
   int devSnmpSetSnmpVersion(char *hostName, char *versionStr);
+  int devSnmpSetSnmpV3Param(char *hostName, char *paramName, char *value);
+  int devSnmpSetSnmpV3ConfigFile(char *hostName, char *fileName);
   int devSnmpSetMaxOidsPerReq(char *hostName, int maxoids);
   int devSnmpSetParam(const char *param, int value);
   int devSnmpSetDebug(int level);
