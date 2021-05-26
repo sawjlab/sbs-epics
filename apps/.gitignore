@@ -12,7 +12,7 @@ O.*
 /include/
 /javalib/
 /lib/
-/mibs/
+#/mibs/
 /proto/
 /req/
 /templates/
