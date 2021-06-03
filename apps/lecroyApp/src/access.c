@@ -147,6 +147,9 @@ STATUS HVload(unsigned id, unsigned slot, unsigned channel,
   { case HV_1461:
       chCount = NUM_1461_CHAN;
       break;
+    case HV_1471:
+      chCount = NUM_1471_CHAN;
+      break;
     case HV_1468:
       chCount = NUM_1468_CHAN;
       break;
