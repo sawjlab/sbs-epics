@@ -31,4 +31,4 @@ cd ${TOP}/iocBoot/${IOC}
 
 iocInit()
 
-dbl > iocrpi.list
+dbl > iocrpi-pv.list

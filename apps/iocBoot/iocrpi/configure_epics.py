@@ -4,11 +4,12 @@
 
 # 29.04.2021 (saw) Initial verison
 # 18.05.2021 (saw) Add compatibility with 1471N cards with RLY property
+# 02.06.2021 (saw) Look for LecroySlotList in scripts directory
 #
 #1.  Find the hostname (presumably rpiNN). Use the digits at the end of the host name
 #    to determine a (hopefully) unique crate ID.
 #2.  Write the HVAddCrate ioc command with this ID to a script to be called by st.cmd
-#3.  Use /tmp/LecroySlotList.txt, which is written when the shim starts
+#3.  Use ~/scripts/LecroySlotList.txt, which is written when the shim starts
 #    to determine which slots are occupied in the mainframe
 #4.  Use the crate ID and slot list to make an EPICS substituion file to define all the EPICS records
 
@@ -18,7 +19,7 @@ import datetime
 import sys
 
 DEFAULTCRATE=1
-SLOTLISTFILE="/tmp/LecroySlotList.txt"
+SLOTLISTFILE="/home/pi/scripts/LecroySlotList.txt"
 EPICSAPPROOT="/home/pi/epics/sbs-epics/apps"
 STADDCRATE= "%s/iocBoot/iocrpi/hvaddcrate"%EPICSAPPROOT
 DBDIR= "%s/db"%EPICSAPPROOT

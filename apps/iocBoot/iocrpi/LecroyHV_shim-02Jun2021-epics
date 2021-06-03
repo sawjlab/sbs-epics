@@ -98,7 +98,7 @@ $ENV{PATH}="/bin:/usr/bin";
 ##my $hvserver = "192.168.2.2:24742"; # for emulation on PC
 my $hvserver = "localhost:24742";
 #my $hvserver = "rpi1:24742";
-my $slotlistfile = "/tmp/LecroySlotList.txt";
+my $slotlistfile = "/home/pi/scripts/LecroySlotList.txt";
 
 #$Expect::Debug = 1;
 $Expect::Multiline_Matching = 1;
